@@ -1,0 +1,117 @@
+/*** Navigation ***/
+
+.navbar.navbar-default.navbar-static-top{
+	background-color:#1D7FAA;
+}
+
+.navbar{
+	margin-bottom:0px !important;
+	border-bottom:0px !important;
+}
+
+.navbar .navbar-brand{
+	font-family: titleFont;
+	font-size:30px;
+	color:#fff !important;
+}
+.navbar > .container .navbar-brand{
+	margin-left:0px !important;
+}
+
+ul.nav.navbar-nav.navbar-right li:nth-child(2) a{
+	background-color:#FCA94C;
+	border-radius:5px;
+	padding:5px;
+	margin-top:7px;
+	margin-right:20px;
+}
+ul.nav.navbar-nav.navbar-right li:nth-child(2) a:hover{
+	font-weight: bold;
+}
+ul.nav.navbar-nav.navbar-right li:nth-child(1) a:hover{
+	font-weight: bold;
+}
+ul.dropdown-menu{
+  background-color:#1D7FAA;
+  border:none !important;
+  
+}
+ul.dropdown-menu li a:hover{
+  background-color:#1D7FAA;
+  font-weight: bold;
+  
+}
+ul.nav.navbar-nav.navbar-right a.dropdown-toggle{
+  background-color:#1D7FAA !important;
+}
+ul.nav.navbar-nav a{color:#fff !important;}
+
+/*** Buttons ***/
+
+.button{
+	background-color:#FF9621;
+	padding-left:15px;
+	padding-right:15px;
+	padding-top:10px;
+	padding-bottom:10px;
+}
+a.button{
+	text-decoration: none;
+	color:#fff;
+}
+.button:hover{
+	background-color:#FCA94C;
+}
+
+.btn.btn-primary.white{
+	background-color:#F2F2F2;
+	padding-left:15px;
+	padding-right:15px;
+	padding-top:10px;
+	padding-bottom:10px;
+	color:#1D7FAA;
+	font-weight: bold;
+}
+a.btn.btn-primary.white{
+	text-decoration: none;
+	color:#1D7FAA;
+	font-weight: bold;
+}
+.btn.btn-primary.white:hover{
+	background-color:#FF9621;
+	color:#fff;
+}
+
+/*** Login & Register ***/
+
+.login-register{
+	background:url("../../public/img/background.png") no-repeat center center fixed; 
+	-webkit-background-size: cover;
+	-moz-background-size: cover;
+	-o-background-size: cover;
+	background-size: cover;
+}
+
+.panel-default.login-register{
+  border:none;
+}
+
+.panel.login-register .panel-heading{
+  color:#fff;
+  text-align: center;
+  font-size:1.8em;
+  font-weight: bold;
+  border:none;
+  border-top:10px solid #FF9621;
+  background-color:#1D7FAA;
+  margin-top:40px;
+  border-radius: 0px;
+}
+
+.panel.login-register .panel-body{
+  background-color:#1D7FAA;
+  color:#fff;
+}
+
+/*** Create-project view ***/
+

@@ -139,11 +139,11 @@ ul.nav.navbar-nav.navbar-right a.dropdown-toggle{
 	vertical-align: middle;
 }
 .contentblock1{
-	background:url("/Monitool/public/icons/4.png") no-repeat center; 
+	background:url("../../public/icons/4.png") no-repeat center; 
 	padding:60px;
 }
 .contentblock2{
-	background:url("/Monitool/public/icons/5.png") no-repeat center; 
+	background:url("../../public/icons/5.png") no-repeat center; 
 	padding:60px;
 }
 
