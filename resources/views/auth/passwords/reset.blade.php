@@ -1,10 +1,11 @@
-@extends('layouts.app')
+@extends('layouts.dashboard.blade')
 
 @section('content')
-<div class="container">
+<div class="login-register contentbg">
+<div class="container-fluid">
     <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-default custompanel">
                 <div class="panel-heading">Reset Password</div>
 
                 <div class="panel-body">
@@ -66,5 +67,6 @@
             </div>
         </div>
     </div>
+</div>
 </div>
 @endsection

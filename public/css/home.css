@@ -1,5 +1,5 @@
 @font-face {
-    font-family: titleFont;
+    font-family: MonitoolTitle;
     src: url("../fonts/Phosphate-Solid.ttf") format("truetype");
 }
 
@@ -52,7 +52,7 @@ hr.horizontal-break, hr.break {
 /*** Navigation ***/
 
 .navbar-brand{
-	font-family: titleFont;
+	font-family: MonitoolTitle;
 	font-size:30px;
 	margin:auto;
 	left:40%;
@@ -138,6 +138,11 @@ ul.nav.navbar-nav.navbar-right a.dropdown-toggle{
 	line-height: 40px;
 	vertical-align: middle;
 }
+.contentblock1 p,
+.contentblock2 p{
+	font-size:17px;
+}
+
 .contentblock1{
 	background:url("../../public/icons/4.png") no-repeat center; 
 	padding:60px;

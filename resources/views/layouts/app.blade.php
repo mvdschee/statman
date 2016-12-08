@@ -8,14 +8,14 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Monitool') }}</title>
 
     <!-- Styles -->
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-    
-    <link href="./public/css/app.css" rel="stylesheet">
-    <link href="./public/css/home.css" rel="stylesheet">
-    <link href="./public/css/global.css" rel="stylesheet">
+
+    <link href="{{URL::asset('public/css/app.css') }}" rel="stylesheet">
+    <link href="{{URL::asset('public/css/home.css') }}" rel="stylesheet">
+    <link href="{{URL::asset('public/css/global.css') }}" rel="stylesheet">
     <!-- Scripts -->
     <script>
         window.Laravel = <?php echo json_encode([

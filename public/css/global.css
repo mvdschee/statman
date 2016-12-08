@@ -72,6 +72,7 @@ ul.nav.navbar-nav a{color:#fff !important;}
   padding-right:15px;
   padding-top:10px;
   padding-bottom:10px;
+
 }
 a.button{
   text-decoration: none;
@@ -98,6 +99,7 @@ a.btn.btn-primary.white{
 .btn.btn-primary.white:hover{
   background-color:#FF9621;
   color:#fff;
+  border:1px solid #fff;
 }
 
 .large-text{
