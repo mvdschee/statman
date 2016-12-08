@@ -43,51 +43,59 @@ body{
 
 /*** Navigation ***/
 
-.navbar.navbar-default.navbar-static-top{
-  background-color:#1D7FAA;
-}
+.navbar.navbar-default.navbar-static-top{background-color:#1D7FAA;}
 
-.navbar{
-  margin-bottom:0px !important;
-  border-bottom:0px !important;
-}
+.navbar{margin-bottom:0px !important;}
+
+.navbar-collapse.collapse ul li a{color:#fff;}
 
 .navbar .navbar-brand{
   font-family: titleFont;
   font-size:30px;
   color:#fff !important;
 }
-.navbar > .container .navbar-brand{
-  margin-left:0px !important;
+.navbar > .container .navbar-brand{margin-left:0px !important;}
+
+.navbar .navbar-header .navbar-toggle{background-color:transparent;}
+.navbar .navbar-header .navbar-toggle{border:1px solid #FF9621;  }
+.navbar .navbar-header .navbar-toggle .icon-bar{background-color:#fff;}
+.navbar .navbar-header .navbar-toggle:hover{background-color:#FF9621;}
+/* Collapsed */
+.navbar-collapse.collapse.in li a{
+  padding-left:15px !important;
+  margin-right:15px;
+  margin-left:15px;
 }
 
-ul.nav.navbar-nav.navbar-right li:nth-child(2) a{
+.navbar-collapse.collapse .navbar-right li:nth-child(2) a{
   background-color:#FCA94C;
   border-radius:5px;
   padding:5px;
   margin-top:7px;
   margin-right:20px;
 }
-ul.nav.navbar-nav.navbar-right li:nth-child(2) a:hover{
+.navbar-collapse.collapse .navbar-right li:nth-child(2) a:hover,
+.navbar-collapse.collapse .navbar-right li:nth-child(1) a:hover{
   font-weight: bold;
+  color:#fff;
 }
-ul.nav.navbar-nav.navbar-right li:nth-child(1) a:hover{
-  font-weight: bold;
-}
+
+/*
 ul.dropdown-menu{
   background-color:#1D7FAA;
-  border:none !important;
-  
+  border:none !important; 
 }
+
 ul.dropdown-menu li a:hover{
   background-color:#1D7FAA;
   font-weight: bold;
-  
 }
+
 ul.nav.navbar-nav.navbar-right a.dropdown-toggle{
   background-color:#1D7FAA !important;
 }
 ul.nav.navbar-nav a{color:#fff !important;}
+*/
 
 /*** Buttons ***/
 
@@ -115,13 +123,8 @@ a.button{
   padding-bottom:10px;
 }
 
-a.button{
-  text-decoration: none;
-  color:#fff;
-}
-.button:hover{
-  background-color:#FCA94C;
-}
+a.button{text-decoration: none;color:#fff;}
+.button:hover{background-color:#FCA94C;}
 
 .btn.btn-primary.white{
   background-color:#F2F2F2;
@@ -144,9 +147,8 @@ a.btn.btn-primary.white{
 }
 
 .large-text{
-  font-size:70px;
+  font-size:60px;
   margin-bottom:20px;
-  display: block;
   color:#fff;
 }
 

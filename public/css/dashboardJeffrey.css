@@ -1,52 +1,3 @@
-/*** Navigation ***/
-
-.navbar.navbar-default.navbar-static-top{
-	background-color:#1D7FAA;
-}
-
-.navbar{
-	margin-bottom:0px !important;
-	border-bottom:0px !important;
-}
-
-.navbar .navbar-brand{
-	font-family: titleFont;
-	font-size:30px;
-	color:#fff !important;
-}
-.navbar > .container .navbar-brand{
-	margin-left:0px !important;
-}
-
-ul.nav.navbar-nav.navbar-right li:nth-child(2) a{
-	background-color:#FCA94C;
-	border-radius:5px;
-	padding:5px;
-	margin-top:7px;
-	margin-right:20px;
-}
-ul.nav.navbar-nav.navbar-right li:nth-child(2) a:hover{
-	font-weight: bold;
-}
-ul.nav.navbar-nav.navbar-right li:nth-child(1) a:hover{
-	font-weight: bold;
-}
-ul.dropdown-menu{
-  background-color:#1D7FAA;
-  border:none !important;
-  
-}
-ul.dropdown-menu li a:hover{
-  background-color:#1D7FAA;
-  font-weight: bold;
-  
-}
-ul.nav.navbar-nav.navbar-right a.dropdown-toggle{
-  background-color:#1D7FAA !important;
-}
-ul.nav.navbar-nav a{color:#fff !important;}
-
-
 /*** Panel ***/
 
 .contentbg{
@@ -55,6 +6,10 @@ ul.nav.navbar-nav a{color:#fff !important;}
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;	
+}
+
+.panel.custompanel{
+	background-color:transparent;
 }
 
 .panel-default.custompanel{
@@ -68,13 +23,13 @@ ul.nav.navbar-nav a{color:#fff !important;}
   font-weight: bold;
   border:none;
   border-top:10px solid #FF9621;
-  background-color:#1D7FAA;
+  background-color:rgba(29, 127, 170, 0.8);
   margin-top:40px;
   border-radius: 0px;
 }
 
 .panel.custompanel .panel-body{
-  background-color:#1D7FAA;
+  background-color:rgba(29, 127, 170, 0.8);
   color:#fff;
 }
 
