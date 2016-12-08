@@ -68,7 +68,6 @@ ul.nav.navbar-nav.navbar-right a.dropdown-toggle{
 }
 ul.nav.navbar-nav a{color:#fff !important;}
 
-
 /*** Panel ***/
 
 .contentbg{
@@ -77,6 +76,10 @@ ul.nav.navbar-nav a{color:#fff !important;}
 	-moz-background-size: cover;
 	-o-background-size: cover;
 	background-size: cover;	
+}
+
+.panel.custompanel{
+	background-color:transparent;
 }
 
 .panel-default.custompanel{
@@ -90,13 +93,13 @@ ul.nav.navbar-nav a{color:#fff !important;}
   font-weight: bold;
   border:none;
   border-top:10px solid #FF9621;
-  background-color:#1D7FAA;
+  background-color:rgba(29, 127, 170, 0.8);
   margin-top:40px;
   border-radius: 0px;
 }
 
 .panel.custompanel .panel-body{
-  background-color:#1D7FAA;
+  background-color:rgba(29, 127, 170, 0.8);
   color:#fff;
 }
 

@@ -58,9 +58,16 @@ ul.nav.navbar-nav.navbar-right a.dropdown-toggle{
 #app .navbar a{color:#fff !important;}
 
 /*** Slider ***/
+.slider .content .large-text{
+	
+}
 
+.slider .content .customh2{
+	color:#fff;
+	font-size:24px;
+	
+}
 .slider .content{position: absolute;top:80px;width:100%;}
-.slider .content .customh2{color:#fff;font-size: 24px;line-height: .3;}
 .slider .content > a{display: inline-block;}
 .slider img{height:360px;width:100%;}
 
