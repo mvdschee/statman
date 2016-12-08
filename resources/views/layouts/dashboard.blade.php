@@ -12,9 +12,8 @@
 
     <!-- Styles -->
     <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
-    
     <link href="./public/css/app.css" rel="stylesheet">
-    <link href="./public/css/home.css" rel="stylesheet">
+    <link href="./public/css/dashboardJeffrey.css" rel="stylesheet">
     <link href="./public/css/global.css" rel="stylesheet">
     <!-- Scripts -->
     <script>
@@ -26,9 +25,8 @@
 <body>
     <div id="app">
         <nav class="navbar navbar-default navbar-static-top">
-            <div class="container">
+            <div class="container-fluid">
                 <div class="navbar-header">
-
                     <!-- Collapsed Hamburger -->
                     <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
                         <span class="sr-only">Toggle Navigation</span>
@@ -76,6 +74,14 @@
                                 </ul>
                             </li>
                         @endif
+                        <a href="/monitool-repo/help">
+                            <img class="icon-menu" src="./public/icons/icon-help.png" alt="">
+                        </a>
+                        
+                        <a href="/monitool-repo/options">
+                             <img class="icon-menu icon-options" src="./public/icons/icon-options.png" alt="">
+                        </a>
+                       
                     </ul>
                 </div>
             </div>
