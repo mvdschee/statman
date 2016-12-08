@@ -33,6 +33,37 @@
   color:#fff;
 }
 
+/*** Instellingen view ***/
+
+.dashboard .col-md-6{
+/*	border: 1px solid red;
+	background-color: blue;*/
+}
+
+.dashboard .panel{
+	background-color: white;
+	margin: 15px;
+	padding: 15px;
+	border-bottom: 1px solid #045071;
+}
+
+.dashboard .panel-title{
+	color: #045071;
+	width: 100%;
+	border-bottom: 2px solid #EDE9E6;
+	margin-bottom: 5px;
+	padding: 5px;
+}
+
+.dashboard .panel input{
+	background-color: #f5f8fa;
+}
+
+.dashboard .panel select{
+	max-width: 30%;
+	background-color: #f5f8fa;
+}
+
 /*** Create-project view ***/
 
 .create-project .socialmedia .facebook{

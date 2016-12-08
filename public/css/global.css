@@ -152,6 +152,19 @@ a.btn.btn-primary.white{
   color:#fff;
 }
 
+.icon-menu{
+  background-color: #62ABCB;
+}
+
+.icon-menu:hover{
+  background-color: #f5f8fa;
+  cursor: pointer;
+}
+
+.icon-options{
+  margin-right: 50px;
+}
+
 /*** Reset margin and padding ***/
 
 /*** Seperators ****/

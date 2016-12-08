@@ -24,6 +24,7 @@ Auth::routes();
 
 Route::get('/create-project', 'CreateProjectController@index');
 Route::get('/dashboard', 'DashboardController@index');
+Route::get('/options', 'DashboardController@options');
 
 /*
 

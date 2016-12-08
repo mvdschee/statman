@@ -76,6 +76,14 @@
                                 </ul>
                             </li>
                         @endif
+                        <a href="/monitool-repo/help">
+                            <img class="icon-menu" src="./public/icons/icon-help.png" alt="">
+                        </a>
+                        
+                        <a href="/monitool-repo/options">
+                             <img class="icon-menu icon-options" src="./public/icons/icon-options.png" alt="">
+                        </a>
+                       
                     </ul>
                 </div>
             </div>

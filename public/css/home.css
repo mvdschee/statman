@@ -111,6 +111,10 @@ ul.nav.navbar-nav.navbar-right a.dropdown-toggle{
 }
 
 .contentblock1{
+	background:url("/monitool-repo/public/icons/4.png") no-repeat center; 
+	padding:60px;
+}
+.contentblock2{
 	background:url("../../public/icons/4.png") no-repeat center; 
 	padding:60px;
 }
