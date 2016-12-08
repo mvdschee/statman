@@ -8,10 +8,9 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'Monitool') }}</title>
 
     <!-- Styles -->
-    <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">
 
     <link href="{{URL::asset('public/css/app.css') }}" rel="stylesheet">
     <link href="{{URL::asset('public/css/dashboardJeffrey.css') }}" rel="stylesheet">

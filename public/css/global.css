@@ -2,11 +2,36 @@
     font-family: titleFont;
     src: url("../fonts/Phosphate-Solid.ttf") format("truetype");
 }
+@font-face {
+    font-family: RalewayThin;
+    src: url("../fonts/Raleway-Thin.ttf") format("truetype");
+}
+@font-face {
+    font-family: RalewayRegular;
+    src: url("../fonts/Raleway-Regular.ttf") format("truetype");
+}
+@font-face {
+    font-family: RalewayBold;
+    src: url("../fonts/Raleway-SemiBold.ttf") format("truetype");
+}
+
 html,
 body{
-  font-family: 'Raleway', sans-serif;
+  font-family: RalewayRegular, sans-serif;
   height: 100vh;
   margin: 0;
+}
+
+.large-text{
+  font-size:70px;
+  margin-bottom:20px;
+  display: block;
+  color:#fff;
+}
+
+.nopadding {
+   padding: 0 !important;
+   margin: 0 !important;
 }
 
 .large-text{
@@ -72,8 +97,24 @@ ul.nav.navbar-nav a{color:#fff !important;}
   padding-right:15px;
   padding-top:10px;
   padding-bottom:10px;
-
+  border-radius:3px;
 }
+a.button{
+  text-decoration: none;
+  color:#fff;
+}
+.button:hover{
+  background-color:#FCA94C;
+}
+
+.button{
+  background-color:#FF9621;
+  padding-left:15px;
+  padding-right:15px;
+  padding-top:10px;
+  padding-bottom:10px;
+}
+
 a.button{
   text-decoration: none;
   color:#fff;
