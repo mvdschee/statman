@@ -1,3 +1,25 @@
+@media screen and (max-width: 767px) {
+    .token-title small{
+    	display: none;
+	}
+}
+
+@media screen and (max-width: 480px) {
+    .token-title small{
+    	display: none;
+    }
+    .socialmedia-label .col-xs-6{
+    	display: none;
+    }
+    .socialmedia-label .col-xs-3{
+    	display: none;
+    }
+}
+
+.margin-fix{
+	margin-left: -15px;
+}
+
 /*** Navigation ***/
 
 .navbar.navbar-default.navbar-static-top{
@@ -98,6 +120,20 @@ ul.nav.navbar-nav a{color:#fff !important;}
 	border-bottom: 2px solid #EDE9E6;
 	margin-bottom: 5px;
 	padding: 5px;
+	clear: both;
+	text-align: center;
+	font-weight: bold;
+}
+
+.dashboard .panel-subtitle{
+	color: #045071;
+	width: 100%;
+	border-bottom: 2px solid #EDE9E6;
+	margin-bottom: 5px;
+	padding: 5px;
+	clear: both;
+	text-align: center;
+	font-size: 14px;
 }
 
 .dashboard .panel input{
@@ -109,6 +145,43 @@ ul.nav.navbar-nav a{color:#fff !important;}
 	background-color: #f5f8fa;
 }
 
+.dashboard .panel-info{
+	color: #045071;
+}
+
+.dashboard .terms{
+	width: 100%;
+	height: 125px;
+	margin-bottom: 15px;
+	padding: 10px;
+	background-color: #f5f8fa;
+	overflow-y: scroll;
+}
+
+.dashboard .btn-danger{
+	float: right;
+}
+
+.dashboard .form-horizontal{
+	padding-left: 15px;
+}
+
+.socialmedia-label{
+	background-color: #338CC8;
+	height: 36px;
+	color: white;
+	padding: 8px;
+	overflow: hidden;
+	margin-bottom: 5px;
+}
+
+.fb img{
+	height: 18px;
+}
+
+.yt{
+	background-color: #C84635;
+}
 /*** Create-project view ***/
 
 .create-project .socialmedia .facebook{

@@ -1,4 +1,4 @@
-@extends('layouts.dashboard')
+@extends('layouts.login')
 
 @section('content')
 <div class="create-project contentbg">
