@@ -1,8 +1,3 @@
-@font-face {
-    font-family: titleFont;
-    src: url("../fonts/Phosphate-Solid.ttf") format("truetype");
-}
-
 body{
 	background-color:#e6e6e6;
 }
@@ -13,46 +8,11 @@ body{
 	background-color:#fff; 
 }
 
-.nopadding {
-   padding: 0 !important;
-   margin: 0 !important;
-}
-
-.large-text{
-	font-size:70px;
-	margin-bottom:20px;
-	display: block;
-	color:#fff;
-}
-
-.button{
-	background-color:#FF9621;
-	padding-left:15px;
-	padding-right:15px;
-	padding-top:10px;
-	padding-bottom:10px;
-}
-a.button{
-	text-decoration: none;
-	color:#fff;
-}
-.button:hover{
-	background-color:#FCA94C;
-}
-
-hr.horizontal-break, hr.break {
-    width: 50px;
-    margin: 20px auto;
-    display: block;
-    height: 3px;
-    background: #FF9621;
-    border: none;
-}
 
 /*** Navigation ***/
 
 .navbar-brand{
-	font-family: titleFont;
+	font-family: MonitoolTitle;
 	font-size:30px;
 	margin:auto;
 	left:40%;
@@ -138,6 +98,11 @@ ul.nav.navbar-nav.navbar-right a.dropdown-toggle{
 	line-height: 40px;
 	vertical-align: middle;
 }
+.contentblock1 p,
+.contentblock2 p{
+	font-size:17px;
+}
+
 .contentblock1{
 	background:url("/monitool-repo/public/icons/4.png") no-repeat center; 
 	padding:60px;
@@ -158,7 +123,6 @@ ul.nav.navbar-nav.navbar-right a.dropdown-toggle{
 	background-color:#1D7FAA;
 	border-top:10px solid #FF9621;
 	padding-top:30px;
-
 }
 .footer a{
 	color:#fff;

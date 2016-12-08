@@ -46,57 +46,22 @@ ul.nav.navbar-nav.navbar-right a.dropdown-toggle{
 }
 ul.nav.navbar-nav a{color:#fff !important;}
 
-/*** Buttons ***/
 
-.button{
-	background-color:#FF9621;
-	padding-left:15px;
-	padding-right:15px;
-	padding-top:10px;
-	padding-bottom:10px;
-}
-a.button{
-	text-decoration: none;
-	color:#fff;
-}
-.button:hover{
-	background-color:#FCA94C;
-}
+/*** Panel ***/
 
-.btn.btn-primary.white{
-	background-color:#F2F2F2;
-	padding-left:15px;
-	padding-right:15px;
-	padding-top:10px;
-	padding-bottom:10px;
-	color:#1D7FAA;
-	font-weight: bold;
-}
-a.btn.btn-primary.white{
-	text-decoration: none;
-	color:#1D7FAA;
-	font-weight: bold;
-}
-.btn.btn-primary.white:hover{
-	background-color:#FF9621;
-	color:#fff;
-}
-
-/*** Login & Register ***/
-
-.login-register{
+.contentbg{
 	background:url("../../public/img/background.png") no-repeat center center fixed; 
 	-webkit-background-size: cover;
 	-moz-background-size: cover;
 	-o-background-size: cover;
-	background-size: cover;
+	background-size: cover;	
 }
 
-.panel-default.login-register{
+.panel-default.custompanel{
   border:none;
 }
 
-.panel.login-register .panel-heading{
+.panel.custompanel .panel-heading{
   color:#fff;
   text-align: center;
   font-size:1.8em;
@@ -108,12 +73,10 @@ a.btn.btn-primary.white{
   border-radius: 0px;
 }
 
-.panel.login-register .panel-body{
+.panel.custompanel .panel-body{
   background-color:#1D7FAA;
   color:#fff;
 }
-
-/*** Create-project view ***/
 
 /*** Instellingen view ***/
 
@@ -144,4 +107,26 @@ a.btn.btn-primary.white{
 .dashboard .panel select{
 	max-width: 30%;
 	background-color: #f5f8fa;
+}
+
+/*** Create-project view ***/
+
+.create-project .socialmedia .facebook{
+	background-color:#338CC8;
+	border: 1px solid #ccd0d2;
+	border-radius: 4px;
+	box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+	width: 100%;
+	height: 36px;
+	padding: 6px 12px;
+}
+.create-project .socialmedia .youtube{
+	margin-top:15px;
+	background-color:#C84635;
+	border: 1px solid #ccd0d2;
+	border-radius: 4px;
+	box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+	width: 100%;
+	height: 36px;
+	padding: 6px 12px;
 }

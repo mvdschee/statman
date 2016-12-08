@@ -1,11 +1,11 @@
 @extends('layouts.dashboard')
 
 @section('content')
-<div class="login-register">
+<div class="login-register contentbg">
 <div class="container-fluid">
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
-            <div class="panel panel-default login-register">
+            <div class="panel panel-default custompanel">
                 <div class="panel-heading">Login</div>
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/login') }}">

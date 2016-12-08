@@ -15,12 +15,12 @@ Route::get('/', function () {
     return view('home');
     
 });
-//Route::get('/home', 'HomeController@index');
 
 Route::get('/home', function () {
     return view('home'); 
 });
 
+Auth::routes();
 
 Route::get('/create-project', 'CreateProjectController@index');
 Route::get('/dashboard', 'DashboardController@index');
@@ -43,6 +43,6 @@ Route::get('customer/{id}', function($id) {
 });
 */
 
-Auth::routes();
+
 
 
