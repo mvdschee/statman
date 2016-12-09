@@ -41,6 +41,10 @@ body{
   color:#fff;
 }
 
+.float-right{
+  float: right;
+}
+
 /*** Navigation ***/
 
 .navbar.navbar-default.navbar-static-top{background-color:#1D7FAA;}

@@ -9,7 +9,7 @@
                 <div class="col-md-12">
                     <h2 class="customh2">Everything you need</h2>
                     <span class="large-text">In one place</span>
-                    <a href="" class="button">Start using Monitool!</a>
+                    <a href="/monitool-repo/dashboard" class="button">Start using Monitool!</a>
                 </div>
                 
             </div>

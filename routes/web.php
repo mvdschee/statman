@@ -1,5 +1,4 @@
 <?php
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -19,19 +18,22 @@ Route::get('/', function () {
 Route::get('/home', function () {
     return view('home'); 
 });
-
 Auth::routes();
 
 Route::get('/create-project', 'CreateProjectController@index');
-Route::get('/dashboard', 'DashboardController@index');
+Route::post('/create-project', 'CreateProjectController@store');
+Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 Route::get('/options', 'DashboardController@options');
 
+<<<<<<< HEAD
 Route::get('/feed/{param}','Facebook@index');
 Route::get('/feed','Facebook@index');
 
 Route::get('/chartjs', function () {
     return view('chartjs');
 });
+=======
+>>>>>>> 2adf3dc6667cddce0c4feda6279a9e55f021d182
 
 /*
 
