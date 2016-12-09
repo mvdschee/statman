@@ -26,6 +26,13 @@ Route::get('/create-project', 'CreateProjectController@index');
 Route::get('/dashboard', 'DashboardController@index');
 Route::get('/options', 'DashboardController@options');
 
+Route::get('/feed/{param}','Facebook@index');
+Route::get('/feed','Facebook@index');
+
+Route::get('/chartjs', function () {
+    return view('chartjs');
+});
+
 /*
 
 Route::get('/create-project', function () {
