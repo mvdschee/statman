@@ -1,6 +1,6 @@
 <?php
 
-	require_once __DIR__ . '/vendor/php-graph-sdk-5.0.0/src/Facebook/autoload.php';
+// require_once __DIR__ . '/vendor/php-graph-sdk-5.0.0/src/Facebook/autoload.php';
 
 /**
  * Laravel - A PHP Framework For Web Artisans

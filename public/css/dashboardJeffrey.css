@@ -105,19 +105,14 @@ ul.nav.navbar-nav a{color:#fff !important;}
 
 /*** Instellingen view ***/
 
-.dashboard .col-md-6{
-/*	border: 1px solid red;
-	background-color: blue;*/
-}
-
-.dashboard .panel{
+.panel{
 	background-color: white;
 	margin: 15px;
 	padding: 15px;
 	border-bottom: 1px solid #045071;
 }
 
-.dashboard .panel-title{
+.panel-title{
 	color: #045071;
 	width: 100%;
 	border-bottom: 2px solid #EDE9E6;
@@ -128,7 +123,7 @@ ul.nav.navbar-nav a{color:#fff !important;}
 	font-weight: bold;
 }
 
-.dashboard .panel-subtitle{
+.panel-subtitle{
 	color: #045071;
 	width: 100%;
 	border-bottom: 2px solid #EDE9E6;
@@ -139,20 +134,20 @@ ul.nav.navbar-nav a{color:#fff !important;}
 	font-size: 14px;
 }
 
-.dashboard .panel input{
+.dashboard-options .panel input{
 	background-color: #f5f8fa;
 }
 
-.dashboard .panel select{
+.dashboard-options .panel select{
 	max-width: 30%;
 	background-color: #f5f8fa;
 }
 
-.dashboard .panel-info{
+.dashboard-options .panel-info{
 	color: #045071;
 }
 
-.dashboard .terms{
+.dashboard-options .terms{
 	width: 100%;
 	height: 125px;
 	margin-bottom: 15px;
@@ -161,11 +156,11 @@ ul.nav.navbar-nav a{color:#fff !important;}
 	overflow-y: scroll;
 }
 
-.dashboard .btn-danger{
+.dashboard-options .btn-danger{
 	float: right;
 }
 
-.dashboard .form-horizontal{
+.dashboard-options .form-horizontal{
 	padding-left: 15px;
 }
 

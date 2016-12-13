@@ -18,12 +18,21 @@ Route::get('/', function () {
 Route::get('/home', function () {
     return view('home'); 
 });
+
+Route::get('/chartjs', function () {
+    return view('chartjs');
+});
+
 Auth::routes();
 
-Route::get('/create-project', 'CreateProjectController@index');
+Route::get('/create-project', 'CreateProjectController@index')->name('create-project');
 Route::post('/create-project', 'CreateProjectController@store');
+
 Route::get('/dashboard', 'DashboardController@index')->name('dashboard');
 Route::get('/options', 'DashboardController@options');
+
+Route::get('/feed/{param}','FacebookController@index');
+Route::get('/feed','FacebookController@index');
 
 
 /*

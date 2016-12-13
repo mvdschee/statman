@@ -1,7 +1,7 @@
 @extends('layouts.dashboard')
 
 @section('content')
-<div class="dashboard">
+<div class="dashboard-options">
   <div class="container-fluid">
     <h2>Settings</h2>
     <div class="row">

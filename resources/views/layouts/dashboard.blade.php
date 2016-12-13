@@ -13,6 +13,7 @@
     <!-- Styles -->
 
     <link href="{{URL::asset('public/css/app.css') }}" rel="stylesheet">
+    <link href="{{URL::asset('public/css/dashboard.css') }}" rel="stylesheet">
     <link href="{{URL::asset('public/css/dashboardJeffrey.css') }}" rel="stylesheet">
     <link href="{{URL::asset('public/css/global.css') }}" rel="stylesheet">
     
@@ -83,16 +84,21 @@
                         <a href="/monitool-repo/options">
                              <img class="icon-menu icon-options" src="./public/icons/icon-options.png" alt="">
                         </a>
-                       
                     </ul>
                 </div>
             </div>
         </nav>
-
+        <script src="https://www.amcharts.com/lib/3/amcharts.js"></script>
+        <script src="https://www.amcharts.com/lib/3/serial.js"></script>
+        <script src="https://www.amcharts.com/lib/3/plugins/export/export.min.js"></script>
+        <link rel="stylesheet" href="https://www.amcharts.com/lib/3/plugins/export/export.css" type="text/css" media="all" />
+        <script src="https://www.amcharts.com/lib/3/themes/light.js"></script>
+        <script src="./resources/assets/js/Chart.js"></script>
         @yield('content')
     </div>
-
     <!-- Scripts -->
     <script src="./public/js/app.js"></script>
+    
+    
 </body>
 </html>
