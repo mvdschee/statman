@@ -1,0 +1,486 @@
+//-----------------------------------
+//              01. Mixins
+//              02. Variable
+//              03. Reset
+//              04. Fonts
+//              05. Base
+//              06. Common classnames
+//              07. Pages
+//              08. Componenten
+//              09. Styling
+//              10. Responsive
+//-----------------------------------
+
+//-----------------------------------
+//              Mixins
+//-----------------------------------
+@import "bundle/mixins";
+//-----------------------------------
+//              Variable
+//-----------------------------------
+
+@spacing:           1.2rem;
+@font-size:         1.3rem;
+@white:             #ffffff;
+@black:             #000000;
+@grey:              #4A4A4A;
+@lightgrey:         #f7f7f7;
+@red:               #f14343;
+@orange:            #ff9900;
+@blue:              #2391fe;
+@green:             #a6ca00;
+@hamburger:         @black;
+@navigationBlack:   @black;
+@navigationWhite:   @white;
+@primcolor:         #527e9c;
+@seccolor:          #ee6352;
+@panelBackground:   #f5f5f5;
+@panelBorder:       #e8e8e8;
+@panelLine:         #979797;
+@loginText:         #939393;
+@loginSmall:        #818181;
+@loginCircle:       rgba(193, 193, 193, 0.2);
+@tabBackground:     #434343;
+@formInput:         @white;
+@text:              #717171;
+@border:            #b0b0b0;
+@shadow:            rgba(0, 0, 0, 0.39);
+
+//-----------------------------------
+//              Resets
+//-----------------------------------
+
+@import "bundle/reset";
+@import "bundle/normalize";
+//-----------------------------------
+//              Fonts
+//-----------------------------------
+
+@font-face {
+    font-family: 'Roboto';
+    src: url('../fonts/Roboto-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'Varela Round';
+    src: url('../fonts/VarelaRound-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'OpenSans';
+    src: url('../fonts/OpenSans-Regular.ttf');
+}
+
+@font-face {
+    font-family: 'OpenSans-Bold';
+    font-weight: bold;
+    src: url('../fonts/OpenSans-Bold.ttf');
+}
+
+html{
+    font-family: 'OpenSans', sans-serif;
+    font-weight: normal;
+    line-height: 1.5rem;
+    color: darken(@text, 20%);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    font-family: 'Roboto', sans-serif;
+    font-weight: normal;
+    line-height: 2.5rem;
+}
+
+p {
+    line-height: 1.5rem;
+}
+
+a,
+a:active,
+a:hover,
+a:link,
+a:visited {
+    text-decoration: none;
+}
+
+//-----------------------------------
+//              Base
+//-----------------------------------
+
+html, body{
+    display: block;
+    width: 100%;
+    height: 100%;
+}
+body{
+    position: relative;
+}
+
+.clear {
+    &:after {
+        content: '';
+        display: table;
+        clear: both;
+    }
+}
+
+input{
+    .border-radius();
+    width: 100%;
+    padding: 0 0 0 @spacing*0.5;
+    margin: @spacing*0.5 0;
+    line-height: 2.6rem;
+    color: @loginText;
+    background-color: @formInput;
+    font-size: 1.1rem;
+    border: 1px solid #cfdae4;
+
+    &:focus{
+        outline: none;
+        border-bottom: 2px solid @blue;
+    }
+
+    &::placeholder{
+        color: @loginText;
+    }
+}
+
+input[disabled="disabled"]{
+    background: darken(@formInput, 10%);
+}
+
+button{
+    .border-radius();
+    .transition();
+    display: block;
+    padding: 0.8rem;
+    background-color: @blue;
+    border: none;
+    color: @white;
+    font-size: 0.8rem;
+    font-weight: bold;
+
+    &:hover{
+        opacity: .8;
+        cursor: pointer;
+    }
+}
+
+.alert{
+    display: block;
+    background: #1798de;
+    padding: 1.2rem;
+    text-align: center;
+    color: @white;
+    font-size: 1.6rem;
+}
+
+//-----------------------------------
+//         Common classnames
+//-----------------------------------
+
+
+//-----------------------------------
+//         Componenten
+//-----------------------------------
+.header{
+    .displayflex();
+    .justify-content(space-between);
+    position: absolute;
+    width: 100%;
+    height: @spacing*3;
+    padding: @spacing @spacing*2;
+    color: @white;
+    z-index: 1;
+}
+
+.navigation{
+    .animation(fadein 0.8s);
+    a{
+        color: @white;
+        border-bottom: 2px solid transparent;
+        margin: 0 @spacing*0.5;
+
+        &:hover{
+            .transition(0.3s);
+            border-bottom: 2px solid @white;
+        }
+    }
+}
+
+.main{
+    display: block;
+    background: @white;
+}
+
+.logo{
+  .animation(fadein 0.8s);
+  font-family: 'Varela Round', sans-serif;
+
+}
+
+.hero{
+    height: 35rem;
+    background: -webkit-linear-gradient(left top, #131c47, #192152, #474c9a, #ac93d2);
+    background: linear-gradient(to right bottom, #131c47, #192152, #474c9a, #ac93d2);
+    position: relative;
+
+    &::before{
+        content: '';
+        display: block;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: 14rem;
+        background: -webkit-linear-gradient(to top, #474c9a, rgba(92, 75, 81, 0));
+        background: linear-gradient(to top, #474c9a, rgba(92, 75, 81, 0));
+    }
+}
+
+.hero-text{
+    .animation(fadein 0.9s);
+    color: #fff;
+    text-align: center;
+    margin: 0 auto;
+    display: block;
+    width: 20rem;
+    padding: 15% 0 0 0;
+
+    h2{
+      font-family: 'Varela Round', sans-serif;
+      font-size: 3.6rem;
+    }
+}
+
+.particles-js-canvas-el{
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.features{
+    .animation(fadeinalt 2s);
+    display: block;
+    padding: @spacing @spacing*3 @spacing*4;
+}
+
+.features-group{
+    .displayflex();
+    .flex-direction(row);
+    .flex-wrap(wrap);
+    .justify-content(space-around);
+    padding: @spacing;
+    background: @white;
+    border: 1px solid @border;
+    border-radius: 3px;
+    transform: translateY(-100px);
+}
+
+.features-item{
+    height: 100%;
+    width: 33%;
+    min-width: 16rem;
+    padding: @spacing;
+    text-align: center;
+}
+
+.features-image{
+    width: 200px;
+    border-radius: 50%;
+}
+
+.promo, .team{
+  height: 30rem;
+  background: @lightgrey;
+
+  .image{
+      width: 45%;
+      height: 100%;
+      background: no-repeat center center;
+      background-size: cover;
+      overflow: hidden;
+      position: relative;
+      float: left;
+
+    &:before{
+      content: '';
+      border: 550px solid @lightgrey;
+      position: absolute;
+      width: 2000px;
+      height: 2000px;
+      display: block;
+      bottom: -320px;
+      left: -820px;
+      transform: rotate(-45deg);
+    }
+
+  }
+
+  .text{
+    width: 55%;
+    height: 30rem;
+    float: right;
+    color: @text;
+    padding: @spacing;
+    text-align: center;
+
+    h1{
+      font-size: 2.5rem;
+      padding: @spacing;
+      font-family: 'Varela Round', sans-serif;
+    }
+
+    p{
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .button{
+      display: inline-block;
+      padding: 1rem 2rem;
+      background: #28b8b5;
+      margin: 2rem;
+      color: @white;
+      border: 1px solid transparent;
+
+      &:hover{
+        .transition(0.3s);
+        border: 1px solid @text;
+        color: @text;
+        background: @white;
+      }
+    }
+  }
+}
+
+.team{
+    background: @white;
+
+  .image{
+    float: right;
+
+    &:before{
+      border: 550px solid @white;
+      right: -820px;
+      left: auto;
+      transform: rotate(-10deg);
+    }
+  }
+  .text{
+    float: left;
+  }
+}
+
+.footer{
+    height: 10rem;
+    padding: @spacing*2;
+    color: @white;
+    background: #3f3f3f;
+    position: relative;
+
+    p{
+        position: absolute;
+        bottom: 2.4rem;
+    }
+}
+
+// animations
+
+@keyframes fadein {
+from { opacity: 0; .translateY(15px);}
+to   { opacity: 1; .translateY(0px);}
+}
+
+@keyframes fadeinalt {
+from { opacity: 0.5; .translateY(105px);}
+to   { opacity: 1; .translateY(0px);}
+}
+
+//-----------------------------------
+//          Responsive
+//-----------------------------------
+
+@media all and (min-width: 2035px) {
+
+  .promo .image:before {
+      border: 635px solid #f7f7f7;
+      bottom: -385px;
+      left: -635px;
+  }
+
+  .team .image:before {
+      border: 490px solid #fff;
+      right: -470px;
+  }
+}
+// laptop L
+@media all and (max-width: 1440px) {
+	html {
+		font-size: 95%;
+	}
+}
+// laptop
+@media all and (max-width: 1024px) {
+	html {
+		font-size: 85%;
+	}
+}
+// tablet
+@media all and (max-width: 768px) {
+	html {
+		font-size: 80%;
+	}
+    .features-item {
+        width: 50%;
+    }
+    .hero-text {
+        padding: 26% 0 0;
+    }
+    .navigation{
+        display: none;
+    }
+}
+@media all and (max-width: 704px) {
+  .promo, .team{
+    height: auto;
+    .image{
+      width: 100%;
+      float: none;
+      height: 18rem;
+    }
+    .text{
+      width: 100%;
+      float: none;
+      height: auto;
+    }
+  }
+
+  .team{
+    .image:before{
+      bottom: -515px;
+    }
+  }
+
+}
+
+// mobile L
+@media all and (max-width: 425px) {
+    .features{
+        padding: @spacing @spacing*0.5 @spacing*4;
+    }
+    .features-item {
+        width: 100%;
+    }
+    .hero-text {
+        padding: 55% 0 0;
+    }
+}
+// mobile M
+@media all and (max-width: 375px) {}
+// mobile S
+@media all and (max-width: 320px) {}
