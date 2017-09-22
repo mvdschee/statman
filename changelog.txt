@@ -1,2 +1,0 @@
-7/12/2016 ---
-Link iconen 5 en 6 gefixed (home.blade.php)
