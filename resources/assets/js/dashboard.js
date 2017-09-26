@@ -9,7 +9,7 @@ document.getElementById("js-new-heading").addEventListener("click", function () 
     svg = d3.select("#js-story-world").select("g");
     var headingName = prompt("Enter header name:", "");
     if (!idExists(headingName)) {
-        if (headingName != null && headingName != "") {spawnHeading(svg, headingName, 0, 0, null);} 
+        if (headingName != null && headingName != "") {spawnHeading(svg, headingName, 0, 0, null);}
     }
 });
 
@@ -190,6 +190,12 @@ function saveToken(token, name){
     index_input.value = '0';
 }
 
+//
+// D3.js starts here
+// Storyworld 
+//
+
+
 // initializes the storyworld
 function initStoryWorld(data) {
     page_name = data.name;
@@ -244,7 +250,7 @@ function spawnPostsCluster(data) {
 
             var header = d3.select(".heading");
             var headerId = header.attr("id");
-            
+
             links = connectNodes(headerId, id, links);
         });
     });
@@ -277,7 +283,7 @@ function connectNodes(id1, id2, links) {
     else{
         links += ',{"origin" : "'+id1+'", "target" : "'+id2+'"}';
     }
-        
+
     return links;
 }
 
@@ -286,20 +292,20 @@ function saveStory() {
     var allNodes = svg.nodes()[0].childNodes;
     var storyJSON = [];
     linksJSON = '{ "story":['+links+']}';
-    
+
     $.each(allNodes, function () {
         // makes sure it doesn't save text, buttons etc.
         // pushes each node into a single JSON with the necessary attributes
         if ((this.id) && (this.classList.contains("post-node"))) {
-            storyJSON.push({id : this.id, 
-                type:'post', 
-                posX: this.childNodes[0].getAttribute("cx"), 
+            storyJSON.push({id : this.id,
+                type:'post',
+                posX: this.childNodes[0].getAttribute("cx"),
                 posY: this.childNodes[0].getAttribute("cy")});
         }
         if ((this.id) && (this.classList.contains("heading"))) {
-            storyJSON.push({id : this.id, 
-                type:'head', 
-                posX: this.childNodes[0].getAttribute("cx"), 
+            storyJSON.push({id : this.id,
+                type:'head',
+                posX: this.childNodes[0].getAttribute("cx"),
                 posY: this.childNodes[0].getAttribute("cy")});
         }
     });
@@ -314,7 +320,7 @@ function saveStory() {
     });
 }
 
-// goes through the JSON and spawns each node depending on the type 
+// goes through the JSON and spawns each node depending on the type
 function loadStory(svg, story) {
     $.each(story, function () {
         if (this.type == 'post') {
@@ -394,7 +400,7 @@ function spawnPost(svg, id, posX, posY) {
         .attr("cx", posX)
         .attr("cy", posY)
         .classed("post-circle", true)
-        .on("contextmenu", function (d, i) {  
+        .on("contextmenu", function (d, i) {
             d3.event.preventDefault();
             var thisPost = d3.select(this);
             var thisGroup = d3.select(this.parentNode);
@@ -484,7 +490,7 @@ function idExists(id) {
     checkId = document.getElementById(id);
     if (checkId != null) {
         return true;
-    } 
+    }
     else{
         return false;
     }
@@ -501,7 +507,7 @@ function removeNode(id) {
     heading.selectAll("circle, text")
         .transition(t)
         .attr("transform", "scale(0)");
-    
+
     setTimeout(function(){
         heading.remove();
         saveStory();
@@ -541,7 +547,7 @@ function started() {
     var topButton = d3.select(this).select(".button-top");
     var leftButton = d3.select(this).select(".button-left");
     var bottomButton = d3.select(this).select(".button-bottom");
-    
+
     circle.classed("selectedMenu", false);
     circle.classed("dragging", true);
     d3.event.on("drag", dragged).on("end", ended);
@@ -577,8 +583,7 @@ function started() {
     function ended() {
         // removes the .dragging class when not dragging anymore
         group.classed("dragging", false);
-        circle.classed("dragging", false);        
+        circle.classed("dragging", false);
         saveStory();
     }
 }
-

@@ -177,10 +177,10 @@
                         <td>
 							<h1>Welkom Bij De Monitool!</h1>
 							<p>Je bent uitgenodigd om deel te nemen aan het project {{ $user->project_name }}.</p>
-							<a href="https://monitool.nl/invited/{{ $user->invite_token }}" class="btn-primary">Accept</a>
+							<a href="{{ env('APP_URL') }}/invited/{{ $user->invite_token }}" class="btn-primary">Accept</a>
 							<h3>Rol: {{ $user->role_name }}</h3>
 							<p>Als de link niet werkt, kopieer dan de volgende link:</p>
-							<p>localhost/invited/{{ $user->invite_token }}</p>
+							<p>{{ env('APP_URL') }}/invited/{{ $user->invite_token }}</p>
                         </td>
                     </tr>
                 </table>
