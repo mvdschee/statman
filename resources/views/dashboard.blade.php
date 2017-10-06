@@ -18,8 +18,7 @@
 			@endif
 		</div>
 		<div class="canvas">
-			<svg id="js-story-world" viewBox="-500 -500 1000 1000">
-				<rect class="zoom-layer"></rect>
+			<svg id="svg" width="920" height="600">
 			</svg>
 		</div>
 		@foreach ($pageData as $pageData)
@@ -44,6 +43,15 @@
 			<a class="button" href="{{ url('/add-service/'.$project->id) }}">Connect social media</a>
 		</div>
 	@endif
+	<script type="text/javascript">
+		(function(d, s, id){
+				var js, fjs = d.getElementsByTagName(s)[0];
+				if (d.getElementById(id)) {return;}
+				js = d.createElement(s); js.id = id;
+				js.src = "//connect.facebook.net/en_US/sdk.js";
+				fjs.parentNode.insertBefore(js, fjs);
+		}(document, 'script', 'facebook-jssdk'));
+	</script>
 	<script type="text/javascript" src="{{ URL::asset("/resources/assets/js/d3.min.js") }}"></script>
 	<script type="text/javascript" src="{{ URL::asset("/resources/assets/js/jquery-3.2.1.js") }}"></script>
 	<script type="text/javascript" src="{{ URL::asset("/resources/assets/js/dashboard.js") }}"></script>
