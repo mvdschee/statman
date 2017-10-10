@@ -8,7 +8,7 @@
 			</div>
 		@endif
 		<div class="top-bar">
-			<button id="js-new-heading">New chapter</button>
+			<button id="js-new-link">Link post</button>
 			@if ($access->role_index_id == 1)
 			<form action="/dashboard/delete-page" method="POST" onsubmit="return confirm('Are you sure you want to delete your story? This cannot be reversed.');">
 				{{ csrf_field() }}

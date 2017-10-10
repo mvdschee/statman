@@ -1,9 +1,6 @@
-
-// requests the data from social media in the database
+// Global variables
 var pathname = window.location.pathname;
 var project = pathname.substr(11);
-var links = "";
-
 
 /* fbAsyncInit
  *
@@ -46,10 +43,11 @@ function login_fb() {
 }
 
 
-//
-// D3.js starts here
-// Storyworld
-
+/* StoryWorld Building
+ *
+ * D3.js
+ *
+ */
 
 // build storywold layout
 var svg = d3.select("#svg"),
@@ -61,7 +59,6 @@ var simulation = d3.forceSimulation()
     .force("link", d3.forceLink().id(function(d) { return d.id; }))
     .force("charge", d3.forceManyBody())
     .force("center", d3.forceCenter(width / 2, height / 2));
-
 
 
 function initStoryWorld() {
@@ -79,47 +76,36 @@ function initStoryWorld() {
 
 function spawnNewStory(data) {
   var storyBuilder = [];
-  var storyJSON = storyWorld;
-  var storyWorld = '{ "nodes": '+storyBuilder+' }';
-  console.log('test');
+  var storyJSON = {nodes: storyBuilder, links: []};
+
   FB.api( '/me/posts', { access_token: data.token, fields:'id, picture'}, function(response) {
-    console.log('test2');
-      response.data.forEach(function(entry){
-        if (entry.id) {
-          storyBuilder.push(
-            {
-              id: entry.id,
-              name: 'facebook',
-              url:'https://facebook.com/'+ entry.id,
-              image: entry.picture
-            }
-          );
-        }
-      });
+    response.data.forEach(function(entry){
+      if (entry.picture) {
+        storyBuilder.push({id: entry.id, name: 'facebook', url:'https://facebook.com/'+ entry.id, image: entry.picture});
+      } else {
+        storyBuilder.push({id: entry.id, name: 'facebook', url:'https://facebook.com/'+ entry.id, image: 'https://via.placeholder.com/350x250'});
+      }
+    });
 
+    storyJSON = JSON.stringify(storyJSON);
 
-      console.log(1, storyJSON);
-      console.log(2, storyBuilder);
-      console.log(3, storyWorld);
+    // sends the JSON to the database
+    $.ajax({
+      type: "POST",
+      url: pathname+'/save-story',
+      data: {storyJSON, '_token': $('input[name=_token]').val(), project},
+      dataType: 'json'
+    });
+    initStoryWorld();
   });
-
-  // sends the JSON to the database
-  $.ajax({
-    type: "POST",
-    url: pathname+'/save-story',
-    data: {storyJSON, '_token': $('input[name=_token]').val(), project},
-    dataType: 'json'
-  });
-
-  // initStoryWorld();
 }
 
 // load Jeson an build links and nodes
 function loadStory(graph) {
 
-var dataset = JSON.parse(graph.story);
+  var dataset = JSON.parse(graph.story);
 
-// Setup link to source and target
+  // Setup link to source and target
   var link = svg.append("g")
       .attr("class", "links")
       .selectAll("line")
@@ -127,16 +113,16 @@ var dataset = JSON.parse(graph.story);
       .enter().append("line")
         .attr("stroke-width", function(d) { return Math.sqrt(8); });
 
-// Setup node
+  // Setup node
   var node = svg.selectAll(".node")
       .data(dataset.nodes)
-    .enter().append("g")
-      .attr("class", "node")
-      .attr("id", function(d) { return d.id })
-      .call(d3.drag()
-          .on("start", dragstarted)
-          .on("drag", dragged)
-          .on("end", dragended));
+      .enter().append("g")
+        .attr("class", "node")
+        .attr("id", function(d) { return d.id })
+        .call(d3.drag()
+            .on("start", dragstarted)
+            .on("drag", dragged)
+            .on("end", dragended));
 
   node.append("image")
       .attr("xlink:href", function(d) { return d.image })
@@ -194,4 +180,40 @@ function dragended(d) {
   if (!d3.event.active) simulation.alphaTarget(0);
   d.fx = null;
   d.fy = null;
+}
+
+// Link Building
+document.getElementById("js-new-link").onclick = function() {buildLink()};
+
+function buildLink() {
+  d3.json(pathname+'/get-page', function(graph) {
+    var story = JSON.parse(graph.story);
+    if (story.links.length == 0) {
+      var linkBuilder = [];
+    }else{
+      var linkBuilder = story.links;
+    };
+
+    var storyJSON = {nodes: story.nodes, links: linkBuilder};
+    var Source = prompt("Please enter the source", '');
+    var Target = prompt("Please enter the target", '');
+
+    if (Source == null || Source == '' && Target == null || Target == '') {
+      console.log("User cancelled the prompt.");
+    } else {
+
+        linkBuilder.push({source: Source, target: Target});
+        storyJSON = JSON.stringify(storyJSON);
+
+        // sends the JSON to the database
+        $.ajax({
+          type: "POST",
+          url: pathname+'/save-story',
+          data: {storyJSON, '_token': $('input[name=_token]').val(), project},
+          dataType: 'json'
+        });
+
+        document.reload();
+    }
+  });
 }
