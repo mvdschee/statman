@@ -131,7 +131,6 @@ function loadStory(graph) {
       .attr("width", 50)
       .attr("height", 50);
 
-
   node.append("svg:a")
   .attr("xlink:href", function(d){return d.url;})
   .attr("target", "_blank")
@@ -183,9 +182,21 @@ function dragended(d) {
 }
 
 // Link Building
-document.getElementById("js-new-link").onclick = function() {buildLink()};
+document.getElementById("js-new-link").onclick = function() {linkToggle()};
 
-function buildLink() {
+function linkToggle(){
+  var source = '';
+  svg.selectAll(".node").on("click", function() {
+    if (source === '') {
+      source = this.id;
+    } else {
+      var target = this.id;
+      buildLink(source, target);
+    }
+  });
+}
+
+function buildLink(Source, Target) {
   d3.json(pathname+'/get-page', function(graph) {
     var story = JSON.parse(graph.story);
     if (story.links.length == 0) {
@@ -195,25 +206,17 @@ function buildLink() {
     };
 
     var storyJSON = {nodes: story.nodes, links: linkBuilder};
-    var Source = prompt("Please enter the source", '');
-    var Target = prompt("Please enter the target", '');
 
-    if (Source == null || Source == '' && Target == null || Target == '') {
-      console.log("User cancelled the prompt.");
-    } else {
+    linkBuilder.push({source: Source, target: Target});
+    storyJSON = JSON.stringify(storyJSON);
 
-        linkBuilder.push({source: Source, target: Target});
-        storyJSON = JSON.stringify(storyJSON);
-
-        // sends the JSON to the database
-        $.ajax({
-          type: "POST",
-          url: pathname+'/save-story',
-          data: {storyJSON, '_token': $('input[name=_token]').val(), project},
-          dataType: 'json'
-        });
-
-        document.reload();
-    }
+    // sends the JSON to the database
+    $.ajax({
+      type: "POST",
+      url: pathname+'/save-story',
+      data: {storyJSON, '_token': $('input[name=_token]').val(), project},
+      dataType: 'json',
+      succes: location.reload()
+    });
   });
 }
