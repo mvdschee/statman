@@ -9,23 +9,23 @@
 
 		{{-- for social media --}}
 		<meta property="og:type" content="website">
-		<meta property="og:url" content="https://monitool.nl/">
+		<meta property="og:url" content="http://statman.nl/">
 		<meta property="og:locale" content="nl_NL">
 		<meta property="og:site_name" content="Monitool">
 		<meta property="og:title" content="Monitool">
 		<meta property="og:description" content="Monitool is a tool to track the behavior of your targeted audience and engagement throughout a selection of platforms.">
-		<meta property="og:image" content="https://monitool.nl/image.png">
+		<meta property="og:image" content="http://statman.nl/image.png">
 
 		{{-- search engine descriptions --}}
 		<meta name="description" content="Monitool is a tool to track the behavior of your targeted audience and engagement throughout a selection of platforms.">
-		<meta name="keywords" content="monitool,analytics,tracking,social media">
+		<meta name="keywords" content="statman,analytics,tracking,social media">
 		<meta name="author" content="DataBoyz">
 
 		{{-- itemprops --}}
 		<meta itemprop="name" content="Monitool">
 		<meta itemprop="headline" content="Monitool">
 		<meta itemprop="description" content="Monitool is a tool to track the behavior of your targeted audience and engagement throughout a selection of platforms.">
-		<meta itemprop="image" content="https://monitool.nl/image.png">
+		<meta itemprop="image" content="http://statman.nl/image.png">
 
 		{{-- mobile browser data --}}
 		<meta name="apple-mobile-web-app-title" content="Monitool">
@@ -34,7 +34,7 @@
 
 		<meta name="application-name" content="Monitool">
 		<meta name="msapplication-navbutton-color" content="#000000">
-		
+
 		{{-- favicons --}}
 		<link rel="manifest" href="/public/manifest.json">
 		<link rel="mask-icon" href="/public/safari-pinned-tab.svg" color="#262d66">
@@ -76,7 +76,7 @@
 		<footer class="footer">
 			<p>coded with <3 Databoyz.</p>
 		</footer>
-		<script src={{ URL::asset("/resources/assets/js/particles.min.js") }}></script>
+		<script src={{ URL::asset("/resources/assets/js/resources/particles.min.js") }}></script>
 		<script src={{ URL::asset("/resources/assets/js/home.js") }}></script>
 	</body>
 </html>

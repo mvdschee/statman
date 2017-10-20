@@ -27,6 +27,6 @@
 	</div>
 </div>
 
-<script type="text/javascript" src="{{ URL::asset("/resources/assets/js/jquery-3.2.1.js") }}"></script>
+<script type="text/javascript" src="{{ URL::asset("/resources/assets/js/resources/jquery-3.2.1.js") }}"></script>
 <script type="text/javascript" src="{{ URL::asset("/resources/assets/js/connect.js") }}"></script>
 @endsection
