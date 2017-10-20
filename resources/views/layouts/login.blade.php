@@ -8,27 +8,27 @@
 		<meta name="robots" content="index, follow">
 
 		<meta property="og:type" content="website">
-		<meta property="og:url" content="http://statman.nl/">
+		<meta property="og:url" content="https://statman.nl/">
 		<meta property="og:locale" content="nl_NL">
-		<meta property="og:site_name" content="Monitool">
-		<meta property="og:title" content="Monitool">
-		<meta property="og:description" content="Monitool is a tool to track the behavior of your targeted audience and engagement throughout a selection of platforms.">
-		<meta property="og:image" content="http://statman.nl/image.png">
+		<meta property="og:site_name" content="Statman">
+		<meta property="og:title" content="Statman">
+		<meta property="og:description" content="Statman is a tool to track the behavior of your targeted audience and engagement throughout a selection of platforms.">
+		<meta property="og:image" content="https://statman.nl/image.png">
 
-		<meta name="description" content="Monitool is a tool to track the behavior of your targeted audience and engagement throughout a selection of platforms.">
+		<meta name="description" content="Statman is a tool to track the behavior of your targeted audience and engagement throughout a selection of platforms.">
 		<meta name="keywords" content="statman,analytics,tracking,social media">
 		<meta name="author" content="DataBoyz">
 
-		<meta itemprop="name" content="Monitool">
-		<meta itemprop="headline" content="Monitool">
-		<meta itemprop="description" content="Monitool is a tool to track the behavior of your targeted audience and engagement throughout a selection of platforms.">
-		<meta itemprop="image" content="http://statman.nl/image.png">
+		<meta itemprop="name" content="Statman">
+		<meta itemprop="headline" content="Statman">
+		<meta itemprop="description" content="Statman is a tool to track the behavior of your targeted audience and engagement throughout a selection of platforms.">
+		<meta itemprop="image" content="https://statman.nl/image.png">
 
-		<meta name="apple-mobile-web-app-title" content="Monitool">
-		<meta name="application-name" content="Monitool">
+		<meta name="apple-mobile-web-app-title" content="Statman">
+		<meta name="application-name" content="Statman">
 		<meta name="theme-color" content="#000000">
 		<link rel="shortcut icon" href="{{ URL::asset("/resources/assets/img/favicon.ico") }}">
-		<title>Monitool</title>
+		<title>Statman</title>
 		<link rel="stylesheet" href="{{ URL::asset("/resources/assets/css/app.css") }}">
 	</head>
 	<body onload="loadPage()" class="setup">

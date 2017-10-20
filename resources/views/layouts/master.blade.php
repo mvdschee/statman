@@ -6,11 +6,11 @@
 		<meta http-equiv="content-type" content="text/html; charset=utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-		<meta name="apple-mobile-web-app-title" content="Monitool">
-		<meta name="application-name" content="Monitool">
+		<meta name="apple-mobile-web-app-title" content="Statman">
+		<meta name="application-name" content="Statman">
 		<meta name="theme-color" content="#000000">
 		<link rel="shortcut icon" href="{{ URL::asset("/resources/assets/img/favicon.ico") }}">
-		<title>Monitool</title>
+		<title>Statman</title>
 		<link rel="stylesheet" href="{{ URL::asset("/resources/assets/css/styles.css") }}">
 		<link rel="stylesheet" href="{{ URL::asset("/resources/assets/css/app.css") }}">
 	</head>
