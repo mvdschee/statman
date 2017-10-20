@@ -2,7 +2,7 @@
 @section('content')
     <section id="particles-js" class="hero">
         <div class="hero-text">
-            <h2>Monitool</h2>
+            <h2>Statman</h2>
             <h3>Not just a tool, the way to create.</h3>
         </div>
     </section>
