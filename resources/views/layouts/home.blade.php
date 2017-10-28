@@ -38,10 +38,10 @@
 		{{-- favicons --}}
 		<link rel="manifest" href="/public/manifest.json">
 		<link rel="mask-icon" href="/public/safari-pinned-tab.svg" color="#262d66">
-		<link rel="shortcut icon" href="{{ URL::asset("/resources/assets/img/favicon.ico") }}">
+		<link rel="shortcut icon" href="{{ secure_asset("/resources/assets/img/favicon.ico") }}">
 
 		<title>Statman</title>
-		<link rel="stylesheet" href="{{ URL::asset("/resources/assets/css/home.css") }}">
+		<link rel="stylesheet" href="{{ secure_asset("/resources/assets/css/home.css") }}">
 		<script type="text/javascript">
 		  var _paq = _paq || [];
 		  _paq.push(['trackPageView']);
@@ -76,7 +76,7 @@
 		<footer class="footer">
 			<p>coded with <3 YumYum.</p>
 		</footer>
-		<script src={{ URL::asset("/resources/assets/js/resources/particles.min.js") }}></script>
-		<script src={{ URL::asset("/resources/assets/js/home.js") }}></script>
+		<script src={{ secure_asset("/resources/assets/js/resources/particles.min.js") }}></script>
+		<script src={{ secure_asset("/resources/assets/js/home.js") }}></script>
 	</body>
 </html>
