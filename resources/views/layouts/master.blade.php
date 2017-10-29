@@ -9,10 +9,10 @@
 		<meta name="apple-mobile-web-app-title" content="Statman">
 		<meta name="application-name" content="Statman">
 		<meta name="theme-color" content="#000000">
-		<link rel="shortcut icon" href="{{ secure_asset("/resources/assets/img/favicon.ico") }}">
+		<link rel="shortcut icon" href="{{ URL::asset("/resources/assets/img/favicon.ico") }}">
 		<title>Statman</title>
-		<link rel="stylesheet" href="{{ secure_asset("/resources/assets/css/styles.css") }}">
-		<link rel="stylesheet" href="{{ secure_asset("/resources/assets/css/app.css") }}">
+		<link rel="stylesheet" href="{{ URL::asset("/resources/assets/css/styles.css") }}">
+		<link rel="stylesheet" href="{{ URL::asset("/resources/assets/css/app.css") }}">
 	</head>
 
 	<body class="body" >
@@ -64,6 +64,6 @@
 		</div>
 
 		{{-- PLEASE GOD, FIX MY JAVASCRIPT --}}
-		<script src={{ secure_asset("/resources/assets/js/app.js") }}></script>
+		<script src={{ URL::asset("/resources/assets/js/app.js") }}></script>
 	</body>
 </html>
