@@ -52,5 +52,6 @@ Route::post('/settings', 'SettingsController@updateProfile')->middleware('auth',
 
 Route::get('/verify', 'VerifyController@index')->middleware('auth')->name('verify');
 Route::post('/verify', 'VerifyController@verify')->middleware('auth')->name('verify');
+Route::get('/getnewtoken', 'VerifyController@NewToken')->middleware('auth')->name('NewToken');
 
 Auth::routes();

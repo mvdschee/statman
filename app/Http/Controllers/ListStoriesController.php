@@ -23,13 +23,13 @@ class ListStoriesController extends Controller
 		//Get the user info, name and decrypts it
 		$user = Auth::user();
 		$userAccess = UserAccess::where('user_id', $user->id)->get();
-		$user->fullname = decrypt($user->name);
+		// $user->fullname = decrypt($user->name);
 
 		$data = $this->getProjects($userAccess, $user);
 		$invites = $this->getInvites($user);
 
-		// $user->verified = false;
-		// $user->save();
+		$user->verified = false;
+		$user->save();
 
 
 		//shows the view

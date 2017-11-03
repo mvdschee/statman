@@ -18,6 +18,9 @@
             </div>
             <button type="submit">submit</button>
          </form>
+         @if (!empty($expire))
+            <a href="/getnewtoken">Send me a new token!</a>
+         @endif
       </div>
    </div>
 @endsection

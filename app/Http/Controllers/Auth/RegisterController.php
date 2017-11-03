@@ -81,11 +81,13 @@ class RegisterController extends Controller
         // get email from login and store it in the session
         $SessionMail = $data["email"];
         Session::put('email', $SessionMail);
-
+        $verificationkey = mt_rand(100000, 999999);
+        
         return User::create([
             'name' => encrypt($data['name']),
             'email' => hash('sha256', $data['email']),
             'password' => bcrypt($data['password']),
+            'verificationkey' => $verificationkey,
         ]);
     }
 }
