@@ -32,7 +32,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/create-story';
+    protected $redirectTo = '/verify';
 
     /**
      * Create a new controller instance.

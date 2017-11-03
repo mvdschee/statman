@@ -28,8 +28,13 @@ class ListStoriesController extends Controller
 		$data = $this->getProjects($userAccess, $user);
 		$invites = $this->getInvites($user);
 
+		// $user->verified = false;
+		// $user->save();
+
+
 		//shows the view
 		return view('story-list', compact('user', 'data', 'invites'));
+
 	}
 
 	public function getProjects($userAccess, $user)
@@ -135,7 +140,7 @@ class ListStoriesController extends Controller
 			$message = 'You do not have the rights to invite someone to this story.';
             return redirect('/story-list')->with('check', $message);
 		}
-		
+
 	}
 
 	//puts the project id in the favorite field in the database
