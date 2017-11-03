@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
+use Mail;
+use Session;
 use Illuminate\Support\Facades\Validator;
 use Redirect;
 
@@ -12,8 +14,6 @@ class VerifyController extends Controller
  	public function index($error = null)
    {
       $user = Auth::user();
-      print($user->verificationkey . '</br>');
-      print($user->verifycount . '</br>');
       if(!empty($error)){
          return view('verify', ['errorauth' => $error]);
 
@@ -94,10 +94,19 @@ class VerifyController extends Controller
       $messages = '';
       $user = Auth::user();
       if($user->verifycount <= 6 || $user->verificationkey !== 0) {
-         $user->verificationkey = mt_rand(100000, 999999);
+         $verificationkey = mt_rand(100000, 999999);
+         $SessionMail = Session::get( 'email' );
+         $user->verificationkey = $verificationkey;
          $user->verifycount = 0;
          $user->save();
+         $user->SessionMail = $SessionMail;
          $messages = 'A new token has been sent to you.';
+
+         Mail::send('emails.token', ['user' => $user, 'token' => $verificationkey], function ($m) use ($user) {
+               $m->from(env('MAIL_FROM'), env('MAIL_NAME'));
+               $m->to($user->SessionMail, $user->firstname)->subject('You have requested a new verification token.');
+         });
+
          return redirect('verify')->withErrors($messages);
       } else {
          $messages = 'You fucked up fam.';

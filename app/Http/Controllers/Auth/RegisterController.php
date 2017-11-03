@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use Session;
+use Mail;
 use Jenssegers\Agent\Agent;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -82,7 +83,12 @@ class RegisterController extends Controller
         $SessionMail = $data["email"];
         Session::put('email', $SessionMail);
         $verificationkey = mt_rand(100000, 999999);
-        
+        $user = $data['name'];
+        Mail::send('emails.token', ['user' => $data['name'], 'token' => $verificationkey], function ($m) use ($data) {
+             $m->from(env('MAIL_FROM'), env('MAIL_NAME'));
+             $m->to($data["email"], $data['name'])->subject('You have requested a new verification token.');
+        });
+
         return User::create([
             'name' => encrypt($data['name']),
             'email' => hash('sha256', $data['email']),
