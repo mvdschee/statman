@@ -14,6 +14,7 @@
 //-----------------------------------
 //              Mixins
 //-----------------------------------
+
 @import "bundle/mixins";
 //-----------------------------------
 //              Variable
@@ -55,16 +56,6 @@
 //-----------------------------------
 //              Fonts
 //-----------------------------------
-
-@font-face {
-    font-family: 'Roboto';
-    src: url('../fonts/Roboto-Regular.ttf');
-}
-
-@font-face {
-    font-family: 'Varela Round';
-    src: url('../fonts/VarelaRound-Regular.ttf');
-}
 
 @font-face {
     font-family: 'OpenSans';
@@ -212,211 +203,12 @@ button{
     }
 }
 
-.main{
-    display: block;
-    background: @white;
-}
-
-.logo{
-  .animation(fadein 0.8s);
-  font-family: 'Varela Round', sans-serif;
-
-}
-
-.hero{
-    height: 35rem;
-    background: -webkit-linear-gradient(left top, #131c47, #192152, #474c9a, #ac93d2);
-    background: linear-gradient(to right bottom, #131c47, #192152, #474c9a, #ac93d2);
-    position: relative;
-
-    &::before{
-        content: '';
-        display: block;
-        position: absolute;
-        bottom: 0;
-        left: 0;
-        width: 100%;
-        height: 14rem;
-        background: -webkit-linear-gradient(to top, #474c9a, rgba(92, 75, 81, 0));
-        background: linear-gradient(to top, #474c9a, rgba(92, 75, 81, 0));
-    }
-}
-
-.hero-text{
-    .animation(fadein 0.9s);
-    color: #fff;
-    text-align: center;
-    margin: 0 auto;
-    display: block;
-    width: 20rem;
-    padding: 15% 0 0 0;
-
-    h2{
-      font-family: 'Varela Round', sans-serif;
-      font-size: 3.6rem;
-    }
-}
-
-.particles-js-canvas-el{
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-.features{
-    .animation(fadeinalt 2s);
-    display: block;
-    padding: @spacing @spacing*3 @spacing*4;
-}
-
-.features-group{
-    .displayflex();
-    .flex-direction(row);
-    .flex-wrap(wrap);
-    .justify-content(space-around);
-    padding: @spacing;
-    background: @white;
-    border: 1px solid @border;
-    border-radius: 3px;
-    transform: translateY(-100px);
-}
-
-.features-item{
-    height: 100%;
-    width: 33%;
-    min-width: 16rem;
-    padding: @spacing;
-    text-align: center;
-}
-
-.features-image{
-    width: 200px;
-    border-radius: 50%;
-}
-
-.promo, .team{
-  height: 30rem;
-  background: @lightgrey;
-
-  .image{
-      width: 45%;
-      height: 100%;
-      background: no-repeat center center;
-      background-size: cover;
-      overflow: hidden;
-      position: relative;
-      float: left;
-
-    &:before{
-      content: '';
-      border: 550px solid @lightgrey;
-      position: absolute;
-      width: 2000px;
-      height: 2000px;
-      display: block;
-      bottom: -320px;
-      left: -820px;
-      transform: rotate(-45deg);
-    }
-
-  }
-
-  .text{
-    width: 55%;
-    height: 30rem;
-    float: right;
-    color: @text;
-    padding: @spacing;
-    text-align: center;
-
-    h1{
-      font-size: 2.5rem;
-      padding: @spacing;
-      font-family: 'Varela Round', sans-serif;
-    }
-
-    p{
-      max-width: 500px;
-      margin: 0 auto;
-    }
-
-    .button{
-      display: inline-block;
-      padding: 1rem 2rem;
-      background: #28b8b5;
-      margin: 2rem;
-      color: @white;
-      border: 1px solid transparent;
-
-      &:hover{
-        .transition(0.3s);
-        border: 1px solid @text;
-        color: @text;
-        background: @white;
-      }
-    }
-  }
-}
-
-.team{
-    background: @white;
-
-  .image{
-    float: right;
-
-    &:before{
-      border: 550px solid @white;
-      right: -820px;
-      left: auto;
-      transform: rotate(-10deg);
-    }
-  }
-  .text{
-    float: left;
-  }
-}
-
-.footer{
-    height: 10rem;
-    padding: @spacing*2;
-    color: @white;
-    background: #3f3f3f;
-    position: relative;
-
-    p{
-        position: absolute;
-        bottom: 2.4rem;
-    }
-}
-
-// animations
-
-@keyframes fadein {
-from { opacity: 0; .translateY(15px);}
-to   { opacity: 1; .translateY(0px);}
-}
-
-@keyframes fadeinalt {
-from { opacity: 0.5; .translateY(105px);}
-to   { opacity: 1; .translateY(0px);}
-}
 
 //-----------------------------------
 //          Responsive
 //-----------------------------------
 
 @media all and (min-width: 2035px) {
-
-  .promo .image:before {
-      border: 635px solid #f7f7f7;
-      bottom: -385px;
-      left: -635px;
-  }
-
-  .team .image:before {
-      border: 490px solid #fff;
-      right: -470px;
-  }
 }
 // laptop L
 @media all and (max-width: 1440px) {
@@ -435,50 +227,14 @@ to   { opacity: 1; .translateY(0px);}
 	html {
 		font-size: 80%;
 	}
-    .features-item {
-        width: 50%;
-    }
-    .hero-text {
-        padding: 26% 0 0;
-    }
-    .navigation{
-        display: none;
-    }
 }
 @media all and (max-width: 704px) {
-  .promo, .team{
-    height: auto;
-    .image{
-      width: 100%;
-      float: none;
-      height: 18rem;
-    }
-    .text{
-      width: 100%;
-      float: none;
-      height: auto;
-    }
-  }
-
-  .team{
-    .image:before{
-      bottom: -515px;
-    }
-  }
 
 }
 
 // mobile L
 @media all and (max-width: 425px) {
-    .features{
-        padding: @spacing @spacing*0.5 @spacing*4;
-    }
-    .features-item {
-        width: 100%;
-    }
-    .hero-text {
-        padding: 55% 0 0;
-    }
+
 }
 // mobile M
 @media all and (max-width: 375px) {}
