@@ -2,7 +2,7 @@
 @section('content')
     <section class="hero">
       <article class="text left">
-        <h2 class="title" itemprop="headline">The way you see your story, that is what we care about.</h2>
+        <h2 itemprop="headline">The way you see your story, that is what we care about.</h2>
         <p>We know from experience that it is important to have a clear overview of the impact your story has with your target audience.</p>
         <a class="button" href="#">Let's see how</a>
       </article>

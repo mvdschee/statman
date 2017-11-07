@@ -45,13 +45,22 @@
 
 .logo {
   .user-select();
+  .transition(0.3s);
+  font-family: 'PT_Sans', sans-serif;
   float: left;
   height: 100%;
-  margin: 0 10px;
+  margin: 0 @spacing*2;
+  padding: 0 0 0 62px;
+  font-size: 1.8rem;
+  line-height: 3.6rem;
   color: transparent;
   background-image: url('../img/statman.svg');
   background-size: contain;
   background-repeat: no-repeat;
+
+  &:hover{
+    color: @white;
+  }
 }
 
 .navigation {
