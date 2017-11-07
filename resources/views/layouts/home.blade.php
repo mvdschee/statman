@@ -40,27 +40,48 @@
 		<noscript><p><img src="https://analytics.ewake.nl/piwik.php?idsite=6&rec=1" style="border:0;" alt="" /></p></noscript>
 	</head>
 
-	<body class="body">
-		<header class="header">
-			<h1 class="logo">Statman</h1>
-			@if (Route::has('login'))
-				<nav class="navigation">
-					@if (Auth::check())
-						<a href="{{ url('/story-list') }}">Dashboard</a>
-					@else
-						<a href="{{ url('/login') }}">Login</a>
-						<a href="{{ url('/register') }}">Register</a>
+	<body id="top" class="home">
+		<header id="scroll" class="header" itemscope itemtype="https://schema.org/WPHeader">
+			<h1 class="hide-from-layout">Statman</h1>
+			<a class="logo" href="/">Statman</a>
+
+			<input type="checkbox" id="hamburger" class="trigger_1">
+			<label for="hamburger" class="execute_1 execute_2"></label>
+
+			<nav class="navigation execute_1 execute_2" itemscope itemtype="https://schema.org/SiteNavigationElement">
+				<h2 class="nocontent hide-from-layout">Navigation</h2>
+				<ul class="navigation-group">
+					@if (Route::has('login'))
+							@if (Auth::check())
+								<li class="navigation-item"><a href="{{ url('/story-list') }}" itemprop="url">Dashboard</a></li>
+							@else
+								<li class="navigation-item"><a href="{{ url('/login') }}" itemprop="url">Login</a></li>
+								<li class="navigation-item last"><a href="{{ url('/register') }}" itemprop="url">Sign up</a></li>
+							@endif
 					@endif
-				</nav>
-			@endif
+				</ul>
+			</nav>
 		</header>
-		<section class="main">
-			@yield('content')
-		</section>
-		<footer class="footer">
-			<p>coded with <3 YumYum.</p>
+		<span class="trigger_2 black-filter execute_1 execute_2"></span>
+		<div class="content-wrapper">
+			<main class="main" itemprop="mainContentOfPage">
+				@yield('content')
+			</main>
+		</div>
+
+		<footer class="footer" itemscope itemtype="https://schema.org/WPFooter">
+			<h2 class="nocontent hide-from-layout">Footer</h2>
+			<ul class="navigation-group">
+				<li class="navigation-item"><a href="#" itemprop="url">Privacy</a></li>
+				<li class="navigation-item"><a href="#" itemprop="url">About</a></li>
+				<li class="navigation-item"><a href="#" itemprop="url">Terms</a></li>
+				<li class="navigation-item"><a href="#" itemprop="url">Contact</a></li>
+				<li class="navigation-item"><a href="#" itemprop="url">Help</a></li>
+			</ul>
+			<h3>Statman</h3>
+			<p><3 YumYum</p>
 		</footer>
-		<script src={{ URL::asset("/resources/assets/js/resources/particles.min.js") }}></script>
+		<script src={{ URL::asset("/resources/assets/js/resources/classtoggle.min.js") }}></script>
 		<script src={{ URL::asset("/resources/assets/js/home.js") }}></script>
 	</body>
 </html>

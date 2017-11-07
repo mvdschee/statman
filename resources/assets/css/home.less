@@ -5,10 +5,8 @@
 //              04. Fonts
 //              05. Base
 //              06. Common classnames
-//              07. Pages
-//              08. Componenten
-//              09. Styling
-//              10. Responsive
+//              07. Componenten
+//              08. Responsive
 //-----------------------------------
 
 //-----------------------------------
@@ -21,7 +19,7 @@
 //-----------------------------------
 
 @spacing:           1.2rem;
-@font-size:         1.3rem;
+
 @white:             #ffffff;
 @black:             #000000;
 @grey:              #4A4A4A;
@@ -30,23 +28,13 @@
 @orange:            #ff9900;
 @blue:              #2391fe;
 @green:             #a6ca00;
-@hamburger:         @black;
-@navigationBlack:   @black;
-@navigationWhite:   @white;
+
 @primcolor:         #527e9c;
 @seccolor:          #ee6352;
-@panelBackground:   #f5f5f5;
-@panelBorder:       #e8e8e8;
-@panelLine:         #979797;
-@loginText:         #939393;
-@loginSmall:        #818181;
-@loginCircle:       rgba(193, 193, 193, 0.2);
-@tabBackground:     #434343;
-@formInput:         @white;
+
 @text:              #717171;
 @border:            #b0b0b0;
 @shadow:            rgba(0, 0, 0, 0.39);
-
 //-----------------------------------
 //              Resets
 //-----------------------------------
@@ -63,9 +51,9 @@
 }
 
 @font-face {
-    font-family: 'OpenSans-Bold';
+    font-family: 'PT_Sans';
     font-weight: bold;
-    src: url('../fonts/OpenSans-Bold.ttf');
+    src: url('../fonts/PT_Sans-Web-Bold.ttf');
 }
 
 html{
@@ -81,7 +69,7 @@ h3,
 h4,
 h5,
 h6 {
-    font-family: 'Roboto', sans-serif;
+    font-family: 'PT_Sans', sans-serif;
     font-weight: normal;
     line-height: 2.5rem;
 }
@@ -102,13 +90,66 @@ a:visited {
 //              Base
 //-----------------------------------
 
-html, body{
-    display: block;
-    width: 100%;
+
+// html, body styling
+html {
+    background: @white;
     height: 100%;
 }
 body{
+    .displayflex();
+    .flex-direction(column);
+    min-height: 100%;
+}
+
+.content-wrapper{
+    .flex(1);
+}
+// end html, body styling
+
+// header
+@import "bundle/navigation_home";
+// end header
+
+
+//footer
+.footer {
+  .displayflex();
+  .justify-content(space-between);
+  .align-items(center);
+  width: 100%;
+  height: @spacing*5;
+  padding: @spacing @spacing*2;
+  background: @grey;
+  color: @white;
+
+  ul {
+    .displayflex();
+  }
+
+  a {
+    color: @white;
+  }
+
+  .navigation-item a {
+    display: block;
     position: relative;
+    padding: 5px;
+  }
+}
+
+//end footer
+
+.main{
+  overflow: hidden;
+}
+
+//-----------------------------------
+//         Common classnames
+//-----------------------------------
+
+.hide-from-layout {
+    display: none!important;
 }
 
 .clear {
@@ -119,90 +160,83 @@ body{
     }
 }
 
-input{
-    .border-radius();
-    width: 100%;
-    padding: 0 0 0 @spacing*0.5;
-    margin: @spacing*0.5 0;
-    line-height: 2.6rem;
-    color: @loginText;
-    background-color: @formInput;
-    font-size: 1.1rem;
-    border: 1px solid #cfdae4;
-
-    &:focus{
-        outline: none;
-        border-bottom: 2px solid @blue;
-    }
-
-    &::placeholder{
-        color: @loginText;
-    }
-}
-
-input[disabled="disabled"]{
-    background: darken(@formInput, 10%);
-}
-
-button{
-    .border-radius();
-    .transition();
+.left {
     display: block;
-    padding: 0.8rem;
-    background-color: @blue;
-    border: none;
-    color: @white;
-    font-size: 0.8rem;
-    font-weight: bold;
-
-    &:hover{
-        opacity: .8;
-        cursor: pointer;
-    }
+    float: left;
+    width: 50%;
 }
 
-.alert{
+.right {
     display: block;
-    background: #1798de;
-    padding: 1.2rem;
-    text-align: center;
-    color: @white;
-    font-size: 1.6rem;
+    float: right;
+    width: 50%;
 }
 
-//-----------------------------------
-//         Common classnames
-//-----------------------------------
-
+.button{
+  .transition(0.3s);
+  display: inline-block;
+  padding: 15px 20px;
+  border-radius: 8px;
+}
 
 //-----------------------------------
 //         Componenten
 //-----------------------------------
-.header{
-    .displayflex();
-    .justify-content(space-between);
+.hero{
+  .gradient(linear; #9e409f, #f25151; 123deg);
+  height: 52rem;
+  position: relative;
+  padding: @spacing*10 0 0;
+  color: @white;
+
+  &:before{
+    content: '';
+    display: block;
+    width: 110%;
+    height: 26rem;
     position: absolute;
-    width: 100%;
-    height: @spacing*3;
-    padding: @spacing @spacing*2;
-    color: @white;
-    z-index: 1;
+    bottom: 0;
+    left: 0;
+    background-image: url('../img/hero-bottom.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  h2{
+    font-size: 3.5rem;
+    line-height: 1;
+    text-align: right;
+    margin: 0 0 @spacing;
+  }
+
+  p{
+    font-size: 1.4rem;
+    text-align: right;
+    margin: 0 0 @spacing;
+  }
+
+  img{
+    display: block;
+    width: 38rem;
+    margin: 0 auto;
+  }
+
+  .text{
+    padding: 0 0 0 10rem;
+  }
+
+  .button{
+    font-family: 'PT_Sans', sans-serif;
+    background: @white;
+    color: #9e409f;
+    float: right;
+  }
 }
 
-.navigation{
-    .animation(fadein 0.8s);
-    a{
-        color: @white;
-        border-bottom: 2px solid transparent;
-        margin: 0 @spacing*0.5;
-
-        &:hover{
-            .transition(0.3s);
-            border-bottom: 2px solid @white;
-        }
-    }
+.features{
+  height: 20rem;
+  background: @white;
 }
-
 
 //-----------------------------------
 //          Responsive
