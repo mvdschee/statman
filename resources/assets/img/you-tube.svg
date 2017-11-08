@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="166px" height="137px" viewBox="0 0 166 137" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 47 (45396) - http://www.bohemiancoding.com/sketch -->
+    <title>0B34D19E-E963-4AB6-9D7B-46F371DB5EA0</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <rect id="path-1" x="13.9345577" y="23.3269444" width="153.492586" height="106.187374" rx="28"></rect>
+        <filter x="-2.6%" y="-3.8%" width="105.2%" height="107.5%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="8" dy="8" in="SourceAlpha" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 1   0 0 0 0 1   0 0 0 0 1  0 0 0 0.5 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop-HD" transform="translate(-793.000000, -768.000000)">
+            <g id="Social-Media" transform="translate(0.000000, 516.000000)">
+                <g id="Top">
+                    <g id="Icons" transform="translate(112.000000, 244.000000)">
+                        <g id="YouTube" transform="translate(673.000000, 0.000000)">
+                            <g id="Base">
+                                <g id="Rectangle-3" transform="translate(90.680851, 76.420631) rotate(20.000000) translate(-90.680851, -76.420631) ">
+                                    <use fill="#EBEAEA" fill-rule="evenodd" xlink:href="#path-1"></use>
+                                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                                    <rect stroke="#9F9F9F" stroke-width="4" x="15.9345577" y="25.3269444" width="149.492586" height="102.187374" rx="28"></rect>
+                                </g>
+                            </g>
+                            <g id="Glyph" transform="translate(90.000000, 77.500000) rotate(20.000000) translate(-90.000000, -77.500000) translate(37.000000, 46.000000)">
+                                <path d="M17.4881514,0.841589844 L18.0915547,0.7 L53.0392414,0 L87.9869281,0.7 L89.2702589,0.989345989 L89.2702589,0.989345989 C97.6488445,2.87842251 104.01365,9.70906007 105.30719,18.2 L105.30719,18.2 L106,31.5 L105.30719,44.8 L105.30719,44.8 L105.30719,44.8 C104.008904,53.2456187 97.7512424,60.0777218 89.4518225,62.1108599 L88.6797386,62.3 L53.3464052,63 L18.0130719,62.3 L17.3362626,62.1344302 L17.3362626,62.1344302 C8.89783856,60.0701143 2.41235203,53.315373 0.692810458,44.8 L0.692810458,44.8 L0,31.5 L0.692810458,18.2 L0.692810458,18.2 L0.692810458,18.2 C2.40902176,9.62416324 8.97354774,2.8395594 17.4881514,0.841589844 Z" id="Rectangle-4" fill="#FC7474"></path>
+                                <path d="M61.2558152,15.6824403 L74.8543051,46.7241093 L74.8543051,46.7241093 C75.2975232,47.7358561 74.8366396,48.9153381 73.8248928,49.3585562 C73.5718647,49.4694007 73.2986177,49.5266266 73.0223755,49.5266266 L43.9934661,49.5266266 L43.9934661,49.5266266 C42.8888966,49.5266266 41.9934661,48.6311961 41.9934661,47.5266266 C41.9934661,47.2503844 42.050692,46.9771374 42.1615366,46.7241093 L55.7600264,15.6824403 L55.7600264,15.6824403 C56.4248535,14.1648201 58.1940766,13.4734947 59.7116968,14.1383218 C60.4021065,14.4407711 60.9533659,14.9920305 61.2558152,15.6824403 Z" id="Rectangle-5" fill="#FFFFFF" transform="translate(58.508173, 31.706043) rotate(90.000000) translate(-58.508173, -31.706043) "></path>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>
