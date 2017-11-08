@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="133px" height="133px" viewBox="0 0 133 133" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 47 (45396) - http://www.bohemiancoding.com/sketch -->
+    <title>594ED0AB-0A19-48F7-99FF-4365566EAE88</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <rect id="path-1" x="16.2191516" y="16.2191516" width="114.879513" height="114.879513" rx="28"></rect>
+        <filter x="-3.5%" y="-3.5%" width="107.0%" height="107.0%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="8" dy="8" in="SourceAlpha" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 1   0 0 0 0 1   0 0 0 0 1  0 0 0 0.5 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop-HD" transform="translate(-1114.000000, -853.000000)">
+            <g id="Social-Media" transform="translate(0.000000, 516.000000)">
+                <g id="Top">
+                    <g id="Icons" transform="translate(112.000000, 244.000000)">
+                        <g id="Twitter" transform="translate(995.000000, 86.000000)">
+                            <g id="Rectangle-3" transform="translate(73.658908, 73.658908) rotate(-20.000000) translate(-73.658908, -73.658908) ">
+                                <use fill="#1DA1F2" fill-rule="evenodd" xlink:href="#path-1"></use>
+                                <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                                <rect stroke="#107DD5" stroke-width="4" x="18.2191516" y="18.2191516" width="110.879513" height="110.879513" rx="28"></rect>
+                            </g>
+                            <path d="M65.3286448,103 C92.1224372,103 106.77492,80.6880431 106.77492,61.3399019 C106.77492,60.7061635 106.762078,60.075299 106.733798,59.4472843 C109.578047,57.3805162 112.050148,54.8013547 114,51.8653188 C111.389952,53.0314471 108.581202,53.8164656 105.634743,54.1704423 C108.642195,52.3577395 110.951092,49.490267 112.040379,46.0719165 C109.225911,47.7490253 106.109102,48.9679591 102.790493,49.6260526 C100.132318,46.7800616 96.3479274,45 92.1575556,45 C84.1132233,45 77.5898902,51.5572266 77.5898902,59.6399467 C77.5898902,60.7889281 77.7176884,61.9065376 77.9676145,62.9785499 C65.8608516,62.3662212 55.1254657,56.5398663 47.9407458,47.6805098 C46.6897335,49.8443155 45.9683786,52.3578113 45.9683786,55.039758 C45.9683786,60.1196269 48.5400681,64.6041463 52.4507324,67.2276596 C50.060829,67.1534397 47.8157827,66.4940099 45.8535413,65.3963971 C45.851397,65.4578287 45.851397,65.5177205 45.851397,65.5833766 C45.851397,72.6744061 50.8725528,78.5948531 57.5378839,79.9364251 C56.3138417,80.271842 55.0259956,80.4516922 53.6967891,80.4516922 C52.759602,80.4516922 51.8465259,80.3589748 50.9590381,80.1876406 C52.8135422,86.0053502 58.1911702,90.2388936 64.5667872,90.3571972 C59.5811309,94.285163 53.3005764,96.6246519 46.4746636,96.6246519 C45.3003207,96.6246519 44.1402014,96.5575111 43,96.4219696 C49.4468543,100.575526 57.1018832,102.999073 65.329431,102.999073" id="Shape" fill="#FFFFFF" fill-rule="nonzero" transform="translate(78.500000, 74.000000) rotate(-20.000000) translate(-78.500000, -74.000000) "></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

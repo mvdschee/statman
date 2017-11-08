@@ -25,14 +25,14 @@
 @grey:              #4A4A4A;
 @lightgrey:         #f7f7f7;
 @red:               #f14343;
-@orange:            #ff9900;
+@trump:             #ff930b;
 @blue:              #2391fe;
-@green:             #a6ca00;
+@green:             #6fc485;
 
 @primcolor:         #527e9c;
 @seccolor:          #ee6352;
 
-@text:              #717171;
+@text:              #848484;
 @border:            #b0b0b0;
 @shadow:            rgba(0, 0, 0, 0.39);
 //-----------------------------------
@@ -60,7 +60,7 @@ html{
     font-family: 'OpenSans', sans-serif;
     font-weight: normal;
     line-height: 1.5rem;
-    color: darken(@text, 20%);
+    color: @text;
 }
 
 h1,
@@ -115,13 +115,28 @@ body{
 //footer
 .footer {
   .displayflex();
-  .justify-content(space-between);
+  .justify-content(center);
   .align-items(center);
+  .flex-direction(column);
+  .gradient(linear; #a621a7, #ee3262; 123deg);
   width: 100%;
-  height: @spacing*5;
-  padding: @spacing @spacing*2;
-  background: @grey;
+  height: 18rem;
+  padding: 6rem @spacing @spacing*2;
+  position: relative;
   color: @white;
+
+  &:before{
+    content: '';
+    display: block;
+    width: 100%;
+    height: 12rem;
+    position: absolute;
+    top: -1px;
+    left: 0;
+    background-image: url('../img/footer.svg');
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
 
   ul {
     .displayflex();
@@ -131,10 +146,19 @@ body{
     color: @white;
   }
 
-  .navigation-item a {
-    display: block;
-    position: relative;
-    padding: 5px;
+  h3{
+    font-size: 2.3rem;
+    margin: 0 0 @spacing;
+  }
+
+  .navigation-item {
+    margin: 0;
+
+    a {
+      display: block;
+      position: relative;
+      padding: 5px;
+    }
   }
 }
 
@@ -185,7 +209,7 @@ body{
 
 // hero
 .hero{
-  .gradient(linear; #9e409f, #f25151; 123deg);
+  .gradient(linear; #a621a7, #ee3262; 123deg);
   height: 52rem;
   position: relative;
   padding: @spacing*10 0 0;
@@ -194,7 +218,7 @@ body{
   &:before{
     content: '';
     display: block;
-    width: 110%;
+    width: 100%;
     height: 26rem;
     position: absolute;
     bottom: 0;
@@ -227,29 +251,40 @@ body{
     padding: 0 0 0 10rem;
   }
 
+  .buttons{
+    float: right;
+  }
+
   .button{
     font-family: 'PT_Sans', sans-serif;
     background: @white;
     color: #9e409f;
-    float: right;
+    margin: @spacing*0.5;
+
+    &:first-child{
+      background: @green;
+      color: @white;
+    }
+
   }
 }
 // end hero
 
-// features
-.features{
+// social
+.social{
   height: 20rem;
   background: @white;
 }
 
-.features-group{
+.social-group{
   .displayflex();
   .justify-content(space-around);
+  .translateY(-50px);
   width: 80%;
   margin: 0 auto;
 }
 
-.features-content{
+.social-content{
   width: 70%;
   margin: 0 auto;
   padding: @spacing*2;
@@ -262,10 +297,18 @@ body{
     text-transform: uppercase;
   }
 }
-// end features
+// end social
 
 // storyworld
 .storyworld{
+  padding: @spacing*2 0;
+
+  h1{
+    color: @trump;
+    font-size: 2.3rem;
+    margin: 0 0 @spacing;
+    text-transform: uppercase;
+  }
 
   img{
     display: block;
@@ -273,14 +316,43 @@ body{
     margin: 0 auto;
   }
 }
+.storyworld-text{
+  padding: @spacing*4 @spacing*3 0 0;
+}
 
 // end storyworld
 
 
 // security
+.security{
+  background: @lightgrey;
+  text-align: center;
+
+  h2{
+    color: @blue;
+    font-size: 2.3rem;
+    margin: 0 0 @spacing;
+    text-transform: uppercase;
+  }
+}
 .security-group{
   .displayflex();
   .justify-content(space-around);
+  padding: @spacing*2 0;
+}
+
+.security-item{
+  padding: @spacing @spacing*2;
+
+  figure{
+    display: block;
+    width: 250px;
+    height: 250px;
+    padding: @spacing*2;
+    background: @white;
+    border-radius: 50%;
+    margin: 0 auto @spacing;
+  }
 }
 
 // end security
@@ -288,12 +360,24 @@ body{
 // endorsment
 
 .endorsment{
+  padding: @spacing*2 0 0;
+
+  h1{
+    color: #ff3d81;
+    font-size: 2.3rem;
+    margin: 0 0 @spacing;
+    text-transform: uppercase;
+  }
 
   img{
     display: block;
     width: 38rem;
     margin: 0 auto;
   }
+}
+
+.endorsment-text{
+  padding: @spacing*4 @spacing*3 0 0;
 }
 
 // end endorsment

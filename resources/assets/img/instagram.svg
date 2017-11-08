@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="122px" height="119px" viewBox="0 0 122 119" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 47 (45396) - http://www.bohemiancoding.com/sketch -->
+    <title>46BB0E70-3C5E-42FB-AF6A-B2D968744816</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <radialGradient cx="80.7203948%" cy="31.6203227%" fx="80.7203948%" fy="31.6203227%" r="54.749831%" gradientTransform="translate(0.807204,0.316203),scale(1.000000,0.554795),rotate(90.000000),translate(-0.807204,-0.316203)" id="radialGradient-1">
+            <stop stop-color="#D51F92" offset="0%"></stop>
+            <stop stop-color="#C91FA1" offset="100%"></stop>
+        </radialGradient>
+        <filter x="-32.0%" y="-17.7%" width="163.9%" height="135.5%" filterUnits="objectBoundingBox" id="filter-2">
+            <feGaussianBlur stdDeviation="8.62821691" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <radialGradient cx="22.9000304%" cy="25.9365354%" fx="22.9000304%" fy="25.9365354%" r="44.6057653%" gradientTransform="translate(0.229000,0.259365),scale(0.861842,1.000000),rotate(46.219863),translate(-0.229000,-0.259365)" id="radialGradient-3">
+            <stop stop-color="#475FDB" offset="0%"></stop>
+            <stop stop-color="#9F23BA" offset="100%"></stop>
+        </radialGradient>
+        <filter x="-17.0%" y="-19.8%" width="134.1%" height="139.5%" filterUnits="objectBoundingBox" id="filter-4">
+            <feGaussianBlur stdDeviation="8.62821691" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <radialGradient cx="33.3067864%" cy="82.947421%" fx="33.3067864%" fy="82.947421%" r="47.8165486%" gradientTransform="translate(0.333068,0.829474),scale(0.619403,1.000000),rotate(90.000000),scale(1.000000,1.277128),translate(-0.333068,-0.829474)" id="radialGradient-5">
+            <stop stop-color="#FFDE74" offset="0%"></stop>
+            <stop stop-color="#FFDA6F" offset="0%"></stop>
+            <stop stop-color="#FEC655" offset="36.0908556%"></stop>
+            <stop stop-color="#F4643B" offset="100%"></stop>
+        </radialGradient>
+        <filter x="-19.3%" y="-31.2%" width="138.6%" height="162.4%" filterUnits="objectBoundingBox" id="filter-6">
+            <feGaussianBlur stdDeviation="8.62821691" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="-57.5%" y="-36.0%" width="215.0%" height="171.9%" filterUnits="objectBoundingBox" id="filter-7">
+            <feGaussianBlur stdDeviation="8.62821691" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <filter x="-76.1%" y="-56.3%" width="252.3%" height="212.5%" filterUnits="objectBoundingBox" id="filter-8">
+            <feGaussianBlur stdDeviation="8.62821691" in="SourceGraphic"></feGaussianBlur>
+        </filter>
+        <rect id="path-9" x="22" y="20" width="113" height="110" rx="28"></rect>
+        <filter x="-3.5%" y="-3.6%" width="107.1%" height="107.3%" filterUnits="objectBoundingBox" id="filter-10">
+            <feOffset dx="8" dy="8" in="SourceAlpha" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 1   0 0 0 0 1   0 0 0 0 1  0 0 0 1 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop-HD" transform="translate(-143.000000, -849.000000)">
+            <g id="Social-Media" transform="translate(0.000000, 516.000000)">
+                <g id="Top">
+                    <g id="Icons" transform="translate(112.000000, 244.000000)">
+                        <g id="Instagram" transform="translate(92.010422, 152.604843) rotate(10.000000) translate(-92.010422, -152.604843) translate(12.510422, 73.604843)">
+                            <g>
+                                <g id="Group">
+                                    <path d="M79.7914736,12 C103.310956,29.095883 109.960175,44.9878146 99.7391305,59.6757948 C84.4075636,81.7077652 47.7387642,66.7332197 74.5105866,98.9197826 C101.282409,131.106345 73.6633454,174.643157 124.009217,151.478876 L146,133.0203 L146,12.8039536 L79.7914736,12 Z" id="Path-6" fill="url(#radialGradient-1)" filter="url(#filter-2)"></path>
+                                    <path d="M7,131 C62.8876562,115.768618 90.6712534,102.714215 90.3507915,91.8367922 C89.8700986,75.5206577 92.8531026,52.4123997 115.851887,55.1113091 C138.850672,57.8102186 166.443797,65.9399249 157.150853,36.2268576 C150.955557,16.4181461 102.170871,4.34252686 10.7967967,0 L7,131 Z" id="Path-4" fill="url(#radialGradient-3)" filter="url(#filter-4)"></path>
+                                    <path d="M7,100.096441 C14.9072272,83.5200406 25.8189851,75.7014352 39.7352737,76.6406253 C60.6097065,78.0494105 61.209624,78.601696 67.3274344,69.9309432 C73.4452448,61.2601903 101.412185,49.6713328 101.666982,96.464152 C101.836846,127.659365 114.947852,143.837981 141,145 L7,145 L7,100.096441 Z" id="Path-2" fill="url(#radialGradient-5)" filter="url(#filter-6)" transform="translate(74.000000, 103.500000) rotate(10.000000) translate(-74.000000, -103.500000) "></path>
+                                    <path d="M81,108.047515 C83.6554121,93.667987 87.3198084,86.8855823 91.9931889,87.7003015 C99.0032597,88.9223802 99.2047245,89.4014713 101.259213,81.8798543 C103.313702,74.3582374 112.705585,64.3052526 112.791151,104.896614 C112.848195,131.957521 117.251144,145.991983 126,147 L81,147 L81,108.047515 Z" id="Path-2" fill="#F34946" filter="url(#filter-7)" transform="translate(103.500000, 111.000000) rotate(-30.000000) translate(-103.500000, -111.000000) "></path>
+                                    <path d="" id="Path-5" stroke="#979797"></path>
+                                    <ellipse id="Oval-3" fill="#E2296C" filter="url(#filter-8)" transform="translate(82.000000, 70.000000) rotate(-100.000000) translate(-82.000000, -70.000000) " cx="82" cy="70" rx="17" ry="23"></ellipse>
+                                </g>
+                                <g id="Mask" opacity="0.395522388">
+                                    <use fill="black" fill-opacity="1" filter="url(#filter-10)" xlink:href="#path-9"></use>
+                                    <rect stroke="#000000" stroke-width="4" x="24" y="22" width="109" height="106" rx="28"></rect>
+                                </g>
+                            </g>
+                            <rect id="Rectangle-7" stroke="#FFFFFF" stroke-width="4" x="45" y="43" width="66" height="66" rx="19"></rect>
+                            <circle id="Oval" stroke="#FFFFFF" stroke-width="4" cx="77.5" cy="77.5" r="15.5"></circle>
+                            <circle id="Oval-2" fill="#FFFFFF" cx="97.5" cy="56.5" r="4.5"></circle>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

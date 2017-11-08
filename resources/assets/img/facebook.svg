@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="133px" height="133px" viewBox="0 0 133 133" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: sketchtool 47 (45396) - http://www.bohemiancoding.com/sketch -->
+    <title>F5C669F2-3F24-45D9-A370-77092A0A30CA</title>
+    <desc>Created with sketchtool.</desc>
+    <defs>
+        <rect id="path-1" x="16.2191516" y="16.2191516" width="114.879513" height="114.879513" rx="28"></rect>
+        <filter x="-3.5%" y="-3.5%" width="107.0%" height="107.0%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="8" dy="8" in="SourceAlpha" result="shadowOffsetInner1"></feOffset>
+            <feComposite in="shadowOffsetInner1" in2="SourceAlpha" operator="arithmetic" k2="-1" k3="1" result="shadowInnerInner1"></feComposite>
+            <feColorMatrix values="0 0 0 0 1   0 0 0 0 1   0 0 0 0 1  0 0 0 0.5 0" type="matrix" in="shadowInnerInner1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Welcome" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Desktop-HD" transform="translate(-484.000000, -853.000000)">
+            <g id="Social-Media" transform="translate(0.000000, 516.000000)">
+                <g id="Top">
+                    <g id="Icons" transform="translate(112.000000, 244.000000)">
+                        <g id="Facebook" transform="translate(365.000000, 86.000000)">
+                            <g id="Rectangle-3" transform="translate(73.658908, 73.658908) rotate(-20.000000) translate(-73.658908, -73.658908) ">
+                                <use fill="#6AA0F3" fill-rule="evenodd" xlink:href="#path-1"></use>
+                                <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                                <rect stroke="#1675C2" stroke-width="4" x="18.2191516" y="18.2191516" width="110.879513" height="110.879513" rx="28"></rect>
+                            </g>
+                            <text id="f" transform="translate(74.425757, 80.033941) rotate(-20.000000) translate(-74.425757, -80.033941) " font-family="AvenirNext-DemiBold, Avenir Next" font-size="98" font-weight="500" fill="#FFFFFF">
+                                <tspan x="59.4384156" y="111.033941">f</tspan>
+                            </text>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

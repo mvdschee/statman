@@ -12,14 +12,15 @@
 		<meta property="og:site_name" content="Statman">
 		<meta property="og:title" content="Statman">
 		<meta property="og:description" content="Tracking and managing your story can be challenging, in order to help you engage with your story on a deeper level we developed a tool. The tool allows you to track your story on multiple platforms.">
-		<meta property="og:image" content="https://statman.nl/image.png">
+		<meta property="og:image" content="{{ URL::asset("/resources/assets/img/statman.svg") }}">
 		<meta name="description" content="Tracking and managing your story can be challenging, in order to help you engage with your story on a deeper level we developed a tool. The tool allows you to track your story on multiple platforms.">
 		<meta name="keywords" content="statman,analytics,tracking,social media">
 		<meta name="author" content="YumYum">
 		<meta itemprop="name" content="Statman">
 		<meta itemprop="headline" content="Statman">
 		<meta itemprop="description" content="Tracking and managing your story can be challenging, in order to help you engage with your story on a deeper level we developed a tool. The tool allows you to track your story on multiple platforms.">
-		<meta itemprop="image" content="https://statman.nl/image.png">
+		<meta itemprop="image" content="{{ URL::asset("/resources/assets/img/statman.svg") }}">
+		<link rel="shortcut icon" href="{{ URL::asset("/resources/assets/img/statman-line.svg") }}">
 
 		<title>Statman | Home</title>
 
@@ -79,7 +80,7 @@
 				<li class="navigation-item"><a href="#" itemprop="url">Help</a></li>
 			</ul>
 			<h3>Statman</h3>
-			<p><3 YumYum</p>
+			<p><img src="{{ URL::asset("/resources/assets/img/heart.png") }}" alt="heart"> YumYum</p>
 		</footer>
 		<script src={{ URL::asset("/resources/assets/js/resources/classtoggle.min.js") }}></script>
 		<script src={{ URL::asset("/resources/assets/js/home.js") }}></script>
