@@ -29,25 +29,29 @@ Route::get('/dashboard/{project_id}/get-page', 'DashboardController@getSocialMed
 Route::post('/dashboard/delete-page', 'DashboardController@deleteProject');
 Route::post('/dashboard/{project_id}/save-story', 'DashboardController@saveStory');
 
-Route::get('/create-story', 'CreateStoryController@index')->middleware('auth')->name('create-story');
-Route::post('/create-story', 'CreateStoryController@store')->middleware('auth')->name('create-story');
+Route::get('/create-story', 'CreateStoryController@index')->middleware('auth', 'verified')->name('create-story');
+Route::post('/create-story', 'CreateStoryController@store')->middleware('auth', 'verified')->name('create-story');
 
-Route::get('/story-list', 'ListStoriesController@index')->middleware('auth')->name('story-list');
-Route::post('/story-list', 'ListStoriesController@options')->middleware('auth')->name('story-list');
-Route::post('/story-list/favorite', 'ListStoriesController@favoriteProject')->middleware('auth')->name('favoriteProject');
+Route::get('/story-list', 'ListStoriesController@index')->middleware('auth', 'verified')->name('story-list');
+Route::post('/story-list', 'ListStoriesController@options')->middleware('auth', 'verified')->name('story-list');
+Route::post('/story-list/favorite', 'ListStoriesController@favoriteProject')->middleware('auth', 'verified')->name('favoriteProject');
 
-Route::get('/add-user', 'AddUserController@index')->middleware('auth')->name('add-user');
-Route::post('/add-user', 'AddUserController@sendInvite')->middleware('auth')->name('add-user');
+Route::get('/add-user', 'AddUserController@index')->middleware('auth', 'verified')->name('add-user');
+Route::post('/add-user', 'AddUserController@sendInvite')->middleware('auth', 'verified')->name('add-user');
 
-Route::get('/dashboard', 'DashboardController@noArgument')->middleware('auth')->name('dashboard');
-Route::get('/dashboard/{project_id}', 'DashboardController@index')->middleware('auth')->name('dashboard');
+Route::get('/dashboard', 'DashboardController@noArgument')->middleware('auth', 'verified')->name('dashboard');
+Route::get('/dashboard/{project_id}', 'DashboardController@index')->middleware('auth', 'verified')->name('dashboard');
 
-Route::get('/invited/{token}', 'InvitedController@index')->middleware('auth')->name('invited');
+Route::get('/invited/{token}', 'InvitedController@index')->middleware('auth', 'verified')->name('invited');
 
-Route::get('/add-service/{project_id}/', 'AddServiceController@index')->middleware('auth')->name('add-service');
-Route::post('/add-service/save-page', 'AddServiceController@savePage')->middleware('auth')->name('add-service');
+Route::get('/add-service/{project_id}/', 'AddServiceController@index')->middleware('auth', 'verified')->name('add-service');
+Route::post('/add-service/save-page', 'AddServiceController@savePage')->middleware('auth', 'verified')->name('add-service');
 
-Route::get('/settings', 'SettingsController@index')->middleware('auth')->name('settings');
-Route::post('/settings', 'SettingsController@updateProfile')->middleware('auth')->name('settings');
+Route::get('/settings', 'SettingsController@index')->middleware('auth', 'verified')->name('settings');
+Route::post('/settings', 'SettingsController@updateProfile')->middleware('auth', 'verified')->name('settings');
+
+Route::get('/verify', 'VerifyController@index')->middleware('auth')->name('verify');
+Route::post('/verify', 'VerifyController@verify')->middleware('auth')->name('verify');
+Route::get('/getnewtoken', 'VerifyController@NewToken')->middleware('auth')->name('NewToken');
 
 Auth::routes();
