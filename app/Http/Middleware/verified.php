@@ -16,6 +16,8 @@ class verified
      * @param  \Closure  $next
      * @return mixed
      */
+
+   //   check if logged in user is verified
     public function handle($request, Closure $next)
     {
         $user = Auth::user();

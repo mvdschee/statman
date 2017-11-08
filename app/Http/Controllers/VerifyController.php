@@ -11,6 +11,9 @@ use Redirect;
 
 class VerifyController extends Controller
 {
+
+// display view to verify
+
  	public function index($error = null)
    {
       $user = Auth::user();
@@ -20,7 +23,6 @@ class VerifyController extends Controller
       } else {
          return view('verify');
       }
-      // print(strtotime($user['expiretime']));
    }
 
 
@@ -30,88 +32,109 @@ class VerifyController extends Controller
     *
     * @param  array  $data
     * @return \Illuminate\Contracts\Validation\Validator
-    */
-   // protected function validator(Request $request)
-   // {
-   //    $request_data = $request->All();
-   //    return Validator::make($request, [
-   //         'token' => 'required|min:5|max:6',
-   //    ]);
-   // }
+    **/
 
+
+// Verification function
    public function verify(Request $request)
    {
 
+   // Check if given input CAN be valid
    $this->validate($request, [
         'token' => 'required|min:6|max:6',
     ]);
 
+   //  Get error messages
+   $messages = '';
 
-      $messages = '';
-      //gets all user data
-      $request_data = $request->All();
-      $user = Auth::user();
-      // defines expiretime as timestamp
-      $expiretime = strtotime($user->updated_at) + 43200;
+   //gets all user data
+   $request_data = $request->All();
+   $user = Auth::user();
 
-      // gets date
-      $datecurrent = date("Y-m-d h:i:s");
-      // defines date as timestamp
-      $datecurrent = strtotime($datecurrent);
+   // defines expiretime as timestamp
+   $expiretime = strtotime($user->updated_at) + 43200;
 
+   // gets date
+   $datecurrent = date("Y-m-d h:i:s");
 
-      if($user->verifycount < 6) {
+   // defines date as timestamp
+   $datecurrent = strtotime($datecurrent);
 
-         if($datecurrent <= $expiretime){
+   // Check if user is still allowed to verify
+   if($user->verifycount < 6) {
 
-            if($request_data['token'] == $user['verificationkey']){
+      // Check if token from database is still valid
+      if($datecurrent <= $expiretime){
 
-               $user->verified = true;
-               $user->save();
-               return redirect('/story-list');
+         // Check if given input is the same as the token
+         if($request_data['token'] == $user['verificationkey']){
 
-            } else {
+            // verify the user
+            $user->verified = true;
+            $user->save();
+            return redirect('/story-list');
 
-               $messages = 'This token is not correct.';
-               $user->verifycount = $user->verifycount + 1;
-               $user->save();
-               return Redirect::action('VerifyController@index')->withErrors($messages);
-            }
          } else {
-            $messages = 'This token has expired';
-            return view('verify', ['expire' => true])->withErrors($messages);
+            // don't verify the user, add attempt to the count of attempts
+            $messages = 'This token is not correct.';
+            $user->verifycount = $user->verifycount + 1;
+            $user->save();
+            return Redirect::action('VerifyController@index')->withErrors($messages);
          }
       } else {
-         $messages = 'You fucked up fam.';
-         $user->verificationkey = 0;
-         $user->save();
-         return Redirect::action('VerifyController@index')->withErrors($messages);
+         // The token has expired, new token can be requested
+         $messages = 'This token has expired';
+         return view('verify', ['expire' => true])->withErrors($messages);
       }
+   } else {
+      // This user is blocked from attempting to verify, giving errormessage and setting the token to 0 to block any attempt of verifying the account
+      $messages = 'You have attempted to verify your account too many times without success.';
+      $user->verificationkey = 0;
+      $user->save();
+      return Redirect::action('VerifyController@index')->withErrors($messages);
+   }
    }
 
+// Request new token
    public function NewToken()
    {
+      // Get messages
       $messages = '';
+
+      // Get user data
       $user = Auth::user();
+
+      // Check if the user is allowed to request a new token
       if($user->verifycount <= 6 || $user->verificationkey !== 0) {
+         // generate random token
          $verificationkey = mt_rand(100000, 999999);
+
+         // get email from session
          $SessionMail = Session::get( 'email' );
+         // set token to verify
          $user->verificationkey = $verificationkey;
+         // reset attempt counter
          $user->verifycount = 0;
          $user->save();
+
+         // get user email and set up a message
          $user->SessionMail = $SessionMail;
          $messages = 'A new token has been sent to you.';
 
+         // send email
          Mail::send('emails.token', ['user' => $user, 'token' => $verificationkey], function ($m) use ($user) {
                $m->from(env('MAIL_FROM'), env('MAIL_NAME'));
                $m->to($user->SessionMail, $user->firstname)->subject('You have requested a new verification token.');
          });
 
+         // redirect to verification page
          return redirect('verify')->withErrors($messages);
       } else {
-         $messages = 'You fucked up fam.';
+         $messages = 'Your account cannot request a new token.';
          $user->verificationkey = 0;
          $user->save();
+
+         // redirect to verification page
          return Redirect::action('VerifyController@index')->withErrors($messages);
       }
    }
