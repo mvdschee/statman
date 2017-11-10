@@ -12,17 +12,24 @@
 */
 
 Route::get('/', function () {
+	$title = 'Home';
+
 	if(!session('check')){
 		$message = '';
 	}
 	else{
 		$message = session('check');
 	}
-    return view('home', compact('message'));
+    return view('home', compact('message', 'title'));
 });
 
 Route::get('/home', function () {
 	return redirect('/');
+});
+
+Route::get('/privacy', function () {
+	$title = 'Privacy';
+	return view('privacy', compact('title'));
 });
 
 Route::get('/dashboard/{project_id}/get-page', 'DashboardController@getSocialMedia');

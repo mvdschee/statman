@@ -22,7 +22,7 @@
 		<meta itemprop="image" content="{{ URL::asset("/resources/assets/img/statman.svg") }}">
 		<link rel="shortcut icon" href="{{ URL::asset("/resources/assets/img/statman-line.svg") }}">
 
-		<title>Statman | Home</title>
+		<title>Statman | {{ isset($title) ? $title : 'title' }}</title>
 
 		<link rel="stylesheet" href="{{ URL::asset("/resources/assets/css/home.css") }}">
 
@@ -65,7 +65,7 @@
 		</header>
 		<span class="trigger_2 black-filter execute_1 execute_2"></span>
 		<div class="content-wrapper">
-			<main class="main" itemprop="mainContentOfPage">
+			<main class="main {{ isset($title) ? $title : 'undefined' }}" itemprop="mainContentOfPage">
 				@yield('content')
 			</main>
 		</div>
@@ -73,14 +73,14 @@
 		<footer class="footer" itemscope itemtype="https://schema.org/WPFooter">
 			<h2 class="nocontent hide-from-layout">Footer</h2>
 			<ul class="navigation-group">
-				<li class="navigation-item"><a href="#" itemprop="url">Privacy</a></li>
-				<li class="navigation-item"><a href="#" itemprop="url">About</a></li>
-				<li class="navigation-item"><a href="#" itemprop="url">Terms</a></li>
-				<li class="navigation-item"><a href="#" itemprop="url">Contact</a></li>
-				<li class="navigation-item"><a href="#" itemprop="url">Help</a></li>
+				<li class="navigation-item"><a href="{{ url('/privacy') }}" itemprop="url">Privacy</a></li>
+				{{-- <li class="navigation-item"><a href="#" itemprop="url">About</a></li> --}}
+				{{-- <li class="navigation-item"><a href="#" itemprop="url">Terms</a></li> --}}
+				{{-- <li class="navigation-item"><a href="#" itemprop="url">Contact</a></li> --}}
+				{{-- <li class="navigation-item"><a href="#" itemprop="url">Help</a></li> --}}
 			</ul>
 			<h3>Statman</h3>
-			<p><img src="{{ URL::asset("/resources/assets/img/heart.png") }}" alt="heart"> YumYum</p>
+			<p>with <img src="{{ URL::asset("/resources/assets/img/pompebled.svg") }}" alt="heart"> from YumYum</p>
 		</footer>
 		<script src={{ URL::asset("/resources/assets/js/resources/classtoggle.min.js") }}></script>
 		<script src={{ URL::asset("/resources/assets/js/home.js") }}></script>
