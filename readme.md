@@ -3,7 +3,7 @@
 
 ## About Statman :ok_hand:
 
-Statman is a web application with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Statman attempts to take the pain out of development by easing common tasks used in the majority of web projects, Statman is accessible, yet powerful, providing tools needed for large, robust story worlds. A superb combination of simplicity, elegance, and innovation give you tools you need to build any story world with which you are tasked.
+Statman is a web application with expressive, elegant syntax. We believe storytelling must be an enjoyable, creative experience to be truly fulfilling. Statman attempts to take the pain out of storytelling by easing common tasks used in the majority of storytelling projects, Statman is accessible, yet powerful, providing tools needed for large, robust story worlds. A superb combination of simplicity, elegance, and innovation give you tools you need to build any story world with which you are tasked.
 
 ## Running Statman :running:
 
@@ -11,7 +11,7 @@ Just use Docker [docker image](https://hub.docker.com/r/maxvanderschee/laravel/)
 
 ## Contributing :sparkles:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+Thank you, but no!
 
 ## Security Vulnerabilities :unlock:
 
