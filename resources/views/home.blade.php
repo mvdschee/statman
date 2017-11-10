@@ -29,7 +29,7 @@
       </ul>
       <article class="social-content">
         <h1>Social media platforms</h1>
-        <p>Tracking and managing your story can be challenging, in order to help you engage with your story on a deeper level we developed a tool. The tool allows you to track your story on.</p>
+        <p>Tracking and managing your story can be challenging, in order to help you engage with your story on a deeper level we made Statman. The tool allows you to track your story on multiple platforms.</p>
       </article>
     </section>
 
