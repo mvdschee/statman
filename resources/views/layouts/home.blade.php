@@ -8,17 +8,17 @@
 		<meta name="robots" content="index, follow">
 		<meta property="og:type" content="website">
 		<meta property="og:url" content="https://statman.nl/">
-		<meta property="og:locale" content="nl_NL">
+		<meta property="og:locale" content="en_US">
 		<meta property="og:site_name" content="Statman">
 		<meta property="og:title" content="Statman">
-		<meta property="og:description" content="Tracking and managing your story can be challenging, in order to help you engage with your story on a deeper level we developed a tool. The tool allows you to track your story on multiple platforms.">
+		<meta property="og:description" content="Tracking and managing your story can be challenging, in order to help you engage with your story on a deeper level we developed Statman. The tool allows you to track your story on multiple platforms.">
 		<meta property="og:image" content="{{ URL::asset("/resources/assets/img/statman.svg") }}">
-		<meta name="description" content="Tracking and managing your story can be challenging, in order to help you engage with your story on a deeper level we developed a tool. The tool allows you to track your story on multiple platforms.">
-		<meta name="keywords" content="statman,analytics,tracking,social media">
+		<meta name="description" content="Tracking and managing your story can be challenging, in order to help you engage with your story on a deeper level we developed Statman. The tool allows you to track your story on multiple platforms.">
+		<meta name="keywords" content="statman,analytics,tracking,social media,facebook,storyworld,yumyum,managing,engage">
 		<meta name="author" content="YumYum">
 		<meta itemprop="name" content="Statman">
 		<meta itemprop="headline" content="Statman">
-		<meta itemprop="description" content="Tracking and managing your story can be challenging, in order to help you engage with your story on a deeper level we developed a tool. The tool allows you to track your story on multiple platforms.">
+		<meta itemprop="description" content="Tracking and managing your story can be challenging, in order to help you engage with your story on a deeper level we developed Statman. The tool allows you to track your story on multiple platforms.">
 		<meta itemprop="image" content="{{ URL::asset("/resources/assets/img/statman.svg") }}">
 		<link rel="shortcut icon" href="{{ URL::asset("/resources/assets/img/statman-line.svg") }}">
 
