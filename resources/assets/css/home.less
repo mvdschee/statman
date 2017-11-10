@@ -107,14 +107,14 @@ table{
     thead{
         border-bottom: 2px solid @grey;
         th{
-            padding: @spacing;
+            padding: @spacing*0.5;
         }
     }
     tbody{
         tr{
             border-bottom: 1px solid @grey;
             td{
-                padding: @spacing;
+                padding: @spacing*0.5;
             }
         }
         tr:nth-child(even){
@@ -145,15 +145,15 @@ table{
   padding: 6rem @spacing @spacing*2;
   position: relative;
   color: @white;
+  overflow: hidden;
 
   &:before{
     content: '';
     display: block;
     width: 101%;
-    height: 12vw;
+    height: 13vw;
     position: absolute;
     top: -2px;
-    left: -3px;
     background-image: url('../img/footer.svg');
     background-size: cover;
     background-repeat: no-repeat;
@@ -244,6 +244,7 @@ table{
   position: relative;
   padding: @spacing*8 0 0;
   color: @white;
+  overflow: hidden;
 
   &:after{
     content: '';
@@ -252,7 +253,6 @@ table{
     width: 101%;
     height: 23vw;
     bottom: -2px;
-    left: -3px;
     background-image: url('../img/hero-bottom.svg');
     background-size: cover;
     background-repeat: no-repeat;
@@ -278,7 +278,7 @@ table{
   }
 
   .text{
-    padding: 0 0 0 10rem;
+    padding: 0 0 0 10%;
   }
 
   .buttons{
@@ -305,16 +305,49 @@ table{
 
 // social
 .social{
-  height: 20rem;
   background: @white;
 }
 
 .social-group{
   .displayflex();
   .justify-content(space-around);
-  .translateY(-50px);
+  .translateY(-26px);
   width: 80%;
   margin: 0 auto;
+}
+
+.social-item{
+  width: 150px;
+  height: 150px;
+
+  img{
+    width: 100px;
+    margin: 0 25px;
+  }
+
+  &:nth-child(1){
+    img{
+      .translateY(0px);
+    }
+  }
+
+  &:nth-child(2){
+    img{
+      .translateY(-20px);
+    }
+  }
+
+  &:nth-child(3){
+    img{
+      .translateY(-40px);
+    }
+  }
+
+  &:nth-child(4){
+    img{
+      .translateY(-60px);
+    }
+  }
 }
 
 .social-content{
@@ -371,6 +404,7 @@ table{
 .security-group{
   .displayflex();
   .justify-content(space-around);
+  .flex-wrap(wrap);
   padding: @spacing*2 0;
 }
 
@@ -405,7 +439,7 @@ table{
 
   img{
     display: block;
-    width: 30rem;
+    width: 25rem;
     margin: 0 auto;
   }
 
@@ -457,20 +491,99 @@ table{
 	html {
 		font-size: 85%;
 	}
+  .hero .text{
+    padding: 0 0 0 @spacing;
+  }
 }
 // tablet
 @media all and (max-width: 768px) {
 	html {
 		font-size: 80%;
 	}
-}
-@media all and (max-width: 704px) {
+  .left,.right{
+    width: 100%;
+    float: none;
+  }
 
+  .hero{
+    padding: @spacing*3.5 0 0;
+
+    h2,p{
+      text-align: center;
+    }
+
+    .text{
+      padding: 0 @spacing;
+    }
+
+    .buttons{
+      float: none;
+      text-align: center;
+    }
+  }
+
+  .social-group{
+    width: 100%;
+    .translateY(0);
+  }
+
+  .social-content{
+    width: 80%;
+    padding: @spacing;
+  }
+  .storyworld-text{
+    width: 80%;
+    margin: 0 auto;
+    padding: @spacing;
+    text-align: center;
+  }
+
+  .call-to-action-text{
+    padding: @spacing;
+    text-align: center;
+  }
+
+  .Privacy{
+
+    .hero{
+      height: 20rem;
+    }
+
+    .default-text{
+      padding: @spacing @spacing*4 @spacing*2;
+    }
+  }
+}
+
+@media all and (max-width: 500px) {
+  .social-group{
+    .translateY(30px);
+  }
+
+  .social-item img {
+      margin: 0;
+      padding: 10px;
+  }
 }
 
 // mobile L
-@media all and (max-width: 425px) {
+@media all and (max-width: 426px) {
+  .social-content{
+    width: 100%;
+  }
+  .storyworld-text{
+    width: 100%;
+  }
+  .social-group{
+    .translateY(60px);
+  }
 
+  .Privacy{
+
+    .default-text{
+      padding: @spacing @spacing @spacing*2;
+    }
+  }
 }
 // mobile M
 @media all and (max-width: 375px) {}
