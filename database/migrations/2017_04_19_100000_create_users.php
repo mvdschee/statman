@@ -19,6 +19,9 @@ class CreateUsers extends Migration
             $table->string('email')->unique();
             $table->string('password');
             $table->integer('favorite')->nullable();
+            $table->integer('verificationkey')->nullable();
+            $table->integer('verifycount')->default(0);
+            $table->boolean('verified')->default(false);
             $table->rememberToken();
             $table->timestamps();
         });

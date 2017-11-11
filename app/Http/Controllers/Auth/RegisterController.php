@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\User;
 use Session;
+use Mail;
 use Jenssegers\Agent\Agent;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Validator;
@@ -32,7 +33,7 @@ class RegisterController extends Controller
      *
      * @var string
      */
-    protected $redirectTo = '/create-story';
+    protected $redirectTo = '/verify';
 
     /**
      * Create a new controller instance.
@@ -81,11 +82,18 @@ class RegisterController extends Controller
         // get email from login and store it in the session
         $SessionMail = $data["email"];
         Session::put('email', $SessionMail);
+        $verificationkey = mt_rand(100000, 999999);
+        $user = $data['name'];
+        Mail::send('emails.token', ['user' => $data['name'], 'token' => $verificationkey], function ($m) use ($data) {
+             $m->from(env('MAIL_FROM'), env('MAIL_NAME'));
+             $m->to($data["email"], $data['name'])->subject('You have requested a new verification token.');
+        });
 
         return User::create([
             'name' => encrypt($data['name']),
             'email' => hash('sha256', $data['email']),
             'password' => bcrypt($data['password']),
+            'verificationkey' => $verificationkey,
         ]);
     }
 }

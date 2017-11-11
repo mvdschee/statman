@@ -27,7 +27,7 @@ class DashboardController extends Controller
         else{
             //looks up the story from the url in the database
             $project = Project::where('id', $project_id)->first();
-            
+
             //if the story does not exist, return to story list and give error
             if ($project == null) {
                 $message = 'You have no access to this story or it does not exist.';
@@ -36,7 +36,7 @@ class DashboardController extends Controller
 
             //Gets all the services with the project id from the previous query
             $pages = Service::where('project_id', $project->id)->get();
-            
+
             //decrypt the story name
             $project->project_name = decrypt($project->project_name);
 
@@ -130,7 +130,7 @@ class DashboardController extends Controller
             $invite->delete();
         }
 
-        if($user->favorite == $project){    
+        if($user->favorite == $project){
             $user->favorite = null;
             $user->save();
         }

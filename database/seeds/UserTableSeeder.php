@@ -13,6 +13,8 @@ class UserTableSeeder extends Seeder
             'name'=> encrypt('Henk de Vries'),
             'email'    => hash('sha256', 'test@test.nl'),
             'password' => bcrypt('1234567890'),
+            'verificationkey' => 123456,
+            'verified' => 1,
         ));
     }
 }
