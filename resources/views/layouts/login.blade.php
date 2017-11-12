@@ -6,30 +6,38 @@
 		<meta http-equiv="content-type" content="text/html; charset=utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge">
 		<meta name="robots" content="index, follow">
-
 		<meta property="og:type" content="website">
 		<meta property="og:url" content="https://statman.nl/">
-		<meta property="og:locale" content="nl_NL">
+		<meta property="og:locale" content="en_US">
 		<meta property="og:site_name" content="Statman">
 		<meta property="og:title" content="Statman">
-		<meta property="og:description" content="Statman is a tool to track the behavior of your targeted audience and engagement throughout a selection of platforms.">
-		<meta property="og:image" content="https://statman.nl/image.png">
-
-		<meta name="description" content="Statman is a tool to track the behavior of your targeted audience and engagement throughout a selection of platforms.">
-		<meta name="keywords" content="statman,analytics,tracking,social media">
-		<meta name="author" content="DataBoyz">
-
+		<meta property="og:description" content="Tracking and managing your story can be challenging, in order to help you engage with your story on a deeper level we developed Statman. The tool allows you to track your story on multiple platforms.">
+		<meta property="og:image" content="{{ URL::asset("/resources/assets/img/statman.svg") }}">
+		<meta name="description" content="Tracking and managing your story can be challenging, in order to help you engage with your story on a deeper level we developed Statman. The tool allows you to track your story on multiple platforms.">
+		<meta name="keywords" content="statman,analytics,tracking,social media,facebook,storyworld,yumyum,managing,engage">
+		<meta name="author" content="YumYum">
 		<meta itemprop="name" content="Statman">
 		<meta itemprop="headline" content="Statman">
-		<meta itemprop="description" content="Statman is a tool to track the behavior of your targeted audience and engagement throughout a selection of platforms.">
-		<meta itemprop="image" content="https://statman.nl/image.png">
-
-		<meta name="apple-mobile-web-app-title" content="Statman">
-		<meta name="application-name" content="Statman">
-		<meta name="theme-color" content="#000000">
-		<link rel="shortcut icon" href="{{ URL::asset("/resources/assets/img/favicon.ico") }}">
-		<title>Statman</title>
+		<meta itemprop="description" content="Tracking and managing your story can be challenging, in order to help you engage with your story on a deeper level we developed Statman. The tool allows you to track your story on multiple platforms.">
+		<meta itemprop="image" content="{{ URL::asset("/resources/assets/img/statman.svg") }}">
+		<link rel="shortcut icon" href="{{ URL::asset("/resources/assets/img/statman-line.svg") }}">
 		<link rel="stylesheet" href="{{ URL::asset("/resources/assets/css/app.css") }}">
+
+		<title>Statman | Login</title>
+
+		<script type="text/javascript">
+			var _paq = _paq || [];
+			_paq.push(['trackPageView']);
+			_paq.push(['enableLinkTracking']);
+			(function() {
+				var u="https://analytics.ewake.nl/";
+				_paq.push(['setTrackerUrl', u+'piwik.php']);
+				_paq.push(['setSiteId', '6']);
+				var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+				g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+			})();
+		</script>
+		<noscript><p><img src="https://analytics.ewake.nl/piwik.php?idsite=6&rec=1" style="border:0;" alt="" /></p></noscript>
 	</head>
 	<body onload="loadPage()" class="setup">
 
