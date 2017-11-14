@@ -15,8 +15,8 @@ class InvitedController extends Controller
     	$user = Auth::user();
 
     	//checks the token for the info it contains
-        $token_check = $this->tokenCheck($token, $user);
-        
+      $token_check = $this->tokenCheck($token, $user);
+
     	//requests the useraccess to see the users of the project
     	$user_accounts = UserAccess::where('project_id', $token_check->project_id)->get();
 
@@ -36,6 +36,7 @@ class InvitedController extends Controller
     		return redirect('/story-list')->with('check', $check);
     	}
     	else{
+         // add user to useraccess
     		$this->saveUser($token_check, $user);
             $token_check->delete();
 
@@ -45,29 +46,28 @@ class InvitedController extends Controller
     }
 
     public function tokenCheck($token, $user){
-        $token_check = InviteToken::where([
+      //   Checks token
+     $token_check = InviteToken::where([
                         ['token', '=', $token],
                         ['invited_email', '=', $user->email]
                     ])->first();
 
-        if ($token_check == null) {
-            $check = 'This invite is not valid for you.';
-            return redirect('/story-list')->with('check', $check);
-        }
+   //   token may not be empty
+     if ($token_check == null) {
+         $check = 'This invite is not valid for you.';
+         return redirect('/story-list')->with('check', $check);
+     }
 
-        if ($token_check->project_id == null) {
-            $check = 'It looks like something went wrong. Please try again later.';
-            return redirect('/story-list')->with('check', $check);
-        }
+   //   token must have a project id attached
+     if ($token_check->project_id == null) {
+         $check = 'It looks like something went wrong. Please try again later.';
+         return redirect('/story-list')->with('check', $check);
+     }
 
-        return $token_check;
-    }
+     return $token_check;
+   }
 
     public function saveUser($token_check, $user){
-        $access = New UserAccess;
-        $access->user_id = $user->id;
-        $access->role_index_id = $token_check->role_index_id;
-        $access->project_id = $token_check->project_id;
-        $access->save();
+        $access = New UserAccess($user->id, $token_check->role_index_id, $token_check->project_id);
     }
 }

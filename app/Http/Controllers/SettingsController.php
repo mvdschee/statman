@@ -35,8 +35,7 @@ class SettingsController extends Controller
             $rules = [
                 'fullname' => 'required'
             ];
-        }
-        elseif($data['current_password'] || $data['password'] || $data['password_confirmation']){
+        } elseif($data['current_password'] || $data['password'] || $data['password_confirmation']){
             $rules = [
                 'current_password' => 'required',
                 'password' => 'required|same:password',
@@ -58,7 +57,6 @@ class SettingsController extends Controller
         $password = $request_data['password'];
         $password_confirmation = $request_data['password_confirmation'];
         $fullname = $request_data['fullname'];
-
         if($fullname){
             $this->updateName($fullname);
             $fullnameMessage = 'Profile updated!';
