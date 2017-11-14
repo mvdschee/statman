@@ -34,10 +34,6 @@ Some issues are created with missing information, not reproducible, or plain inv
 - Use a clear and descriptive title for the pull request and commits.
 - You might be asked to do changes to your pull request. There's never a need to open another pull request. [Just update the existing one.](https://github.com/RichardLitt/docs/blob/master/amending-a-commit-guide.md)
 
-## Code Style
-Follow the [xo](https://github.com/sindresorhus/xo) style.
-Using two spaces for identation and no [semicolons](http://blog.izs.me/post/2353458699/an-open-letter-to-javascript-leaders-regarding).
-
 ## Commit Message Emoji
 
 Every commit is important.
