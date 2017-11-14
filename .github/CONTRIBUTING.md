@@ -15,10 +15,6 @@ As a user of Lozad.js, you're the perfect candidate to help us improve our docum
 
 Some issues are created with missing information, not reproducible, or plain invalid. Help make them easier to resolve. Handling issues takes a lot of time that we could rather spend on fixing bugs and adding features.
 
-### Give feedback on issues
-
-We're always looking for more opinions on discussions in the issue tracker. It's a good opportunity to influence the future direction of Lozad.js
-
 ## Reporting Issues
 
 - Found a problem? Want a new feature? First of all see if your issue or idea has [already been reported](https://github.com/mvdschee/statman/issues).
@@ -34,7 +30,7 @@ We're always looking for more opinions on discussions in the issue tracker. It's
 - New features should be accompanied with tests and documentation.
 - Don't include unrelated changes.
 - Lint and test before submitting the pull request.
-- Make the pull request from a **feature branch**to dev branch.
+- Make the pull request from a **feature branch** to dev branch.
 - Use a clear and descriptive title for the pull request and commits.
 - You might be asked to do changes to your pull request. There's never a need to open another pull request. [Just update the existing one.](https://github.com/RichardLitt/docs/blob/master/amending-a-commit-guide.md)
 
