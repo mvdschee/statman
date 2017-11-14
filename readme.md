@@ -11,7 +11,7 @@ Just use Docker [docker image](https://hub.docker.com/r/maxvanderschee/laravel/)
 
 ## Contributing :sparkles:
 
-Thank you, but no!
+Thank you, read here how: [Contributing](https://github.com/mvdschee/statman/blob/master/.github/CONTRIBUTING.md)
 
 ## Security Vulnerabilities :unlock:
 
