@@ -14,14 +14,13 @@ class AddServiceController extends Controller
 
     public function savePage(Request $request)
     {
-    	$service = New Service;
-    	$service->service_index = $request->service_index;
-    	$service->project_id = $request->project_id;
-    	$service->service_token = encrypt($request->service_token);
-    	$service->service_page_name = encrypt($request->name);
-    	$service->save();
+    	//Make new service
+        $service = New Service;
 
-    	$check = 'You have successfully added page '.$request->name.' to your story.';
-    	return redirect('/dashboard/'.$request->project_id)->with('message', $check);
+        //set and save project_id, project_index, service_token and service_page_name
+        $service = $service->setService($service, $request);
+
+    	$check = 'You have successfully added page '.$service->service_page_name.' to your story.';
+    	return redirect('/dashboard/'.$service->project_id)->with('message', $check);
     }
 }
