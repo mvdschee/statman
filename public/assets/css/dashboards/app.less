@@ -14,7 +14,7 @@
 //-----------------------------------
 //              Mixins
 //-----------------------------------
-@import "bundle/mixins";
+@import "../global/mixins";
 //-----------------------------------
 //              Variable
 //-----------------------------------
@@ -56,8 +56,8 @@
 //              Resets
 //-----------------------------------
 
-@import "bundle/reset";
-@import "bundle/normalize";
+@import "../global/reset";
+@import "../global/normalize";
 //-----------------------------------
 //              Fonts
 //-----------------------------------
@@ -69,12 +69,12 @@
 
 @font-face {
     font-family: 'OpenSans';
-    src: url('../fonts/OpenSans-Regular.ttf');
+    src: url('../../fonts/OpenSans-Regular.ttf');
 }
 
 @font-face {
     font-family: 'icons-font';
-    src: url('../fonts/icons-font.ttf');
+    src: url('../../fonts/icons-font.ttf');
 }
 
 html{
@@ -120,7 +120,7 @@ html, body{
 }
 
 // header
-@import "bundle/navigation";
+@import "navigation";
 // end header
 
 .full-width{
@@ -150,7 +150,7 @@ input{
     &:focus{
         outline: none;
         border-bottom: 1px solid @loginPrim;
-        background: url(../img/arrow.svg) 6px center no-repeat;
+        background: url(../../img/arrow.svg) 6px center no-repeat;
 
     }
 
@@ -246,7 +246,7 @@ button{
             height: 100%;
             z-index: 1;
             opacity: 0.4;
-            background-image: url('../img/progress_pattern.png');
+            background-image: url('../../img/progress_pattern.png');
             background-repeat: repeat;
         }
     }
@@ -260,7 +260,7 @@ button{
         border-radius: 50%;
         background-color: @loginCircle;
         z-index: 2;
-        background-image: url('../img/progress_icon.png');
+        background-image: url('../../img/progress_icon.png');
         background-repeat: no-repeat;
         background-position: center;
         color: transparent;
@@ -450,7 +450,7 @@ button{
             height: 100%;
             z-index: 1;
             opacity: 0.4;
-            background-image: url('../img/progress_pattern.png');
+            background-image: url('../../img/progress_pattern.png');
             background-repeat: repeat;
             .background-size(50px);
         }
@@ -797,7 +797,7 @@ i.icon-plus{
         background-color: @white;
         background-repeat: repeat;
         border: 1px solid @border;
-        background-image: url('/resources/assets/img/background_sw.png');
+        background-image: url('../../img/background_sw.png');
         background-size: 100px;
 
         g:hover{
@@ -1098,4 +1098,4 @@ table{
 //-----------------------------------
 //          Responsive
 //-----------------------------------
-@import "bundle/responsive";
+@import "responsive";

@@ -1,0 +1,111 @@
+@media all and (min-width: 2035px) {
+}
+// laptop L
+@media all and (max-width: 1440px) {
+	html {
+		font-size: 95%;
+	}
+}
+// laptop
+@media all and (max-width: 1024px) {
+	html {
+		font-size: 85%;
+	}
+  .hero .text{
+    padding: 0 0 0 @spacing;
+  }
+}
+// tablet
+@media all and (max-width: 768px) {
+	html {
+		font-size: 80%;
+	}
+  .left,.right{
+    width: 100%;
+    float: none;
+  }
+
+  .hero{
+    padding: @spacing*3.5 0 0;
+
+    h2,p{
+      text-align: center;
+    }
+
+    .text{
+      padding: 0 @spacing;
+    }
+
+    .buttons{
+      float: none;
+      text-align: center;
+    }
+  }
+
+  .social-group{
+    width: 100%;
+    .translateY(0);
+  }
+
+  .social-content{
+    width: 80%;
+    padding: @spacing;
+  }
+  .storyworld-text{
+    width: 80%;
+    margin: 0 auto;
+    padding: @spacing;
+    text-align: center;
+  }
+
+  .call-to-action-text{
+    padding: @spacing;
+    text-align: center;
+  }
+
+  .Privacy{
+
+    .hero{
+      height: 20rem;
+    }
+
+    .default-text{
+      padding: @spacing @spacing*4 @spacing*2;
+    }
+  }
+}
+
+@media all and (max-width: 500px) {
+  .social-group{
+    .translateY(30px);
+  }
+
+  .social-item img {
+      margin: 0;
+      padding: 10px;
+  }
+}
+
+// mobile L
+@media all and (max-width: 426px) {
+  .social-content{
+    width: 100%;
+  }
+  .storyworld-text{
+    width: 100%;
+  }
+  .social-group{
+    .translateY(60px);
+  }
+
+  .Privacy{
+
+    .default-text{
+      padding: @spacing @spacing @spacing*2;
+    }
+  }
+}
+// mobile M
+@media all and (max-width: 375px) {}
+// mobile S
+@media all and (max-width: 320px) {}

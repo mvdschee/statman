@@ -24,7 +24,7 @@
 
 		<title>Statman | {{ isset($title) ? $title : 'title' }}</title>
 
-		<link rel="stylesheet" href="{{ URL::asset("assets/css/home.css") }}">
+		<link rel="stylesheet" href="{{ URL::asset("assets/css/frontpages/home.css") }}">
 
 		<script type="text/javascript">
 			var _paq = _paq || [];
@@ -83,6 +83,6 @@
 			<p>with <img src="{{ URL::asset("assets/img/pompebled.svg") }}" alt="heart"> from YumYum</p>
 		</footer>
 		<script src={{ URL::asset("assets/js/lib/classtoggle.min.js") }}></script>
-		<script src={{ URL::asset("assets/js/home.js") }}></script>
+		<script src={{ URL::asset("assets/js/frontpages/home.js") }}></script>
 	</body>
 </html>

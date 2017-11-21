@@ -21,7 +21,7 @@
 		<meta itemprop="description" content="Tracking and managing your story can be challenging, in order to help you engage with your story on a deeper level we developed Statman. The tool allows you to track your story on multiple platforms.">
 		<meta itemprop="image" content="{{ URL::asset("assets/img/statman.svg") }}">
 		<link rel="shortcut icon" href="{{ URL::asset("assets/img/statman-line.svg") }}">
-		<link rel="stylesheet" href="{{ URL::asset("assets/css/app.css") }}">
+		<link rel="stylesheet" href="{{ URL::asset("assets/css/dashboards/app.css") }}">
 
 		<title>Statman | Login</title>
 
@@ -55,6 +55,6 @@
 					@yield('content')
 				</div>
 			</div>
-		<script src={{ URL::asset("assets/js/app.js") }}></script>
+		<script src={{ URL::asset("assets/js/dashboards/app.js") }}></script>
 	</body>
 </html>

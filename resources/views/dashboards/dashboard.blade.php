@@ -54,6 +54,6 @@
 	</script>
 	<script type="text/javascript" src="{{ URL::asset("assets/js/lib/d3.min.js") }}"></script>
 	<script type="text/javascript" src="{{ URL::asset("assets/js/lib/jquery-3.2.1.js") }}"></script>
-	<script type="text/javascript" src="{{ URL::asset("assets/js/dashboard.js") }}"></script>
+	<script type="text/javascript" src="{{ URL::asset("assets/js/dashboards/dashboard.js") }}"></script>
 
 @endsection
