@@ -9,8 +9,8 @@
 		<meta name="apple-mobile-web-app-title" content="Statman">
 		<meta name="application-name" content="Statman">
 		<meta name="theme-color" content="#000000">
-		<link rel="shortcut icon" href="{{ URL::asset("/resources/assets/img/statman-line.svg") }}">
-		<link rel="stylesheet" href="{{ URL::asset("/resources/assets/css/app.css") }}">
+		<link rel="shortcut icon" href="{{ URL::asset("assets/img/statman-line.svg") }}">
+		<link rel="stylesheet" href="{{ URL::asset("assets/css/app.css") }}">
 		<title>Statman | Setup</title>
 		<script type="text/javascript">
 			var _paq = _paq || [];
@@ -30,6 +30,6 @@
 			<div class="container">
 				@yield('content')
 			</div>
-		<script src={{ URL::asset("/resources/assets/js/app.js") }}></script>
+		<script src={{ URL::asset("assets/js/app.js") }}></script>
 	</body>
 </html>
