@@ -27,7 +27,7 @@ class verified
 
         } else {
 
-           return redirect('verify');
+           return redirect('/verify');
 
         }
     }

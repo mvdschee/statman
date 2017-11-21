@@ -63,7 +63,7 @@ class DashboardController extends Controller
             $token = $this->getToken($project_id);
             $message = '';
 
-            return view('dashboard', compact('project', 'access', 'pageData', 'token', 'message'));
+            return view('dashboards.dashboard', compact('project', 'access', 'pageData', 'token', 'message'));
         }
     }
 

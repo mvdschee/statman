@@ -25,7 +25,7 @@ class SettingsController extends Controller
         $user = Auth::user();
 		$Name = decrypt( $user->name );
 
-		return view( 'settings', compact( 'SessionMail', 'Name'));
+		return view( 'dashboards.settings', compact( 'SessionMail', 'Name'));
 	}
 
     // validator for information that is changed

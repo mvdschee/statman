@@ -18,10 +18,10 @@ class VerifyController extends Controller
    {
       $user = Auth::user();
       if(!empty($error)){
-         return view('verify', ['errorauth' => $error]);
+         return view('dashboards.verify', ['errorauth' => $error]);
 
       } else {
-         return view('verify');
+         return view('dashboards.verify');
       }
    }
 
@@ -84,7 +84,7 @@ class VerifyController extends Controller
       } else {
          // The token has expired, new token can be requested
          $messages = 'This token has expired';
-         return view('verify', ['expire' => true])->withErrors($messages);
+         return view('dashboards.verify', ['expire' => true])->withErrors($messages);
       }
    } else {
       // This user is blocked from attempting to verify, giving errormessage and setting the token to 0 to block any attempt of verifying the account
@@ -128,7 +128,7 @@ class VerifyController extends Controller
          });
 
          // redirect to verification page
-         return redirect('verify')->withErrors($messages);
+         return redirect('dashboards.verify')->withErrors($messages);
       } else {
          $messages = 'Your account cannot request a new token.';
          $user->verificationkey = 0;

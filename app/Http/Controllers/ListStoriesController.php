@@ -29,7 +29,7 @@ class ListStoriesController extends Controller
 		$invites = $this->getInvites($user);
 
 		//shows the view
-		return view('story-list', compact('user', 'data', 'invites'));
+		return view('dashboards.story-list', compact('user', 'data', 'invites'));
 
 	}
 
@@ -131,7 +131,7 @@ class ListStoriesController extends Controller
                 ])->first();
 
 		if ($access) {
-			return view('add-user', compact('project'));
+			return view('dashboards.add-user', compact('project'));
 		}else{
 			$message = 'You do not have the rights to invite someone to this story.';
             return redirect('/story-list')->with('check', $message);
