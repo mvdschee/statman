@@ -23,4 +23,13 @@ class UserAccess extends Model
     protected $fillable = [
         'user_id', 'role_index_id', 'project_id',
     ];
+
+    public function setUserAccessData(UserAccess $useraccess, $user_id, $role_index_id, $project_id) {
+        $useraccess->user_id = $user_id;
+        $useraccess->role_index_id = $role_index_id;
+        $useraccess->project_id = $project_id;
+        $useraccess->save();
+
+        return $useraccess;
+    }
 }

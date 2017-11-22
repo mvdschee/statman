@@ -13,4 +13,13 @@ class Project extends Model
     * @var object
     */
     public $primarykey = 'id';
+
+    public function setProjectData(Project $project, $project_name, $story_id) {
+		$project->project_name = $project_name;
+		$project->story_id = $story_id;
+
+		$project->save();
+
+		return $project;
+	}	
 }

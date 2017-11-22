@@ -22,26 +22,14 @@ class CreateStoryController extends Controller
 		$user_id = Auth::user()->id;
 
 		$story = new Story;
-		$story->story = null;
-		$story->save();
+		$story->setStoryData($story);
 
 		$project = new Project;
-		$project->project_name = $name;
-		$project->story_id = $story->id;
-		$project->save();
-
+		$project = $project->setProjectData($project, $name, $story->id);
 		$project = Project::where('project_name', $name)->first();
-		$project_id = $project->id;
 
 		$useraccess = new UserAccess;
-		$useraccess->user_id = $user_id;
-		$useraccess->role_index_id = 1;
-		$useraccess->project_id = $project_id;
-		$useraccess->save();
-
-		if(!$user->favorite){
-			$user->favorite = $project->id;
-		}
+		$useraccess = $useraccess->setUserAccessData($useraccess, $user_id, 1, $project->id);
 
 		return redirect('/dashboard/'.$project->id);
 	}

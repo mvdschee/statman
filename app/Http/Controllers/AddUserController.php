@@ -18,8 +18,8 @@ class AddUserController extends Controller
     	return view('add-user');
     }
 
-    public function sendInvite(Request $request)
-    {
+	public function sendInvite(Request $request)
+	{
 		$user = Auth::user();
 		$user->send_email = $request->email;
 		$user->project_id = $request->project;
@@ -34,25 +34,21 @@ class AddUserController extends Controller
 		$user->role_name = $this->getRoleById($user->role_id);
 
 		Mail::send('emails.invite', ['user' => $user], function ($m) use ($user) {
-            $m->from(env('MAIL_FROM'), env('MAIL_NAME'));
-            $m->to($user->send_email, $user->firstname)->subject('Je bent uitgenodigd voor '.$user->project_name.'!');
-        });
+			$m->from(env('MAIL_FROM'), env('MAIL_NAME'));
+			$m->to($user->send_email, $user->firstname)->subject('Je bent uitgenodigd voor '.$user->project_name.'!');
+		});
 
-        $token = New InviteToken;
-        $token->token = $user->invite_token;
-        $token->role_index_id = $request->role;
-        $token->project_id = $user->project_id;
-        $token->invited_email = hash('sha256', $user->send_email);
-        $token->save();
+		$token = New InviteToken;
+		$token = $token->addInviteTokenData($token, $user, $request->role);
 
-        $data = '';
+		$data = '';
 
-        return redirect('story-list');
-    }
+		return redirect('story-list');
+	}
 
-    public function getRoleById($id)
-    {
-    	switch ($id) {
+	public function getRoleById($id)
+	{
+		switch ($id) {
 			case '1':
 				$role_name = 'Owner';
 				break;
@@ -69,6 +65,6 @@ class AddUserController extends Controller
 				$role_name = 'None';
 				break;
 		}
-    	return $role_name;
-    }
+		return $role_name;
+	}
 }
