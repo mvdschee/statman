@@ -15,7 +15,7 @@ class AddUserController extends Controller
 
     public function index()
     {
-    	return view('add-user');
+    	return view('dashboards.add-user');
     }
 
     public function sendInvite(Request $request)
@@ -47,7 +47,7 @@ class AddUserController extends Controller
 
         $data = '';
 
-        return redirect('story-list');
+        return redirect('/story-list');
     }
 
     public function getRoleById($id)

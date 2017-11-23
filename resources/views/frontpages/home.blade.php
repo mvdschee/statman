@@ -6,7 +6,7 @@
       </div>
     @endif
     <section class="hero">
-      <figure class="image right"><img src="{{ URL::asset("/resources/assets/img/workspace.svg") }}" alt="workspace"></figure>
+      <figure class="image right"><img src="{{ URL::asset("assets/img/workspace.svg") }}" alt="workspace"></figure>
       <article class="text left">
         <h2 itemprop="headline">The way you see your story, that is what we care about.</h2>
         <p>We know from experience that it is important to have a clear overview of the impact your story has with your target audience.</p>
@@ -22,10 +22,10 @@
 
     <section class="social clear">
       <ul class="social-group">
-        <li class="social-item"><img src="{{ URL::asset("/resources/assets/img/instagram.svg") }}" alt="instagram"></li>
-        <li class="social-item"><img src="{{ URL::asset("/resources/assets/img/facebook.svg") }}" alt="facebook"></li>
-        <li class="social-item"><img src="{{ URL::asset("/resources/assets/img/you-tube.svg") }}" alt="youtube"></li>
-        <li class="social-item"><img src="{{ URL::asset("/resources/assets/img/twitter.svg") }}" alt="twitter"></li>
+        <li class="social-item"><img src="{{ URL::asset("assets/img/instagram.svg") }}" alt="instagram"></li>
+        <li class="social-item"><img src="{{ URL::asset("assets/img/facebook.svg") }}" alt="facebook"></li>
+        <li class="social-item"><img src="{{ URL::asset("assets/img/you-tube.svg") }}" alt="youtube"></li>
+        <li class="social-item"><img src="{{ URL::asset("assets/img/twitter.svg") }}" alt="twitter"></li>
       </ul>
       <article class="social-content">
         <h1>Social media platforms</h1>
@@ -35,7 +35,7 @@
 
     <section class="storyworld clear">
       <figure class="storyworld-image left">
-        <img src="{{ URL::asset("/resources/assets/img/group-4.png") }}" alt="workspace">
+        <img src="{{ URL::asset("assets/img/group-4.png") }}" alt="workspace">
       </figure>
       <article class="storyworld-text right">
         <h1>The Storyworld</h1>
@@ -47,21 +47,21 @@
       <ul class="security-group">
         <li class="security-item">
           <figure>
-            <img src="{{ URL::asset("/resources/assets/img/small-server.png") }}" alt="server">
+            <img src="{{ URL::asset("assets/img/small-server.png") }}" alt="server">
           </figure>
           <h2>Security</h2>
           <p>We know you make amazing stories and we make sure to store it securely so it won't leak beforehand.</p>
         </li>
         <li class="security-item">
           <figure>
-            <img src="{{ URL::asset("/resources/assets/img/middle-server.png") }}" alt="server">
+            <img src="{{ URL::asset("assets/img/middle-server.png") }}" alt="server">
           </figure>
           <h2>Your privacy, your control</h2>
           <p>With Statman you have complete control of your content. Your privacy is not for sale, that's something we totally understand.</p>
         </li>
         <li class="security-item">
           <figure>
-            <img src="{{ URL::asset("/resources/assets/img/big-server.png") }}" alt="server">
+            <img src="{{ URL::asset("assets/img/big-server.png") }}" alt="server">
           </figure>
           <h2>Identity Protection</h2>
           <p>We care about your privacy, the data we store is unrecognizable and stored within the EU. If intruders would get through our security the stored data would not be usable in any way.</p>
@@ -71,7 +71,7 @@
 
     <section class="call-to-action clear">
       <figure class="call-to-action-image left">
-        <img src="{{ URL::asset("/resources/assets/img/balloon.svg") }}" alt="balloon">
+        <img src="{{ URL::asset("assets/img/balloon.svg") }}" alt="balloon">
       </figure>
       <article class="call-to-action-text right">
         <h1>Get started today!</h1>
