@@ -29,13 +29,6 @@
 	</head>
 
 	<body class="body" >
-		<header class="header">
-			<span class="outer-space">
-
-			</span>
-			<h1 class="project-title"></h1>
-		</header>
-
 		<section class="sidebar">
 			@if (Auth::check())
 				<div class="profile">
