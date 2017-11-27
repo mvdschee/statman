@@ -132,7 +132,8 @@ function loadStory(graph) {
       .selectAll("line")
       .data(dataset.links)
       .enter().append("line")
-        .attr("stroke-width", function(d) { return Math.sqrt(8); });
+        .attr("stroke", "#415a77")
+        .attr("stroke-width", "4px");
 
   // Setup node
   var node = svg.selectAll(".node")
@@ -145,12 +146,35 @@ function loadStory(graph) {
             .on("drag", dragged)
             .on("end", dragended));
 
+  node.append("defs")
+  .append("rect")
+    .attr("id", function(d) { return "rect_" + d.id })
+    .attr("x", -25)
+    .attr("y", -25)
+    .attr("width", 50)
+    .attr("height", 50)
+    .attr("rx", "25");
+
+  node.select("defs")
+  .append("clipPath")
+    .attr("id", function(d) { return "clip_" + d.id })
+    .append("use")
+      .attr("xlink:href", function(d) { return "#rect_" + d.id });
+
+  // // random background color
+  node.append("use")
+    .attr("xlink:href", function(d) { return "#rect_" + d.id })
+    .attr("stroke-width", "4px")
+    .attr("stroke", "#415a77")
+    .attr("fill", "#415a77");
+
   node.append("image")
-      .attr("xlink:href", function(d) { return d.image })
-      .attr("x", -25)
-      .attr("y", -25)
-      .attr("width", 50)
-      .attr("height", 50);
+    .attr("xlink:href", function(d) { return d.image })
+    .attr("clip-path", function(d) { return "url(#clip_" + d.id + ")"})
+    .attr("x", -75)
+    .attr("y", -75)
+    .attr("width", 150)
+    .attr("height", 150);
 
   node.append("svg:a")
   .attr("xlink:href", function(d){return d.url;})
