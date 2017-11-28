@@ -12,7 +12,7 @@ class CreateStoryController extends Controller
 {
 	public function index()
 	{
-		return view('create-story');
+		return view('dashboards.create-story');
 	}
 
 	public function store(Request $request)

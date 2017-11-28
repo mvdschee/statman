@@ -9,7 +9,7 @@ class AddServiceController extends Controller
 {
     public function index($project_id)
     {
-    	return view('add-service', compact('project_id'));
+    	return view('dashboards.add-service', compact('project_id'));
     }
 
     public function savePage(Request $request)

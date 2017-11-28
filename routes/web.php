@@ -20,7 +20,7 @@ Route::get('/', function () {
 	else{
 		$message = session('check');
 	}
-    return view('home', compact('message', 'title'));
+    return view('frontpages.home', compact('message', 'title'));
 });
 
 Route::get('/home', function () {
@@ -29,7 +29,7 @@ Route::get('/home', function () {
 
 Route::get('/privacy', function () {
 	$title = 'Privacy';
-	return view('privacy', compact('title'));
+	return view('frontpages.privacy', compact('title'));
 });
 
 Route::get('/dashboard/{project_id}/get-page', 'DashboardController@getSocialMedia');

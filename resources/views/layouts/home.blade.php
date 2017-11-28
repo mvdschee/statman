@@ -12,19 +12,19 @@
 		<meta property="og:site_name" content="Statman">
 		<meta property="og:title" content="Statman">
 		<meta property="og:description" content="Tracking and managing your story can be challenging, in order to help you engage with your story on a deeper level we developed Statman. The tool allows you to track your story on multiple platforms.">
-		<meta property="og:image" content="{{ URL::asset("/resources/assets/img/statman.svg") }}">
+		<meta property="og:image" content="{{ URL::asset("assets/img/statman.svg") }}">
 		<meta name="description" content="Tracking and managing your story can be challenging, in order to help you engage with your story on a deeper level we developed Statman. The tool allows you to track your story on multiple platforms.">
 		<meta name="keywords" content="statman,analytics,tracking,social media,facebook,storyworld,yumyum,managing,engage">
 		<meta name="author" content="YumYum">
 		<meta itemprop="name" content="Statman">
 		<meta itemprop="headline" content="Statman">
 		<meta itemprop="description" content="Tracking and managing your story can be challenging, in order to help you engage with your story on a deeper level we developed Statman. The tool allows you to track your story on multiple platforms.">
-		<meta itemprop="image" content="{{ URL::asset("/resources/assets/img/statman.svg") }}">
-		<link rel="shortcut icon" href="{{ URL::asset("/resources/assets/img/statman-line.svg") }}">
+		<meta itemprop="image" content="{{ URL::asset("assets/img/statman.svg") }}">
+		<link rel="shortcut icon" href="{{ URL::asset("assets/img/statman-line.svg") }}">
 
 		<title>Statman | {{ isset($title) ? $title : 'title' }}</title>
 
-		<link rel="stylesheet" href="{{ URL::asset("/resources/assets/css/home.css") }}">
+		<link rel="stylesheet" href="{{ URL::asset("assets/css/frontpages/home.css") }}">
 
 		<script type="text/javascript">
 			var _paq = _paq || [];
@@ -80,9 +80,9 @@
 				{{-- <li class="navigation-item"><a href="#" itemprop="url">Help</a></li> --}}
 			</ul>
 			<h3>Statman</h3>
-			<p>with <img src="{{ URL::asset("/resources/assets/img/pompebled.svg") }}" alt="heart"> from YumYum</p>
+			<p>with <img src="{{ URL::asset("assets/img/pompebled.svg") }}" alt="heart"> from YumYum</p>
 		</footer>
-		<script src={{ URL::asset("/resources/assets/js/resources/classtoggle.min.js") }}></script>
-		<script src={{ URL::asset("/resources/assets/js/home.js") }}></script>
+		<script src={{ URL::asset("assets/js/lib/classtoggle.min.js") }}></script>
+		<script src={{ URL::asset("assets/js/frontpages/home.js") }}></script>
 	</body>
 </html>

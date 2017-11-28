@@ -18,24 +18,10 @@
 			@endif
 		</div>
 		<div class="canvas">
-			<svg id="svg" width="920" height="600">
+			<svg id="js-storyworld" class="storyworld" width="920" height="600">
+				<rect class="zoom-layer"></rect>
 			</svg>
 		</div>
-		@foreach ($pageData as $pageData)
-			<div id="posts">
-				<div class="post title">
-					<div class="line"></div>
-					<div class="content">
-						Recent Posts
-					</div>
-				</div>
-				<div class="spinner">
-				  <div class="double-bounce1"></div>
-				  <div class="double-bounce2"></div>
-				  <h3>Loading posts...</h3>
-				</div>
-			</div>
-		@endforeach
 	@else
 		<div class="no-page">
 			<h3>It seems like you have not connected any social media to your project!</h3>
@@ -52,8 +38,8 @@
 				fjs.parentNode.insertBefore(js, fjs);
 		}(document, 'script', 'facebook-jssdk'));
 	</script>
-	<script type="text/javascript" src="{{ URL::asset("/resources/assets/js/resources/d3.min.js") }}"></script>
-	<script type="text/javascript" src="{{ URL::asset("/resources/assets/js/resources/jquery-3.2.1.js") }}"></script>
-	<script type="text/javascript" src="{{ URL::asset("/resources/assets/js/dashboard.js") }}"></script>
+	<script type="text/javascript" src="{{ URL::asset("assets/js/lib/d3.min.js") }}"></script>
+	<script type="text/javascript" src="{{ URL::asset("assets/js/lib/jquery-3.2.1.js") }}"></script>
+	<script type="text/javascript" src="{{ URL::asset("assets/js/dashboards/dashboard.js") }}"></script>
 
 @endsection
