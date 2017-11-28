@@ -17,7 +17,6 @@ class CreateStoryController extends Controller
 
 	public function store(Request $request)
 	{
-		$name = encrypt($request->name);
 		$user = Auth::user();
 		$user_id = Auth::user()->id;
 
@@ -25,6 +24,7 @@ class CreateStoryController extends Controller
 		$story->story = null;
 		$story->save();
 
+		$name = encrypt($request->name);
 		$project = new Project;
 		$project->project_name = $name;
 		$project->story_id = $story->id;
@@ -33,11 +33,8 @@ class CreateStoryController extends Controller
 		$project = Project::where('project_name', $name)->first();
 		$project_id = $project->id;
 
-		$useraccess = new UserAccess;
-		$useraccess->user_id = $user_id;
-		$useraccess->role_index_id = 1;
-		$useraccess->project_id = $project_id;
-		$useraccess->save();
+		$userAccess = new UserAccess;
+		$userAccess->new(array('user_id' => $user_id,'role_index_id' =>  0,'project_id' =>  $project_id));
 
 		if(!$user->favorite){
 			$user->favorite = $project->id;

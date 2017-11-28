@@ -51,7 +51,7 @@ class InvitedController extends Controller
                         ['token', '=', $token],
                         ['invited_email', '=', $user->email]
                     ])->first();
-
+   InviteToken::getbyid
    //   token may not be empty
      if ($token_check == null) {
          $check = 'This invite is not valid for you.';
@@ -68,6 +68,6 @@ class InvitedController extends Controller
    }
 
     public function saveUser($token_check, $user){
-        $access = New UserAccess($user->id, $token_check->role_index_id, $token_check->project_id);
+        $access = UserAccess::new($user->id, $token_check->role_index_id, $token_check->project_id);
     }
 }

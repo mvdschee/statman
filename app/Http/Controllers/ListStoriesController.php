@@ -24,10 +24,10 @@ class ListStoriesController extends Controller
 		$user = Auth::user();
 		$userAccess = UserAccess::where('user_id', $user->id)->get();
 		$user->fullname = decrypt($user->name);
-
 		$data = $this->getProjects($userAccess, $user);
 		$invites = $this->getInvites($user);
 
+		// dd($data);
 		//shows the view
 		return view('story-list', compact('user', 'data', 'invites'));
 
@@ -38,15 +38,13 @@ class ListStoriesController extends Controller
 		//creates arrays to use in the table
 		$data = array();
 		$project_users = array();
-
 		//gets all user projects and puts into array
 		$i = 0;
 		foreach ($userAccess as $access) {
-			$project = Project::where('id', $access->project_id)->get();
-			$project = $project[0];
-
+			$project = Project::all();
+			// dd($project[$i]);
 			//decrypts project name
-			$project->project_name = decrypt($project->project_name);
+			$project->project_name = decrypt($project[$i]->project_name);
 
 			//gets all project users
 			$ii = 0;
@@ -66,6 +64,7 @@ class ListStoriesController extends Controller
 					'project_id' => $access->project_id
 				);
 				$ii++;
+
 			}
 
 			//translates role id to name of role
@@ -94,6 +93,7 @@ class ListStoriesController extends Controller
 				'role' => $user->role_index_id,
 				'users' => $project_users
 			);
+			// dd($project->project_name);
 			$i++;
 		}
 		return $data;
