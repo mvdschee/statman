@@ -64,7 +64,7 @@
 
 @font-face {
     font-family: 'Roboto';
-    src: url('../fonts/Roboto-Regular.ttf');
+    src: url('../../fonts/Roboto-Regular.ttf');
 }
 
 @font-face {
@@ -714,10 +714,10 @@ i.icon-plus{
 
 // dashboard
 
-.links line {
-  stroke: #999;
-  stroke-opacity: 0.6;
-}
+// .links line {
+//   stroke: #999;
+//   stroke-opacity: 0.6;
+// }
 
 .no-page{
     display: block;
@@ -758,12 +758,9 @@ i.icon-plus{
 }
 
 .top-bar{
-    float: left;
-    width: 80%;
-    height: 70px;
-    margin-bottom: -1px;
+    width: 100%;
     background-color: #ececec;
-    padding: @spacing;
+    padding: @spacing*0.5;
 
     input{
         max-width: 12rem;
@@ -784,231 +781,21 @@ i.icon-plus{
 }
 
 .canvas{
-    float: left;
-    width: 80%;
-    height: 92%;
+    width: 100%;
+    height: 100%;
     background-color: @panelBackground;
+    padding: 10px;
 
     svg{
         display: block;
-        width: 95%;
-        height: 95%;
-        margin: @spacing auto;
-        background-color: @white;
-        background-repeat: repeat;
-        border: 1px solid @border;
-        background-image: url('../../img/background_sw.png');
-        background-size: 100px;
-
-        g:hover{
-            cursor: move;
-        }
-
-        .post-circle{
-            r: 50;
-            fill: @storyWorldPost;
-            stroke-width: .5rem;
-            stroke: @storyWorldHeaderBorder;
-
-            &.dragging{
-                filter: url(#drop-shadow);
-            }
-        }
-
-        .heading-circle{
-            r: 100;
-            fill: @storyWorldHeader;
-            stroke: @storyWorldHeaderBorder;
-            stroke-width: 1rem;
-
-            &.dragging{
-                stroke: @header-break;
-                box-shadow: 10px 10px 10px black;
-                filter: url(#drop-shadow);
-            }
-        }
-
-        .heading-text{
-            text-anchor: middle;
-            alignment-baseline: middle;
-            font-size: 1rem;
-            fill: @white;
-        }
-    }
-}
-
-#posts{
-    width: 20%;
-    height: 94vh;
-    overflow: hidden;
-    overflow-y: auto;
-
-    .post.title{
-        &:hover{
-            .line:before {
-                border: 1px solid transparent;
-                background-color: transparent;
-            }
-        }
-        .line{
-            &:before {
-                border: 1px solid transparent;
-                background-color: transparent;
-            }
-        }
-        .content{
-            text-align: center;
-        }
-
-    }
-
-    .post{
-        background-color: @white;
-        z-index: 2;
-        display: table;
         width: 100%;
+        height: 100%;
+        background-color: @white;
+        border: 1px solid @border;
 
-        &:hover{
-            background-color: @loginPrim;
-            color: white;
-
-            .line{
-                border-right: 1px solid white;
-
-                &:before {
-                    border: 1px solid white;
-                    background-color: white;
-                }
-            }
-        }
-
-        .line{
-            width: 5%;
-            border-right: 1px solid black;
-            display: table-cell;
-            vertical-align: middle;
-
-            &:before {
-                content: '';
-                display: block;
-                width: 20px;
-                height: 20px;
-                -moz-border-radius: 10px;
-                -webkit-border-radius: 10px;
-                border-radius: 10px;
-                border: 1px solid black;
-                background-color: #fff;
-                position: relative;
-                left: 10px;
-            }
-        }
-
-        .content{
-            display: table-cell;
-            padding: @spacing;
-            width: 95%;
-
-            .above{
-                height: 50%;
-                margin-bottom: -25px;
-
-                .left{
-                    width: 50%;
-                    height: 100%;
-                    display: inline-block;
-                    overflow: hidden;
-
-                    .image{
-                        height: 100px;
-                        width:  100px;
-                        background-size: cover;
-                        background-position: center;
-                        background-repeat: no-repeat;
-                        border-radius: 50%;
-                    }
-                }
-
-                .right{
-                    height: 100px;
-                    position: relative;
-                    top: -20px;
-                    width: 50%;
-                    display: inline-block;
-                    text-align: center;
-
-                    .date{
-                        width: 100%;
-                        display: inline-block;
-                        text-align: center;
-                        font-size: 12px;
-                    }
-
-                    .stats{
-                        display: inline-block;
-
-                        table{
-                            background-color: transparent;
-                            text-align: center;
-                            border: 0px;
-                            border-top: 1px solid @panelBorder;
-
-                            td,th{
-                                padding: .6rem;
-                                font-size: 14px;
-                                border: 0px;
-                                background-color: transparent;
-                            }
-
-                            td{
-                                padding: .2rem .6rem;
-                            }
-                        }
-                    }
-                }
-            }
-
-            .under{
-                height: 50%;
-                padding-top: @spacing;
-
-                .left{
-                    width: 90%;
-                    display: inline-block;
-                }
-
-                .right{
-                    width: 10%;
-                    display: inline-block;
-                }
-            }
-        }
-    }
-
-    .spinner{
-        position: relative;
-        top: 33%;
-
-        h3{
-            position: relative;
-            top: 2rem;
-            width: 9rem;
-            left: -40px;
-            position: relative;
-            top: 45px;
-        }
-    }
-
-    &::-webkit-scrollbar {
-        width: .4rem;
-    }
-
-    &::-webkit-scrollbar-track {
-        -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-    }
-
-    &::-webkit-scrollbar-thumb {
-      background-color: rgba(0, 0, 0, .3);
-      outline: 1px solid slategrey;
+        // g:hover{
+        //     cursor: move;
+        // }
     }
 }
 
