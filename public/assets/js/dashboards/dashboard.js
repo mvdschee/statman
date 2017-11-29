@@ -1,3 +1,15 @@
+window.onload = function() {
+
+  var trigger = new Trigger();
+  trigger.findTrigger();
+
+  window.onscroll = function() {
+    fixedHeader()
+  };
+};
+
+
+
 // Global variables
 var pathname = window.location.pathname;
 var project = pathname.substr(11);
@@ -69,7 +81,7 @@ var simulation = d3.forceSimulation()
 
 // makes the svg element zoomable
 var zoom = d3.zoom()
-  .scaleExtent([1, 100])
+  .scaleExtent([0.3, 2.5])
   .on('zoom', zoomFn);
 
 function zoomFn() {
@@ -78,7 +90,7 @@ function zoomFn() {
 }
 d3.select('svg').select('rect').call(zoom);
 
-
+// check if JSON has a Storyworld
 function initStoryWorld() {
   d3.json(pathname+'/get-page', function(graph) {
     var story = JSON.parse(graph.story);
@@ -92,17 +104,18 @@ function initStoryWorld() {
   });
 }
 
+// Get facebook post and build JSON
 function spawnNewStory(data) {
   var storyBuilder = [];
   var storyJSON = {nodes: storyBuilder, links: []};
 
-  FB.api( '/me/posts', { access_token: data.token, fields:'id, picture'}, function(response) {
+  FB.api( '/me/posts', { access_token: data.token, fields:'id, picture, name'}, function(response) {
     if (response && !response.error) {
       response.data.forEach(function(entry){
         if (entry.picture) {
-          storyBuilder.push({id: entry.id, name: 'facebook', url:'https://facebook.com/'+ entry.id, image: entry.picture});
+          storyBuilder.push({id: entry.id, name: entry.name, url:'https://facebook.com/'+ entry.id, image: entry.picture});
         } else {
-          storyBuilder.push({id: entry.id, name: 'facebook', url:'https://facebook.com/'+ entry.id, image: 'https://via.placeholder.com/350x250'});
+          storyBuilder.push({id: entry.id, name: entry.name, url:'https://facebook.com/'+ entry.id, image: ''});
         }
       });
 
@@ -121,7 +134,7 @@ function spawnNewStory(data) {
   });
 }
 
-// load Jeson an build links and nodes
+// load JSON and build links and nodes
 function loadStory(graph) {
   var dataset = JSON.parse(graph.story);
   svg = d3.select('#js-storyworld').select("g");
@@ -171,10 +184,10 @@ function loadStory(graph) {
   node.append("image")
     .attr("xlink:href", function(d) { return d.image })
     .attr("clip-path", function(d) { return "url(#clip_" + d.id + ")"})
-    .attr("x", -75)
-    .attr("y", -75)
-    .attr("width", 150)
-    .attr("height", 150);
+    .attr("x", -40)
+    .attr("y", -30)
+    .attr("width", 80)
+    .attr("height", 60);
 
   node.append("svg:a")
   .attr("xlink:href", function(d){return d.url;})
@@ -228,19 +241,40 @@ function dragended(d) {
   d.fy = null;
 }
 
-// Link Building
+// onclick start Link Building
 document.getElementById("js-new-link").onclick = function() {linkToggle()};
 
 function linkToggle(){
-  var source = '';
+  $('#js-new-link').text('exit');
+  var source = '',
+  target = '';
   svg.selectAll(".node").on("click", function() {
+
     if (source === '') {
       source = this.id;
+      $('#js-source').toggleClass("active", true);
+      $('#' + this.id).toggleClass("active", true);
     } else {
-      var target = this.id;
-      buildLink(source, target);
+      if (source === this.id) {
+        source = '';
+        $('#js-source').toggleClass("active", false);
+        $('#' + this.id).toggleClass("active", false);
+      } else {
+        if (target === this.id) {
+          target = '';
+          $('#js-target').toggleClass("active", false);
+          $('#' + this.id).toggleClass("active", false);
+        } else {
+          target = this.id;
+          $('#js-target').toggleClass("active", true);
+          $('#' + this.id).toggleClass("active", true);
+        }
+      }
     }
   });
+
+
+  document.getElementById("js-save-link").onclick = function() {  if ( source && target ) {buildLink(source, target) }};
 }
 
 function buildLink(Source, Target) {

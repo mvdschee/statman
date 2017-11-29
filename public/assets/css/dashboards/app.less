@@ -776,6 +776,43 @@ i.icon-plus{
     background-color: @seccolor;
 }
 
+.link-fields {
+  display: none;
+
+  &.active {
+    display: block;
+  }
+}
+
+.linking {
+  display: inline-block;
+  background: transparent;
+  color: transparent;
+  padding: 0.5rem 1rem;
+  margin: 10px 10px 10px 0;
+  border-radius: 3px;
+  .transition(1s);
+
+  &.active {
+    background: @primcolor;
+    color: @white;
+  }
+}
+
+.node {
+
+  use {
+    .transition(1s);
+  }
+
+  &.active {
+  
+    use {
+      stroke-width: 10px;
+      stroke: @red;
+    }
+  }
+}
 .zoom-layer {
     fill-opacity: 0;
 }
@@ -793,9 +830,9 @@ i.icon-plus{
         background-color: @white;
         border: 1px solid @border;
 
-        // g:hover{
-        //     cursor: move;
-        // }
+        g:hover{
+            cursor: pointer;
+        }
     }
 }
 

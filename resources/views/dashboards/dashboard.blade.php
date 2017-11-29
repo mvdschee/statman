@@ -8,7 +8,12 @@
 			</div>
 		@endif
 		<div class="top-bar">
-			<button id="js-new-link">Link post</button>
+			<button id="js-new-link" class="trigger_2">Link post</button>
+			<div id="js-link-fields" class="execute_2 link-fields">
+				<span id="js-source" class="linking">Source</span>
+				<span id="js-target" class="linking">Target</span>
+				<button id="js-save-link">Save</button>
+			</div>
 			@if ($access->role_index_id == 1)
 			<form action="/dashboard/delete-page" method="POST" onsubmit="return confirm('Are you sure you want to delete your story? This cannot be reversed.');">
 				{{ csrf_field() }}
@@ -39,6 +44,7 @@
 		}(document, 'script', 'facebook-jssdk'));
 	</script>
 	<script type="text/javascript" src="{{ URL::asset("assets/js/lib/d3.min.js") }}"></script>
+	<script src={{ URL::asset("assets/js/lib/classtoggle.min.js") }}></script>
 	<script type="text/javascript" src="{{ URL::asset("assets/js/lib/jquery-3.2.1.js") }}"></script>
 	<script type="text/javascript" src="{{ URL::asset("assets/js/dashboards/dashboard.js") }}"></script>
 
