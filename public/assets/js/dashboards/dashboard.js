@@ -3,9 +3,6 @@ window.onload = function() {
   var trigger = new Trigger();
   trigger.findTrigger();
 
-  window.onscroll = function() {
-    fixedHeader()
-  };
 };
 
 
@@ -61,6 +58,7 @@ function login_fb() {
  */
 
 // build storywold layout
+
 var svg = d3.select("#js-storyworld"),
     width = +svg.attr("width"),
     height = +svg.attr("height");
@@ -107,15 +105,29 @@ function initStoryWorld() {
 // Get facebook post and build JSON
 function spawnNewStory(data) {
   var storyBuilder = [];
-  var storyJSON = {nodes: storyBuilder, links: []};
+  var storyJSON = {nodes: storyBuilder, links: [], chapters: []};
 
   FB.api( '/me/posts', { access_token: data.token, fields:'id, picture, name'}, function(response) {
     if (response && !response.error) {
       response.data.forEach(function(entry){
         if (entry.picture) {
-          storyBuilder.push({id: entry.id, name: entry.name, url:'https://facebook.com/'+ entry.id, image: entry.picture});
+          storyBuilder.push({
+            id: entry.id,
+            name: entry.name,
+            url:'https://facebook.com/'+ entry.id,
+            image: entry.picture,
+            stroke: '#3b5998',
+            fill: '#3b5998'
+          });
         } else {
-          storyBuilder.push({id: entry.id, name: entry.name, url:'https://facebook.com/'+ entry.id, image: ''});
+          storyBuilder.push({
+            id: entry.id,
+            name: entry.name,
+            url:'https://facebook.com/'+ entry.id,
+            image: '',
+            stroke: '#3b5998',
+            fill: '#3b5998'
+          });
         }
       });
 
@@ -178,8 +190,8 @@ function loadStory(graph) {
   node.append("use")
     .attr("xlink:href", function(d) { return "#rect_" + d.id })
     .attr("stroke-width", "4px")
-    .attr("stroke", "#415a77")
-    .attr("fill", "#415a77");
+    .attr("stroke", function(d) { return d.stroke })
+    .attr("fill", function(d) { return d.fill });
 
   node.append("image")
     .attr("xlink:href", function(d) { return d.image })
@@ -242,10 +254,19 @@ function dragended(d) {
 }
 
 // onclick start Link Building
-document.getElementById("js-new-link").onclick = function() {linkToggle()};
+document.getElementById("js-new-link").onclick = function() {
+  $(this).toggleClass("active");
+
+  if ($(this).text() == "Close") {
+    $(this).text("Link nodes")
+  } else {
+    $(this).text("Close");
+    linkToggle()
+  }
+
+};
 
 function linkToggle(){
-  $('#js-new-link').text('exit');
   var source = '',
   target = '';
   svg.selectAll(".node").on("click", function() {
@@ -273,9 +294,91 @@ function linkToggle(){
     }
   });
 
-
   document.getElementById("js-save-link").onclick = function() {  if ( source && target ) {buildLink(source, target) }};
 }
+
+
+// addChapter
+document.getElementById("js-chapter").onclick = function() {
+  $(this).toggleClass("active");
+  $('#chapter-input').toggleClass("active");
+
+  if ($(this).text() == "Close") {
+    $(this).text("Add chapter")
+  } else {
+    $(this).text("Close");
+    addChapter()
+  }
+};
+
+function addChapter() {
+  var chapterTitle = $('input[name=_chapter]').val('');
+
+  document.getElementById("js-save-chapter").onclick = function() {
+
+    chapterTitle = $('input[name=_chapter]').val();
+
+    if (chapterTitle !== '') {
+
+      d3.json(pathname+'/get-page', function(graph) {
+        var story = JSON.parse(graph.story);
+
+        // check chapter in storyworld
+        if (story.chapters.length == 0) {
+          var chapterBuilder = [];
+        }else{
+          var chapterBuilder = story.chapters;
+        }
+
+        // check nodes in storyworld
+        if (story.nodes.length == 0) {
+          var storyBuilder = [];
+        }else{
+          var storyBuilder = story.nodes;
+        }
+
+        // check link in storyworld
+        if (story.links.length == 0) {
+          var linkBuilder = [];
+        }else{
+          var linkBuilder = story.links;
+        }
+
+        var storyJSON = {nodes: storyBuilder, links: linkBuilder, chapters: chapterBuilder};
+
+        chapterBuilder.push({
+          id: 'ch_' + chapterBuilder.length,
+          name: chapterTitle,
+          url:'',
+          image: '',
+          stroke: '#A73C5A',
+          fill: '#A73C5A'
+        });
+        storyBuilder.push({
+          id: 'ch_' + chapterBuilder.length,
+          name: chapterTitle,
+          url:'',
+          image: '',
+          stroke: '#A73C5A',
+          fill: '#A73C5A'
+        });
+
+        storyJSON = JSON.stringify(storyJSON);
+
+        // // sends the JSON to the database
+        $.ajax({
+          type: "POST",
+          url: pathname+'/save-story',
+          data: {storyJSON, '_token': $('input[name=_token]').val(), project},
+          dataType: 'json',
+          succes: location.reload()
+        });
+      });
+    }
+  };
+}
+
+// end addChapter
 
 function buildLink(Source, Target) {
   d3.json(pathname+'/get-page', function(graph) {

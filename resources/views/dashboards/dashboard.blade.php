@@ -7,12 +7,17 @@
 				{{ $message }}
 			</div>
 		@endif
-		<div class="top-bar">
+		<header class="top-bar">
 			<button id="js-new-link" class="trigger_2">Link post</button>
 			<div id="js-link-fields" class="execute_2 link-fields">
 				<span id="js-source" class="linking">Source</span>
 				<span id="js-target" class="linking">Target</span>
 				<button id="js-save-link">Save</button>
+			</div>
+			<button id="js-chapter" class="chapter">Add Chapter</button>
+			<div id="chapter-input">
+				<input id="js-chapter-title" type="text" name="_chapter" value="">
+				<button id="js-save-chapter">Save</button>
 			</div>
 			@if ($access->role_index_id == 1)
 			<form action="/dashboard/delete-page" method="POST" onsubmit="return confirm('Are you sure you want to delete your story? This cannot be reversed.');">
@@ -21,7 +26,7 @@
 				<button type="submit" id="js-delete-story">Delete story</button>
 			</form>
 			@endif
-		</div>
+		</header>
 		<div class="canvas">
 			<svg id="js-storyworld" class="storyworld" width="920" height="600">
 				<rect class="zoom-layer"></rect>
@@ -34,6 +39,8 @@
 			<a class="button" href="{{ url('/add-service/'.$project->id) }}">Connect social media</a>
 		</div>
 	@endif
+
+	{{-- JS assets --}}
 	<script type="text/javascript">
 		(function(d, s, id){
 				var js, fjs = d.getElementsByTagName(s)[0];
