@@ -417,41 +417,42 @@ function reloadStory(data) {
 //
 // ----------------------------------
 
-// build storywold layout
-var svg = d3.select("#js-storyworld"),
-    width = +svg.attr("width"),
-    height = +svg.attr("height");
-
-svg.select("rect")
-    .attr("x", -2000)
-    .attr("y", -2000)
-    .attr("width", 9999)
-    .attr("height", 9999);
-
-d3.select('#js-storyworld').append("g");
-
-// setup forces before rendering nodes and lines
-var simulation = d3.forceSimulation()
-    .force("link", d3.forceLink().id(function(d) { return d.id; }))
-    // charge is the flowed problemos
-    .force("charge", d3.forceManyBody())
-    .force("center", d3.forceCenter(width / 2, height / 2));
-
-// makes the svg element zoomable
-var zoom = d3.zoom()
-  .scaleExtent([0.3, 2.5])
-  .on('zoom', zoomFn);
-
-function zoomFn() {
-  d3.select('svg').select('g')
-    .attr('transform', 'translate(' + d3.event.transform.x + ',' + d3.event.transform.y + ') scale(' + d3.event.transform.k + ')');
-}
-d3.select('svg').select('rect').call(zoom);
-
 
 // load JSON and build links and nodes
 function loadStory(graph) {
   var dataset = JSON.parse(graph.story);
+
+  // build storywold layout
+  var svg = d3.select("#js-storyworld"),
+      width = +svg.attr("width"),
+      height = +svg.attr("height");
+
+  svg.select("rect")
+      .attr("x", -2000)
+      .attr("y", -2000)
+      .attr("width", 9999)
+      .attr("height", 9999);
+
+  d3.select('#js-storyworld').append("g");
+
+  // setup forces before rendering nodes and lines
+  var simulation = d3.forceSimulation(dataset.nodes)
+      .force("link", d3.forceLink(dataset.links).id(function(d) { return d.id; }))
+      // .force("nodes", d3.forceCollide())
+      .force("charge", d3.forceManyBody())
+      .force("center", d3.forceCenter(width / 2, height / 2));
+
+  // makes the svg element zoomable
+  var zoom = d3.zoom()
+    .scaleExtent([0.3, 2.5])
+    .on('zoom', zoomFn);
+
+  function zoomFn() {
+    d3.select('svg').select('g')
+      .attr('transform', 'translate(' + d3.event.transform.x + ',' + d3.event.transform.y + ') scale(' + d3.event.transform.k + ')');
+  }
+  d3.select('svg').select('rect').call(zoom);
+
   svg = d3.select('#js-storyworld').select("g");
 
   // Setup link to source and target
@@ -535,23 +536,21 @@ function loadStory(graph) {
 
     node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
   }
-}
 
-function dragstarted(d) {
-  if (!d3.event.active)
-  simulation.alphaTarget(0.1).restart();
-  d.fx = d.x;
-  d.fy = d.y;
-}
+  function dragstarted(d) {
+    if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+    d.fx = d.x;
+    d.fy = d.y;
+  }
 
-function dragged(d) {
-  d.fx = d3.event.x;
-  d.fy = d3.event.y;
-}
+  function dragged(d) {
+    d.fx = d3.event.x;
+    d.fy = d3.event.y;
+  }
 
-function dragended(d) {
-  if (!d3.event.active)
-  simulation.alphaTarget(0);
-  d.fx = null;
-  d.fy = null;
+  function dragended(d) {
+    if (!d3.event.active) simulation.alphaTarget(0);
+    d.fx = null;
+    d.fy = null;
+  }
 }
