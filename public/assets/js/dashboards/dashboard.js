@@ -1,21 +1,63 @@
+// ---------------------------------
+//
+//          Variables
+//         & Triggers
+//
+// ----------------------------------
+
+// variables
+var pathname = window.location.pathname,
+    project = pathname.substr(11),
+    newURL = window.location.protocol + "//" + window.location.host + "/",
+    chapterColor = '#A73C5A',
+    FacebookColor = '#3b5998';
+
+// triggers
 window.onload = function() {
 
   var trigger = new Trigger();
   trigger.findTrigger();
-
 };
 
+// linkToggle
+document.getElementById("js-new-link").onclick = function() {
+  $(this).toggleClass("active");
 
+  if ($(this).text() == "Close") {
+    $(this).text("Link nodes")
+  } else {
+    $(this).text("Close");
+    linkToggle()
+  }
+};
 
-// Global variables
-var pathname = window.location.pathname;
-var project = pathname.substr(11);
+// addChapter
+document.getElementById("js-chapter").onclick = function() {
+  $(this).toggleClass("active");
+  $('#chapter-input').toggleClass("active");
 
-/* fbAsyncInit
- *
- * Set variables to connect the page with our facebook-app
- *
- */
+  if ($(this).text() == "Close") {
+    $(this).text("Add chapter")
+  } else {
+    $(this).text("Close");
+    addChapter()
+  }
+};
+
+// reloadStory
+document.getElementById("js-refresh").onclick = function() {
+  d3.json(pathname+'/get-page', function(graph) {
+    reloadStory(graph);
+  });
+};
+
+// ---------------------------------
+//
+//          Facebook API
+//         Powered by FB
+//
+// ----------------------------------
+
 window.fbAsyncInit = function() {
   FB.init({
       appId      : '188876558188407',
@@ -32,61 +74,18 @@ function loginCheck(){
           return true;
       }
       else {
-          login_fb();
+          console.log("please login to Facebook");
           return false;
       }
   });
 }
 
-function login_fb() {
-  FB.login(function(response){
-      if (response.authResponse) {
-      }
-      else{
-          window.location.replace("/story-list");
-      }
-  }, {
-      scope: 'manage_pages',
-      return_scopes: true
-  });
-}
-
-/* StoryWorld Building
- *
- * D3.js
- *
- */
-
-// build storywold layout
-
-var svg = d3.select("#js-storyworld"),
-    width = +svg.attr("width"),
-    height = +svg.attr("height");
-
-svg.select("rect")
-    .attr("x", -2000)
-    .attr("y", -2000)
-    .attr("width", 9999)
-    .attr("height", 9999);
-
-d3.select('#js-storyworld').append("g");
-
-// setup forces before rendering nodes and lines
-var simulation = d3.forceSimulation()
-    .force("link", d3.forceLink().id(function(d) { return d.id; }))
-    .force("charge", d3.forceManyBody())
-    .force("center", d3.forceCenter(width / 2, height / 2));
-
-// makes the svg element zoomable
-var zoom = d3.zoom()
-  .scaleExtent([0.3, 2.5])
-  .on('zoom', zoomFn);
-
-function zoomFn() {
-  d3.select('svg').select('g')
-    .attr('transform', 'translate(' + d3.event.transform.x + ',' + d3.event.transform.y + ') scale(' + d3.event.transform.k + ')');
-}
-d3.select('svg').select('rect').call(zoom);
+// ---------------------------------
+//
+//          JSON building
+//        Powered by Code
+//
+// ----------------------------------
 
 // check if JSON has a Storyworld
 function initStoryWorld() {
@@ -102,7 +101,7 @@ function initStoryWorld() {
   });
 }
 
-// Get facebook post and build JSON
+// Get  post and build JSON
 function spawnNewStory(data) {
   var storyBuilder = [];
   var storyJSON = {nodes: storyBuilder, links: [], chapters: []};
@@ -112,21 +111,21 @@ function spawnNewStory(data) {
       response.data.forEach(function(entry){
         if (entry.picture) {
           storyBuilder.push({
-            id: entry.id,
+            id: 'fb_' + entry.id,
             name: entry.name,
             url:'https://facebook.com/'+ entry.id,
             image: entry.picture,
-            stroke: '#3b5998',
-            fill: '#3b5998'
+            stroke: FacebookColor,
+            fill: FacebookColor
           });
         } else {
           storyBuilder.push({
-            id: entry.id,
+            id: 'fb_' + entry.id,
             name: entry.name,
             url:'https://facebook.com/'+ entry.id,
-            image: '',
-            stroke: '#3b5998',
-            fill: '#3b5998'
+            image: newURL+ 'assets/img/facebook-app-logo.svg',
+            stroke: FacebookColor,
+            fill: FacebookColor
           });
         }
       });
@@ -145,6 +144,310 @@ function spawnNewStory(data) {
     }
   });
 }
+
+// addChapter
+function addChapter() {
+  var d = new Date(),
+  n = d.getTime(),
+  chapterTitle = $('input[name=_chapter]').val('');
+
+  document.getElementById("js-save-chapter").onclick = function() {
+
+    chapterTitle = $('input[name=_chapter]').val();
+
+    if (chapterTitle !== '') {
+
+      d3.json(pathname+'/get-page', function(graph) {
+        var story = JSON.parse(graph.story);
+
+        // check chapter in storyworld
+        if (story.chapters.length == 0) {
+          var chapterBuilder = [];
+        }else{
+          var chapterBuilder = story.chapters;
+        }
+
+        // check nodes in storyworld
+        if (story.nodes.length == 0) {
+          var storyBuilder = [];
+        }else{
+          var storyBuilder = story.nodes;
+        }
+
+        // check link in storyworld
+        if (story.links.length == 0) {
+          var linkBuilder = [];
+        }else{
+          var linkBuilder = story.links;
+        }
+
+        var storyJSON = {nodes: storyBuilder, links: linkBuilder, chapters: chapterBuilder};
+
+        chapterBuilder.push({
+          id: 'ch_' + n,
+          name: chapterTitle,
+          url:'',
+          image: newURL+ 'assets/img/chapter.svg',
+          stroke: chapterColor,
+          fill: chapterColor
+        });
+        storyBuilder.push({
+          id: 'ch_' + n,
+          name: chapterTitle,
+          url:'',
+          image: newURL+ 'assets/img/chapter.svg',
+          stroke: chapterColor,
+          fill: chapterColor
+        });
+
+        storyJSON = JSON.stringify(storyJSON);
+
+        // // sends the JSON to the database
+        $.ajax({
+          type: "POST",
+          url: pathname+'/save-story',
+          data: {storyJSON, '_token': $('input[name=_token]').val(), project},
+          dataType: 'json',
+          succes: location.reload()
+        });
+      });
+    }
+  };
+}
+
+// linkToggle
+function linkToggle(){
+  var source = '',
+  target = '';
+  svg.selectAll(".node").on("click", function() {
+
+    if (source === '') {
+      source = this.id;
+      $('#js-source').toggleClass("active", true);
+      $('#' + this.id).toggleClass("active", true);
+    } else {
+      if (source === this.id) {
+        source = '';
+        $('#js-source').toggleClass("active", false);
+        $('#' + this.id).toggleClass("active", false);
+      } else {
+        if (target === this.id) {
+          target = '';
+          $('#js-target').toggleClass("active", false);
+          $('#' + this.id).toggleClass("active", false);
+        } else {
+          target = this.id;
+          $('#js-target').toggleClass("active", true);
+          $('#' + this.id).toggleClass("active", true);
+        }
+      }
+    }
+  });
+
+  document.getElementById("js-save-link").onclick = function() {  if ( source && target ) {buildLink(source, target) }};
+}
+
+// buildLink
+function buildLink(Source, Target) {
+  d3.json(pathname+'/get-page', function(graph) {
+    var story = JSON.parse(graph.story);
+
+    // check chapter in storyworld
+    if (story.chapters.length == 0) {
+      var chapterBuilder = [];
+    }else{
+      var chapterBuilder = story.chapters;
+    }
+
+    // check nodes in storyworld
+    if (story.nodes.length == 0) {
+      var storyBuilder = [];
+    }else{
+      var storyBuilder = story.nodes;
+    }
+
+    // check link in storyworld
+    if (story.links.length == 0) {
+      var linkBuilder = [];
+    }else{
+      var linkBuilder = story.links;
+    }
+
+    var storyJSON = {nodes: storyBuilder, links: linkBuilder, chapters: chapterBuilder};
+
+    linkBuilder.push({source: Source, target: Target});
+    storyJSON = JSON.stringify(storyJSON);
+
+    // sends the JSON to the database
+    $.ajax({
+      type: "POST",
+      url: pathname+'/save-story',
+      data: {storyJSON, '_token': $('input[name=_token]').val(), project},
+      dataType: 'json',
+      succes: location.reload()
+    });
+  });
+}
+
+// reloadStory
+function reloadStory(data) {
+  var story = JSON.parse(data.story);
+  var storyBuilder = [];
+
+  // check chapter in storyworld
+  if (story.chapters.length == 0) {
+    var chapterBuilder = [];
+  }else{
+    var chapterBuilder = story.chapters;
+  }
+
+  // check link in storyworld
+  if (story.links.length == 0) {
+    var linkBuilder = [];
+  }else{
+    var linkBuilder = story.links;
+  }
+
+  var storyJSON = {nodes: storyBuilder, links: linkBuilder, chapters: chapterBuilder};
+
+  chapterBuilder.forEach( function(i) {
+    storyBuilder.push({
+      id: i.id,
+      name: i.name,
+      url: i.url,
+      image: i.image,
+      stroke: i.stroke,
+      fill: i.fill
+    });
+  })
+
+  FB.api( '/me/posts', { access_token: data.token, fields:'id, picture, name'}, function(response) {
+    if (response && !response.error) {
+      response.data.forEach(function(entry){
+        if (entry.picture) {
+          storyBuilder.push({
+            id: 'fb_' + entry.id,
+            name: entry.name,
+            url:'https://facebook.com/'+ entry.id,
+            image: entry.picture,
+            stroke: FacebookColor,
+            fill: FacebookColor
+          });
+        } else {
+          storyBuilder.push({
+            id: 'fb_' + entry.id,
+            name: entry.name,
+            url:'https://facebook.com/'+ entry.id,
+            image: newURL+ 'assets/img/facebook-app-logo.svg',
+            stroke: FacebookColor,
+            fill: FacebookColor
+          });
+        }
+      });
+    }
+
+    storyJSON = JSON.stringify(storyJSON);
+
+    // sends the JSON to the database
+    $.ajax({
+      type: "POST",
+      url: pathname+'/save-story',
+      data: {storyJSON, '_token': $('input[name=_token]').val(), project},
+      dataType: 'json',
+      succes: location.reload()
+    });
+  });
+
+  // if (facebookPush(data)) {
+  //   var storyJSON = {nodes: storyBuilder, links: linkBuilder, chapters: chapterBuilder};
+  //
+  //   console.log(storyBuilder);
+  //   console.log("response");
+  //   console.log(storyJSON);
+  //
+  //   storyJSON = JSON.stringify(storyJSON);
+  //
+  //   // sends the JSON to the database
+  //   $.ajax({
+  //     type: "POST",
+  //     url: pathname+'/save-story',
+  //     data: {storyJSON, '_token': $('input[name=_token]').val(), project},
+  //     dataType: 'json',
+  //     succes: location.reload()
+  //   });
+  // }
+}
+
+// function facebookPush (data) {
+//   var storyBuilder = [];
+//
+//   FB.api( '/me/posts', { access_token: data.token, fields:'id, picture, name'}, function(response) {
+//     if (response && !response.error) {
+//       response.data.forEach(function(entry){
+//         if (entry.picture) {
+//           storyBuilder.push({
+//             id: 'fb_' + entry.id,
+//             name: entry.name,
+//             url:'https://facebook.com/'+ entry.id,
+//             image: entry.picture,
+//             stroke: '#3b5998',
+//             fill: '#3b5998'
+//           });
+//         } else {
+//           storyBuilder.push({
+//             id: 'fb_' + entry.id,
+//             name: entry.name,
+//             url:'https://facebook.com/'+ entry.id,
+//             image: newURL+ 'assets/img/facebook-app-logo.svg',
+//             stroke: '#3b5998',
+//             fill: '#3b5998'
+//           });
+//         }
+//       });
+//     }
+//     console.log("FB API", storyBuilder);
+//   });
+//   return storyBuilder;
+// }
+
+// ---------------------------------
+//
+//       StoryWorld Building
+//        Powered by D3.js
+//
+// ----------------------------------
+
+// build storywold layout
+var svg = d3.select("#js-storyworld"),
+    width = +svg.attr("width"),
+    height = +svg.attr("height");
+
+svg.select("rect")
+    .attr("x", -2000)
+    .attr("y", -2000)
+    .attr("width", 9999)
+    .attr("height", 9999);
+
+d3.select('#js-storyworld').append("g");
+
+// setup forces before rendering nodes and lines
+var simulation = d3.forceSimulation()
+    .force("link", d3.forceLink().id(function(d) { return d.id; }))
+    // charge is the flowed problemos
+    .force("charge", d3.forceManyBody())
+    .force("center", d3.forceCenter(width / 2, height / 2));
+
+// makes the svg element zoomable
+var zoom = d3.zoom()
+  .scaleExtent([0.3, 2.5])
+  .on('zoom', zoomFn);
+
+function zoomFn() {
+  d3.select('svg').select('g')
+    .attr('transform', 'translate(' + d3.event.transform.x + ',' + d3.event.transform.y + ') scale(' + d3.event.transform.k + ')');
+}
+d3.select('svg').select('rect').call(zoom);
+
 
 // load JSON and build links and nodes
 function loadStory(graph) {
@@ -236,7 +539,7 @@ function loadStory(graph) {
 
 function dragstarted(d) {
   if (!d3.event.active)
-  simulation.alphaTarget(0.3).restart();
+  simulation.alphaTarget(0.1).restart();
   d.fx = d.x;
   d.fy = d.y;
 }
@@ -251,156 +554,4 @@ function dragended(d) {
   simulation.alphaTarget(0);
   d.fx = null;
   d.fy = null;
-}
-
-// onclick start Link Building
-document.getElementById("js-new-link").onclick = function() {
-  $(this).toggleClass("active");
-
-  if ($(this).text() == "Close") {
-    $(this).text("Link nodes")
-  } else {
-    $(this).text("Close");
-    linkToggle()
-  }
-
-};
-
-function linkToggle(){
-  var source = '',
-  target = '';
-  svg.selectAll(".node").on("click", function() {
-
-    if (source === '') {
-      source = this.id;
-      $('#js-source').toggleClass("active", true);
-      $('#' + this.id).toggleClass("active", true);
-    } else {
-      if (source === this.id) {
-        source = '';
-        $('#js-source').toggleClass("active", false);
-        $('#' + this.id).toggleClass("active", false);
-      } else {
-        if (target === this.id) {
-          target = '';
-          $('#js-target').toggleClass("active", false);
-          $('#' + this.id).toggleClass("active", false);
-        } else {
-          target = this.id;
-          $('#js-target').toggleClass("active", true);
-          $('#' + this.id).toggleClass("active", true);
-        }
-      }
-    }
-  });
-
-  document.getElementById("js-save-link").onclick = function() {  if ( source && target ) {buildLink(source, target) }};
-}
-
-
-// addChapter
-document.getElementById("js-chapter").onclick = function() {
-  $(this).toggleClass("active");
-  $('#chapter-input').toggleClass("active");
-
-  if ($(this).text() == "Close") {
-    $(this).text("Add chapter")
-  } else {
-    $(this).text("Close");
-    addChapter()
-  }
-};
-
-function addChapter() {
-  var chapterTitle = $('input[name=_chapter]').val('');
-
-  document.getElementById("js-save-chapter").onclick = function() {
-
-    chapterTitle = $('input[name=_chapter]').val();
-
-    if (chapterTitle !== '') {
-
-      d3.json(pathname+'/get-page', function(graph) {
-        var story = JSON.parse(graph.story);
-
-        // check chapter in storyworld
-        if (story.chapters.length == 0) {
-          var chapterBuilder = [];
-        }else{
-          var chapterBuilder = story.chapters;
-        }
-
-        // check nodes in storyworld
-        if (story.nodes.length == 0) {
-          var storyBuilder = [];
-        }else{
-          var storyBuilder = story.nodes;
-        }
-
-        // check link in storyworld
-        if (story.links.length == 0) {
-          var linkBuilder = [];
-        }else{
-          var linkBuilder = story.links;
-        }
-
-        var storyJSON = {nodes: storyBuilder, links: linkBuilder, chapters: chapterBuilder};
-
-        chapterBuilder.push({
-          id: 'ch_' + chapterBuilder.length,
-          name: chapterTitle,
-          url:'',
-          image: '',
-          stroke: '#A73C5A',
-          fill: '#A73C5A'
-        });
-        storyBuilder.push({
-          id: 'ch_' + chapterBuilder.length,
-          name: chapterTitle,
-          url:'',
-          image: '',
-          stroke: '#A73C5A',
-          fill: '#A73C5A'
-        });
-
-        storyJSON = JSON.stringify(storyJSON);
-
-        // // sends the JSON to the database
-        $.ajax({
-          type: "POST",
-          url: pathname+'/save-story',
-          data: {storyJSON, '_token': $('input[name=_token]').val(), project},
-          dataType: 'json',
-          succes: location.reload()
-        });
-      });
-    }
-  };
-}
-
-// end addChapter
-
-function buildLink(Source, Target) {
-  d3.json(pathname+'/get-page', function(graph) {
-    var story = JSON.parse(graph.story);
-    if (story.links.length == 0) {
-      var linkBuilder = [];
-    }else{
-      var linkBuilder = story.links;
-    };
-
-    var storyJSON = {nodes: story.nodes, links: linkBuilder};
-
-    linkBuilder.push({source: Source, target: Target});
-    storyJSON = JSON.stringify(storyJSON);
-
-    // sends the JSON to the database
-    $.ajax({
-      type: "POST",
-      url: pathname+'/save-story',
-      data: {storyJSON, '_token': $('input[name=_token]').val(), project},
-      dataType: 'json',
-      succes: location.reload()
-    });
-  });
 }

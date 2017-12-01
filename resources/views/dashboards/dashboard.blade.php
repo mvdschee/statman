@@ -19,6 +19,7 @@
 				<input id="js-chapter-title" type="text" name="_chapter" value="">
 				<button id="js-save-chapter">Save</button>
 			</div>
+			<button id="js-refresh">Reload Storyworld</button>
 			@if ($access->role_index_id == 1)
 			<form action="/dashboard/delete-page" method="POST" onsubmit="return confirm('Are you sure you want to delete your story? This cannot be reversed.');">
 				{{ csrf_field() }}
