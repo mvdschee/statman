@@ -218,7 +218,9 @@ function addChapter() {
 // linkToggle
 function linkToggle(){
   var source = '',
+  svg = d3.select('#js-storyworld').select("g"),
   target = '';
+
   svg.selectAll(".node").on("click", function() {
 
     if (source === '') {
@@ -357,58 +359,7 @@ function reloadStory(data) {
       succes: location.reload()
     });
   });
-
-  // if (facebookPush(data)) {
-  //   var storyJSON = {nodes: storyBuilder, links: linkBuilder, chapters: chapterBuilder};
-  //
-  //   console.log(storyBuilder);
-  //   console.log("response");
-  //   console.log(storyJSON);
-  //
-  //   storyJSON = JSON.stringify(storyJSON);
-  //
-  //   // sends the JSON to the database
-  //   $.ajax({
-  //     type: "POST",
-  //     url: pathname+'/save-story',
-  //     data: {storyJSON, '_token': $('input[name=_token]').val(), project},
-  //     dataType: 'json',
-  //     succes: location.reload()
-  //   });
-  // }
 }
-
-// function facebookPush (data) {
-//   var storyBuilder = [];
-//
-//   FB.api( '/me/posts', { access_token: data.token, fields:'id, picture, name'}, function(response) {
-//     if (response && !response.error) {
-//       response.data.forEach(function(entry){
-//         if (entry.picture) {
-//           storyBuilder.push({
-//             id: 'fb_' + entry.id,
-//             name: entry.name,
-//             url:'https://facebook.com/'+ entry.id,
-//             image: entry.picture,
-//             stroke: '#3b5998',
-//             fill: '#3b5998'
-//           });
-//         } else {
-//           storyBuilder.push({
-//             id: 'fb_' + entry.id,
-//             name: entry.name,
-//             url:'https://facebook.com/'+ entry.id,
-//             image: newURL+ 'assets/img/facebook-app-logo.svg',
-//             stroke: '#3b5998',
-//             fill: '#3b5998'
-//           });
-//         }
-//       });
-//     }
-//     console.log("FB API", storyBuilder);
-//   });
-//   return storyBuilder;
-// }
 
 // ---------------------------------
 //
@@ -435,11 +386,16 @@ function loadStory(graph) {
 
   d3.select('#js-storyworld').append("g");
 
+
+  var repelForce = d3.forceManyBody().strength(-140).distanceMax(60).distanceMin(10);
+
+  var attractForce = d3.forceManyBody().strength(-100).distanceMax(100).distanceMin(60);
+
   // setup forces before rendering nodes and lines
   var simulation = d3.forceSimulation(dataset.nodes)
+      .force("repelForce",repelForce)
+      .force("attractForce",attractForce)
       .force("link", d3.forceLink(dataset.links).id(function(d) { return d.id; }))
-      // .force("nodes", d3.forceCollide())
-      .force("charge", d3.forceManyBody())
       .force("center", d3.forceCenter(width / 2, height / 2));
 
   // makes the svg element zoomable
@@ -517,14 +473,9 @@ function loadStory(graph) {
     .attr("y", 5)
     .text(function(d) { return d.name });
 
-  simulation
-      .nodes(dataset.nodes)
-      .on("tick", ticked);
+  simulation.nodes(dataset.nodes).on("tick", ticked);
 
-  simulation
-      .force("link")
-      .links(dataset.links)
-      .distance(120);
+  simulation.force("link").links(dataset.links).distance(120);
 
 
   function ticked() {
@@ -538,7 +489,8 @@ function loadStory(graph) {
   }
 
   function dragstarted(d) {
-    if (!d3.event.active) simulation.alphaTarget(0.3).restart();
+    simulation.restart();
+    simulation.alpha(1.0);
     d.fx = d.x;
     d.fy = d.y;
   }
@@ -549,7 +501,7 @@ function loadStory(graph) {
   }
 
   function dragended(d) {
-    if (!d3.event.active) simulation.alphaTarget(0);
+    simulation.alphaTarget(0.1);
     d.fx = null;
     d.fy = null;
   }
