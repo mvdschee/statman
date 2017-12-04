@@ -106,28 +106,17 @@ function spawnNewStory(data) {
   var storyBuilder = [];
   var storyJSON = {nodes: storyBuilder, links: [], chapters: []};
 
-  FB.api( '/me/posts', { access_token: data.token, fields:'id, picture, name'}, function(response) {
+  FB.api( '/me/posts', { access_token: data.token, fields:'id, name'}, function(response) {
     if (response && !response.error) {
       response.data.forEach(function(entry){
-        if (entry.picture) {
-          storyBuilder.push({
-            id: 'fb_' + entry.id,
-            name: entry.name,
-            url:'https://facebook.com/'+ entry.id,
-            image: entry.picture,
-            stroke: FacebookColor,
-            fill: FacebookColor
-          });
-        } else {
-          storyBuilder.push({
-            id: 'fb_' + entry.id,
-            name: entry.name,
-            url:'https://facebook.com/'+ entry.id,
-            image: newURL+ 'assets/img/facebook-app-logo.svg',
-            stroke: FacebookColor,
-            fill: FacebookColor
-          });
-        }
+        storyBuilder.push({
+          id: 'fb_' + entry.id,
+          name: entry.name,
+          url:'https://facebook.com/'+ entry.id,
+          image: newURL+ 'assets/img/facebook-app-logo.svg',
+          stroke: FacebookColor,
+          fill: FacebookColor
+        });
       });
 
       storyJSON = JSON.stringify(storyJSON);
@@ -323,19 +312,9 @@ function reloadStory(data) {
     });
   })
 
-  FB.api( '/me/posts', { access_token: data.token, fields:'id, picture, name'}, function(response) {
+  FB.api( '/me/posts', { access_token: data.token, fields:'id, name'}, function(response) {
     if (response && !response.error) {
       response.data.forEach(function(entry){
-        if (entry.picture) {
-          storyBuilder.push({
-            id: 'fb_' + entry.id,
-            name: entry.name,
-            url:'https://facebook.com/'+ entry.id,
-            image: entry.picture,
-            stroke: FacebookColor,
-            fill: FacebookColor
-          });
-        } else {
           storyBuilder.push({
             id: 'fb_' + entry.id,
             name: entry.name,
@@ -344,7 +323,6 @@ function reloadStory(data) {
             stroke: FacebookColor,
             fill: FacebookColor
           });
-        }
       });
     }
 
