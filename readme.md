@@ -1,5 +1,5 @@
 <p align="center"><img src="https://statman.nl/resources/assets/img/statman.svg"></p>
-<p align="center">[![Build Status](https://travis-ci.com/mvdschee/statman.svg?token=JzKwK5oycNEyx4YB6nxE&branch=dev)](https://travis-ci.com/mvdschee/statman)</p>
+<p align="center"><img src="https://travis-ci.com/mvdschee/statman.svg?token=JzKwK5oycNEyx4YB6nxE&branch=dev"></p>
 
 ## About Statman :ok_hand:
 
