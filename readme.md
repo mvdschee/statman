@@ -1,4 +1,4 @@
-<p align="center"><img src="https://statman.nl/resources/assets/img/statman.svg"></p>
+<p align="center"><img src="https://github.com/mvdschee/statman/blob/master/public/assets/img/statman.png"></p>
 <p align="center"><img src="https://travis-ci.com/mvdschee/statman.svg?token=JzKwK5oycNEyx4YB6nxE&branch=dev"></p>
 
 ## About Statman :ok_hand:
