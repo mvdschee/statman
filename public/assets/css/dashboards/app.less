@@ -119,6 +119,11 @@ html, body{
     overflow: hidden;
 }
 
+.body {
+  display: grid;
+  grid-template-columns: 12rem auto;
+}
+
 // header
 @import "navigation";
 // end header
@@ -714,11 +719,6 @@ i.icon-plus{
 
 // dashboard
 
-// .links line {
-//   stroke: #999;
-//   stroke-opacity: 0.6;
-// }
-
 .no-page{
     display: block;
     position: relative;
@@ -776,6 +776,59 @@ i.icon-plus{
     background-color: @seccolor;
 }
 
+
+// linking nodes
+.link-fields {
+  display: none;
+
+  &.active {
+    display: block;
+  }
+}
+
+.linking {
+  .user-select(none);
+  .transition(1s);
+  display: inline-block;
+  background: transparent;
+  color: transparent;
+  padding: 0.5rem 1rem;
+  margin: 10px 10px 10px 0;
+  border-radius: 3px;
+
+  &.active {
+    background: @primcolor;
+    color: @white;
+  }
+}
+
+.node {
+
+  use {
+    .transition(1s);
+  }
+
+  &.active {
+
+    use {
+      stroke-width: 10px;
+      stroke: @red;
+    }
+  }
+}
+
+// end linking nodes
+
+// add chapter
+ #chapter-input {
+   display: none;
+   .user-select(none);
+
+   &.active {
+     display: block;
+   }
+ }
+// end add chapter
 .zoom-layer {
     fill-opacity: 0;
 }
@@ -788,14 +841,12 @@ i.icon-plus{
 
     svg{
         display: block;
-        width: 100%;
-        height: 100%;
         background-color: @white;
         border: 1px solid @border;
 
-        // g:hover{
-        //     cursor: move;
-        // }
+        g:hover{
+            cursor: pointer;
+        }
     }
 }
 
