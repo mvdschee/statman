@@ -10,8 +10,6 @@
 		<header class="top-bar">
 			<button id="js-new-link" class="trigger_2">Link post</button>
 			<div id="js-link-fields" class="execute_2 link-fields">
-				<span id="js-source" class="linking">Source</span>
-				<span id="js-target" class="linking">Target</span>
 				<button id="js-save-link">Save</button>
 			</div>
 			<button id="js-chapter" class="chapter">Add Chapter</button>

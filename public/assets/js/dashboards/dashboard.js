@@ -14,15 +14,12 @@ var pathname = window.location.pathname,
 
 // triggers
 window.onload = function() {
-
   var trigger = new Trigger();
   trigger.findTrigger();
 };
 
 // linkToggle
 document.getElementById("js-new-link").onclick = function() {
-  $(this).toggleClass("active");
-
   if ($(this).text() == "Close") {
     $(this).text("Link nodes")
   } else {
@@ -145,25 +142,13 @@ function addChapter() {
         var story = JSON.parse(graph.story);
 
         // check chapter in storyworld
-        if (story.chapters) {
-          var chapterBuilder = story.chapters;
-        }else{
-          var chapterBuilder = [];
-        }
+        if (story.chapters) { var chapterBuilder = story.chapters; }else{ var chapterBuilder = []; }
 
         // check nodes in storyworld
-        if (story.nodes) {
-          var storyBuilder = story.nodes;
-        }else{
-          var storyBuilder = [];
-        }
+        if (story.nodes) { var storyBuilder = story.nodes; }else{ var storyBuilder = []; }
 
         // check link in storyworld
-        if (story.links) {
-          var linkBuilder = story.links;
-        }else{
-          var linkBuilder = [];
-        }
+        if (story.links) { var linkBuilder = story.links; }else{ var linkBuilder = []; }
 
         var storyJSON = {nodes: storyBuilder, links: linkBuilder, chapters: chapterBuilder};
 
@@ -194,37 +179,29 @@ function addChapter() {
 }
 
 // linkToggle
-function linkToggle(){
+function linkToggle() {
   var source = '',
-  svg = d3.select('#js-storyworld').select("g"),
-  target = '';
+  target = '',
+  svg = d3.select('#js-storyworld').select("g");
 
   svg.selectAll(".node").on("click", function() {
-
     if (source === '') {
       source = this.id;
-      $('#js-source').toggleClass("active", true);
       $('#' + this.id).toggleClass("active", true);
     } else {
       if (source === this.id) {
         source = '';
-        $('#js-source').toggleClass("active", false);
         $('#' + this.id).toggleClass("active", false);
       } else {
         if (target === this.id) {
           target = '';
-          $('#js-target').toggleClass("active", false);
           $('#' + this.id).toggleClass("active", false);
         } else {
           target = this.id;
-          $('#js-target').toggleClass("active", true);
           $('#' + this.id).toggleClass("active", true);
-        }
-      }
-    }
+    } } }
   });
-
-  document.getElementById("js-save-link").onclick = function() {  if ( source && target ) {buildLink(source, target) }};
+  document.getElementById("js-save-link").onclick = function() { if (source && target) { buildLink(source, target) }};
 }
 
 // buildLink
@@ -256,21 +233,15 @@ function buildLink(Source, Target) {
 // reloadStory
 function reloadStory(data) {
   var story = JSON.parse(data.story);
-  var storyBuilder = [];
 
   // check chapter in storyworld
-  if (story.chapters) {
-    var chapterBuilder = story.chapters;
-  }else{
-    var chapterBuilder = [];
-  }
+  if (story.chapters) { var chapterBuilder = story.chapters; }else{ var chapterBuilder = []; }
+
+  // check nodes in storyworld
+  var storyBuilder = [];
 
   // check link in storyworld
-  if (story.links) {
-    var linkBuilder = story.links;
-  }else{
-    var linkBuilder = [];
-  }
+  if (story.links) { var linkBuilder = story.links; }else{ var linkBuilder = []; }
 
   var storyJSON = {nodes: storyBuilder, links: linkBuilder, chapters: chapterBuilder};
 
