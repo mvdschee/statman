@@ -42,9 +42,16 @@ class ListStoriesController extends Controller
 		$i = 0;
 		foreach ($userAccess as $access) {
 			$project = Project::all();
-			// dd($project[$i]);
+			// echo '<pre>';
+			// dd($access->project_id);
+
+		 // print_r($access->getProjectId($access));
+		 // echo '</pre>';
 			//decrypts project name
-			$project->project_name = decrypt($project[$i]->project_name);
+			$project = Project::where('id', $access->project_id)->get();
+			// dd($project);
+			$project->project_id = $access->project_id;
+			$project->project_name = decrypt($project[0]->project_name);
 
 			//gets all project users
 			$ii = 0;
@@ -61,7 +68,7 @@ class ListStoriesController extends Controller
 				$project_users[$ii] = array(
 					'user_id' => $project_user->user_id,
 					'user_name' => $username,
-					'project_id' => $access->project_id
+					'project_id' => $access->project_id,
 				);
 				$ii++;
 
@@ -85,7 +92,6 @@ class ListStoriesController extends Controller
 					$user->role_index_id = 'None';
 					break;
 			}
-
 			//puts all data in array to use in view
 			$data[$i] = array(
 				'project_name' => $project->project_name,
@@ -93,7 +99,7 @@ class ListStoriesController extends Controller
 				'role' => $user->role_index_id,
 				'users' => $project_users
 			);
-			// dd($project->project_name);
+
 			$i++;
 		}
 		return $data;

@@ -51,7 +51,6 @@ class InvitedController extends Controller
                         ['token', '=', $token],
                         ['invited_email', '=', $user->email]
                     ])->first();
-   InviteToken::getbyid
    //   token may not be empty
      if ($token_check == null) {
          $check = 'This invite is not valid for you.';

@@ -17,6 +17,7 @@ class CreateStoryController extends Controller
 
 	public function store(Request $request)
 	{
+		$name = encrypt($request->name);
 		$user = Auth::user();
 		$user_id = Auth::user()->id;
 
@@ -24,7 +25,6 @@ class CreateStoryController extends Controller
 		$story->story = null;
 		$story->save();
 
-		$name = encrypt($request->name);
 		$project = new Project;
 		$project->project_name = $name;
 		$project->story_id = $story->id;

@@ -3,6 +3,9 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Project;
+use App\Story;
+
 
 class UserAccess extends Model
 {
@@ -14,9 +17,10 @@ class UserAccess extends Model
     * @var object
     */
     public $primarykey;
-    public $user_id;
-    public $role_index_id;
-    public $project_id;
+    private $user_id;
+    private $role_index_id;
+    private $project_id;
+
     public function new(array $attributes)
     {
       $newAccess = new UserAccess;
@@ -30,7 +34,7 @@ class UserAccess extends Model
          $newAccess->role_index_id = $attributes['role_index_id'];
       } else {
          // if no role index is defined, user role index = 1
-         $newAccess->role_index_id = 9;
+         $newAccess->role_index_id = 1;
       }
       if(!empty($attributes['project_id'])){
          $newAccess->project_id = $attributes['project_id'];
@@ -40,6 +44,14 @@ class UserAccess extends Model
       // dd($attributes);
       return UserAccess::create(['user_id' => $newAccess->user_id, 'role_index_id' => $newAccess->role_index_id, 'project_id' => $newAccess->project_id,]);
     }
+
+    public function getProjectId(UserAccess $access){
+      $access = UserAccess::find($access->id);
+      $project_id = $access->project_id;
+
+      return $access;
+   }
+
 
     public function setUserId($id)
     {
