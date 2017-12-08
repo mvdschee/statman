@@ -106,14 +106,7 @@ function spawnNewStory(data) {
   FB.api( '/me/posts', { access_token: data.token, fields:'id, name'}, function(response) {
     if (response && !response.error) {
       response.data.forEach(function(entry){
-        storyBuilder.push({
-          id: 'fb_' + entry.id,
-          name: entry.name,
-          url:'https://facebook.com/'+ entry.id,
-          image: newURL+ 'assets/img/facebook-app-logo.svg',
-          stroke: FacebookColor,
-          fill: FacebookColor
-        });
+        storyBuilderPush(entry, storyBuilder);
       });
 
       storyJSON = JSON.stringify(storyJSON);
@@ -245,34 +238,39 @@ function reloadStory(data) {
 
   var storyJSON = {nodes: storyBuilder, links: linkBuilder, chapters: chapterBuilder};
 
-  chapterBuilder.forEach( function(i) {
+  chapterBuilder.forEach( function(entry) {
     storyBuilder.push({
-      id: i.id,
-      name: i.name,
-      url: i.url,
-      image: i.image,
-      stroke: i.stroke,
-      fill: i.fill
+      id: entry.id,
+      name: entry.name,
+      url: entry.url,
+      image: entry.image,
+      stroke: entry.stroke,
+      fill: entry.fill
     });
   })
 
   FB.api( '/me/posts', { access_token: data.token, fields:'id, name'}, function(response) {
     if (response && !response.error) {
       response.data.forEach(function(entry){
-          storyBuilder.push({
-            id: 'fb_' + entry.id,
-            name: entry.name,
-            url:'https://facebook.com/'+ entry.id,
-            image: newURL+ 'assets/img/facebook-app-logo.svg',
-            stroke: FacebookColor,
-            fill: FacebookColor
-          });
+          storyBuilderPush(entry, storyBuilder);
       });
     }
     storyJSON = JSON.stringify(storyJSON);
 
     // sends the JSON to the database
     pushToBackend(storyJSON);
+  });
+}
+
+// A function to push an array in to the JSON for storyBuilder
+function storyBuilderPush(entry, storyBuilder) {
+  storyBuilder.push({
+    id: 'fb_' + entry.id,
+    name: entry.name,
+    url:'https://facebook.com/'+ entry.id,
+    image: newURL+ 'assets/img/facebook-app-logo.svg',
+    stroke: FacebookColor,
+    fill: FacebookColor
   });
 }
 
