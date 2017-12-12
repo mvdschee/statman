@@ -84,4 +84,19 @@ class instagram extends Model
          return $error;
       }
    }
+
+   public function getPosts($profile){
+      $token = decrypt($profile->token);
+      // dd($token);
+      $apiHost = 'https://api.instagram.com/v1/users/self/media/recent/?access_token='.$token;
+      $response = Curl::to($apiHost)
+        ->returnResponseObject()
+        ->get();
+
+
+        $response = json_decode($response->content);
+
+        return $response;
+
+   }
 }

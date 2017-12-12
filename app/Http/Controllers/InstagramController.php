@@ -54,4 +54,16 @@ class InstagramController extends Controller
   public function error($code){
      return view('dashboards/error')->withData('data', 'token not found')->with('profiles', $profiles);
   }
+
+  public function posts(){
+     $data = '';
+     $posts = '';
+     $profiles = Instagram::all();
+     $i = 0;
+     foreach($profiles as $profile){
+        $posts[$i] = $profile->getPosts($profile);
+        $i++;
+     }
+     return view('dashboards/instaposts')->with('posts', $posts);
+ }
 }

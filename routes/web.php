@@ -48,6 +48,7 @@ Route::get('/instagram', 'InstagramController@index')->middleware('auth', 'verif
 Route::get('/code', 'InstagramController@home')->middleware('auth', 'verified')->name('story-list');
 Route::get('/token/{code}', 'InstagramController@token')->middleware('auth', 'verified')->name('story-list');
 Route::get('/errorinstagram', 'InstagramController@error')->middleware('auth', 'verified')->name('story-list');
+Route::get('/instaposts', 'InstagramController@posts')->middleware('auth', 'verified')->name('story-list');
 
 
 Route::get('/add-user', 'AddUserController@index')->middleware('auth', 'verified')->name('add-user');
