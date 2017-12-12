@@ -27,25 +27,31 @@ class InstagramController extends Controller
     * @return \Illuminate\Http\Response
     */
     public function home(){
+      $profiles = Instagram::all();
       $code = $_SERVER['REQUEST_URI'] . '&';
       $array = explode('&', $code);
-      // dd($array);
       $i = 0;
       foreach($array as $string) {
           $string = explode('=', $string);
           $array[$i] = $string;
           $i++;
       }
-
-      // dd($array);
-      // $string = explode('=', $code);
-      return view('dashboards/instagram')->with('string', $array[0][1]);
+      $tokenredirect = '/token/'.$array[0][1];
+      return redirect($tokenredirect);
+      // return view('dashboards/instagram')->with('string', $array[0][1])->with('profiles', $profiles);
     }
 
    public function token($code){
+     $profiles = Instagram::all();
      $instagram = new Instagram;
      $instagram->new();
      $token = $instagram->getOAuthToken($code);
-     return $token;
+     $data = $instagram->newprofile($token);
+     return view('dashboards/instagram')->withData($data)->with('profiles', $profiles);
+
+  }
+
+  public function error($code){
+     return view('dashboards/error')->withData('data', 'token not found')->with('profiles', $profiles);
   }
 }

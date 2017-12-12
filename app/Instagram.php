@@ -5,6 +5,7 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Ixudra\Curl\Facades\Curl;
+use Illuminate\Support\Facades\Crypt;
 
 
 class instagram extends Model
@@ -42,13 +43,45 @@ class instagram extends Model
           ->withData( array( 'client_id' => env('INSTA_CLIENT_ID'),
                              'client_secret' => env('INSTA_CLIENT_SECRET'),
                              'grant_type' => 'authorization_code',
-                             'redirect_uri' => $this->getApiCallback(),
+                             'redirect_uri' => 'http://statman.dev/code',
                              'code' => $apiData['code']) )
           ->returnResponseObject()
           ->post();
 
 
+          $response = json_decode($response->content);
+          if(property_exists($response, 'access_token')){
+             return $response;
+          } else {
+             $errors = $response;
+             return $errors;
+          }
 
-          return view('welcome')->with('data', $response->content);
     }
+
+    public function newprofile($data){
+      $error = '';
+      if(property_exists($data, 'access_token')){
+         $continue = true;
+         $profiles = Instagram::all();
+         $instagram = new Instagram;
+         $instagram->profile = $data->user->full_name;
+         $instagram->token = encrypt($data->access_token);
+         $instagram->profileid = $data->user->id;
+         foreach($profiles as $profile){
+            if($profile->profileid == $data->user->id){
+               $error = "This profile has already been bound. ";
+               $continue = false;
+            }
+         }
+         if($continue == true){
+            $instagram->save();
+         } else {
+            return $error;
+         }
+      } else {
+         $error = "There was an error receiving a token for your account";
+         return $error;
+      }
+   }
 }

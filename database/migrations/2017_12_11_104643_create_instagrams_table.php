@@ -15,6 +15,9 @@ class CreateInstagramsTable extends Migration
     {
         Schema::create('instagrams', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('profile');
+            $table->string('profileid');
+            $table->string('token', 550);
             $table->timestamps();
         });
     }
