@@ -20,7 +20,7 @@ Route::get('/', function () {
 	else{
 		$message = session('check');
 	}
-    return view('frontpages.home', compact('message', 'title'));
+	return view('frontpages.home', compact('message', 'title'));
 });
 
 Route::get('/home', function () {
