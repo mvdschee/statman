@@ -27,7 +27,7 @@ class InstagramController extends Controller
     * @return \Illuminate\Http\Response
     */
     public function home(){
-      $profiles = Instagram::all();
+      //get token from url
       $code = $_SERVER['REQUEST_URI'] . '&';
       $array = explode('&', $code);
       $i = 0;
@@ -38,7 +38,6 @@ class InstagramController extends Controller
       }
       $tokenredirect = '/token/'.$array[0][1];
       return redirect($tokenredirect);
-      // return view('dashboards/instagram')->with('string', $array[0][1])->with('profiles', $profiles);
     }
 
    public function token($code){
@@ -47,12 +46,8 @@ class InstagramController extends Controller
      $instagram->new();
      $token = $instagram->getOAuthToken($code);
      $data = $instagram->newprofile($token);
-     return view('dashboards/instagram')->withData($data)->with('profiles', $profiles);
+     return view('dashboards/instagram')->withData($data);
 
-  }
-
-  public function error($code){
-     return view('dashboards/error')->withData('data', 'token not found')->with('profiles', $profiles);
   }
 
   public function posts(){

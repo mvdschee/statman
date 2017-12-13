@@ -37,7 +37,6 @@ class instagram extends Model
 
     private function _makeOAuthCall($apiData)
     {
-      // $apiHost = $this['apioauthtokenurl'];
         $apiHost = $this['apioauthtokenurl'];
         $response = Curl::to($apiHost)
           ->withData( array( 'client_id' => env('INSTA_CLIENT_ID'),
@@ -76,6 +75,7 @@ class instagram extends Model
          }
          if($continue == true){
             $instagram->save();
+            return "Succesfully made a connection with Instagram.";
          } else {
             return $error;
          }
@@ -85,18 +85,24 @@ class instagram extends Model
       }
    }
 
+
+   // MAKE THIS FUNCTION IN JAVASCRIPT
    public function getPosts($profile){
+      //get access_token from database
       $token = decrypt($profile->token);
-      // dd($token);
-      $apiHost = 'https://api.instagram.com/v1/users/self/media/recent/?access_token='.$token;
+      //Get user_id from database
+      $userid = $profile->profileid;
+      //define url for request
+      $apiHost = 'https://api.instagram.com/v1/users/'.$userid.'/media/recent/?access_token='.$token;
+      //execute request
       $response = Curl::to($apiHost)
         ->returnResponseObject()
         ->get();
 
-
-        $response = json_decode($response->content);
-
-        return $response;
+     //json to object
+     $response = json_decode($response->content);
+     //return data
+     return $response;
 
    }
 }
