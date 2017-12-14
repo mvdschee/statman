@@ -45,7 +45,7 @@ function loadStory(graph) {
     d3.select('svg').select('g')
       .attr('transform', 'translate(' + d3.event.transform.x + ',' + d3.event.transform.y + ') scale(' + d3.event.transform.k + ')');
   }
-  d3.select('svg').select('rect').call(zoom);
+  d3.select('svg').select('rect').call(zoom).on("dblclick.zoom", null);
 
   svg = d3.select('#js-storyworld').select("g");
 

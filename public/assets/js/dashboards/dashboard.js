@@ -30,15 +30,7 @@ document.getElementById("js-new-link").onclick = function() {
 
 // addChapter
 document.getElementById("js-chapter").onclick = function() {
-  $(this).toggleClass("active");
-  $('#chapter-input').toggleClass("active");
-
-  if ($(this).text() == "Close") {
-    $(this).text("Add chapter")
-  } else {
-    $(this).text("Close");
-    addChapter()
-  }
+  addChapter()
 };
 
 // reloadStory
@@ -123,52 +115,47 @@ function spawnNewStory(data) {
 function addChapter() {
   var d = new Date(),
   n = d.getTime(),
-  chapterTitle = $('input[name=_chapter]').val('');
+  chapterTitle = "Title";
 
-  document.getElementById("js-save-chapter").onclick = function() {
+  if (chapterTitle !== '') {
 
-    chapterTitle = $('input[name=_chapter]').val();
+    d3.json(pathname+'/get-page', function(graph) {
+      var story = JSON.parse(graph.story);
 
-    if (chapterTitle !== '') {
+      // check chapter in storyworld
+      if (story.chapters) { var chapterBuilder = story.chapters; }else{ var chapterBuilder = []; }
 
-      d3.json(pathname+'/get-page', function(graph) {
-        var story = JSON.parse(graph.story);
+      // check nodes in storyworld
+      if (story.nodes) { var storyBuilder = story.nodes; }else{ var storyBuilder = []; }
 
-        // check chapter in storyworld
-        if (story.chapters) { var chapterBuilder = story.chapters; }else{ var chapterBuilder = []; }
+      // check link in storyworld
+      if (story.links) { var linkBuilder = story.links; }else{ var linkBuilder = []; }
 
-        // check nodes in storyworld
-        if (story.nodes) { var storyBuilder = story.nodes; }else{ var storyBuilder = []; }
+      var storyJSON = {nodes: storyBuilder, links: linkBuilder, chapters: chapterBuilder};
 
-        // check link in storyworld
-        if (story.links) { var linkBuilder = story.links; }else{ var linkBuilder = []; }
-
-        var storyJSON = {nodes: storyBuilder, links: linkBuilder, chapters: chapterBuilder};
-
-        chapterBuilder.push({
-          id: 'ch_' + n,
-          name: chapterTitle,
-          url:'',
-          image: newURL+ 'assets/img/chapter.svg',
-          stroke: chapterColor,
-          fill: chapterColor
-        });
-        storyBuilder.push({
-          id: 'ch_' + n,
-          name: chapterTitle,
-          url:'',
-          image: newURL+ 'assets/img/chapter.svg',
-          stroke: chapterColor,
-          fill: chapterColor
-        });
-
-        storyJSON = JSON.stringify(storyJSON);
-
-        // sends the JSON to the database
-        pushToBackend(storyJSON);
+      chapterBuilder.push({
+        id: 'ch_' + n,
+        name: chapterTitle,
+        url:'',
+        image: newURL+ 'assets/img/chapter.svg',
+        stroke: chapterColor,
+        fill: chapterColor
       });
-    }
-  };
+      storyBuilder.push({
+        id: 'ch_' + n,
+        name: chapterTitle,
+        url:'',
+        image: newURL+ 'assets/img/chapter.svg',
+        stroke: chapterColor,
+        fill: chapterColor
+      });
+
+      storyJSON = JSON.stringify(storyJSON);
+
+      // sends the JSON to the database
+      pushToBackend(storyJSON);
+    });
+  }
 }
 
 // linkToggle

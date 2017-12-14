@@ -13,10 +13,7 @@
 				<button id="js-save-link">Save</button>
 			</div>
 			<button id="js-chapter" class="chapter">Add Chapter</button>
-			<div id="chapter-input">
-				<input id="js-chapter-title" type="text" name="_chapter" value="">
-				<button id="js-save-chapter">Save</button>
-			</div>
+
 			<button id="js-refresh">Fetch new data</button>
 			@if ($access->role_index_id == 1)
 			<form action="/dashboard/delete-page" method="POST" onsubmit="return confirm('Are you sure you want to delete your story? This cannot be reversed.');">
