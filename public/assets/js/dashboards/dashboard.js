@@ -280,7 +280,8 @@ function pushToBackend (storyJSON) {
     type: "POST",
     url: pathname+'/save-story',
     data: {storyJSON, '_token': $('input[name=_token]').val(), project},
-    dataType: 'json',
-    succes: location.reload()
+    dataType: 'json'
   });
+  $("#js-storyworld").find("*").not("rect").remove();
+  initStoryWorld()
 }
