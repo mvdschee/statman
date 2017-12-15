@@ -96,11 +96,12 @@ class instagram extends Model
       $apiHost = 'https://api.instagram.com/v1/users/'.$userid.'/media/recent/?access_token='.$token;
       //execute request
       $response = Curl::to($apiHost)
-        ->returnResponseObject()
+        // ->returnResponseObject()
         ->get();
 
+
      //json to object
-     $response = json_decode($response->content);
+     $response = json_decode($response);
      //return data
      return $response;
 

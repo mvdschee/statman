@@ -50,15 +50,26 @@ class InstagramController extends Controller
 
   }
 
-  public function posts(){
-     $data = '';
-     $posts = '';
+  public function getPosts(){
      $profiles = Instagram::all();
      $i = 0;
      foreach($profiles as $profile){
         $posts[$i] = $profile->getPosts($profile);
         $i++;
      }
-     return view('dashboards/instaposts')->with('posts', $posts);
+     return $posts;
+ }
+
+  public function posts(){
+     $data = '';
+     $posts = '';
+     $profiles = Instagram::all();
+     // $i = 0;
+     // foreach($profiles as $profile){
+     //    $posts[$i] = $profile->getPosts($profile);
+     //    $i++;
+     // }
+     // return $posts;
+     return view('dashboards/instaposts')->with('posts', '');
  }
 }
