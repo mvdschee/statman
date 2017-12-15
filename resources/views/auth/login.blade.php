@@ -17,20 +17,29 @@
           </div>
         </div>
 
-        <div class="middle">
 
-          <form id="login" class="" role="form" method="POST" action="{{ url('/login') }}">
-          {{ csrf_field() }}
-              @if ($errors->has('email'))
-                  <span class="help-block">
-                      <strong>{{ $errors->first('email') }}</strong>
-                  </span>
+        <div class="middle">
+            <form id="login" role="form" method="POST" action="{{ url('/login') }}">
+            {{ csrf_field() }}
+                @if ($errors->has('email'))
+                    <span class="help-block">
+                        <strong>{{ $errors->first('email') }}</strong>
+                    </span>
+                    <span class="underline"></span>
               @endif
 
               <div class="{{ $errors->has('email') ? ' has-error' : '' }}">
+                <div class="icon">
+                  person
+                </div>
                   <input id="email" type="text" name="email" placeholder="E-mail" required autofocus>
+                  <span class="underline"></span>
               </div>
+
               <div class="{{ $errors->has('password') ? ' has-error' : '' }}">
+                <div class="icon">
+                  lock
+                </div>
                   <input id="password" type="password" name="password" placeholder="Password" required>
                   @if ($errors->has('password'))
                       <span class="help-block">
@@ -38,13 +47,18 @@
                       </span>
                   @endif
               </div>
+
+              <span class="buttons">
+                <button type="button" class="btn">Cancel</button>
+                <button type="submit" class="btn">Log me in</button>
+              </span>
+
               <label for="remember" class="remember">
                   <input type="checkbox" name="remember" id="remember">
-                  Remember Me?
+                  Remember me
               </label>
-              <span class="buttons">
-                  <button type="submit">Login</button>
-              </span>
+
+
           </form>
         </div>
 

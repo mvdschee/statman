@@ -26,6 +26,7 @@
 
 // variables
 @black:#000000;
+@grey:#969696;
 @white:#ffffff;
 @darkwhite:#F5F5F5;
 @blue:#148dfc;
@@ -49,6 +50,7 @@ h2 {
 // standard values
 html {
   height: 100%;
+  font-family: 'Open Sans'sans-serif;
 }
 
 body {
@@ -60,18 +62,18 @@ body {
 }
 
 .button {
-  display: inline-block;
-  padding: 12px 55px;
-  letter-spacing: 1px;
-  font-size: 14px;
-  font-weight: 700;
+  width:10rem;
   border-radius: 50px;
+  padding: .5rem 1.5rem;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  font-size: 14px;
+  color:@black;
   -webkit-transition: all 0.15s;
   -moz-transition: all 0.15s;
   transition: all 0.15s;
-  color: #fff;
   background: transparent;
-  border: 1.5px solid @darkwhite;
+  border: 1px solid @grey;
 }
 // end standard values
 
@@ -79,7 +81,7 @@ body {
 //              Componenten
 //-----------------------------------
 
-// login
+// login top
 .container {
   position: absolute;
   top: 50%;
@@ -108,6 +110,39 @@ body {
     width: 100%;
     background: @white;
     flex: 1;
+
+    form {
+      border:none;
+      box-sizing:border-box;
+      border-bottom:1x solid @grey;
+      color:@grey;
+      font-size: 16px;
+    }
+
+    .buttons {
+      display:block;
+      padding:1.5rem 0 1rem;
+      margin:auto;
+      width: 20.3rem;
+
+      .btn{
+        .button;
+        display: inline-block;
+
+        &:hover {
+          background: @blue;
+          color:@white;
+          border:1px solid @blue;
+        }
+      }
+    }
+  }
+
+  .remember {
+    display: inline-block;
+    font-family: 'Open Sans' sans-serif;
+    font-size: 14px;
+    color:@black;
   }
 
   .bottom {
@@ -126,6 +161,4 @@ body {
   fill:@white;
   .size(2rem);
 }
-
-
 // end login
