@@ -68,6 +68,7 @@ function loadStory(graph) {
       .enter().append("g")
         .attr("class", "node")
         .attr("id", function(d) { return d.id })
+        .on("contextmenu", function() {d3.event.preventDefault(); linkToggle(this.id)})
         .call(d3.drag()
             .on("start", dragstarted)
             .on("drag", dragged)

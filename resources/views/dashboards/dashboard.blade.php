@@ -12,7 +12,7 @@
 				@endif
 
 				<header class="header">
-					<button id="js-new-link" class="trigger_2">Link post</button>
+					{{-- <button id="js-new-link" class="trigger_2">Link post</button> --}}
 
 					{{-- Chapter --}}
 					<button id="js-chapter" class="chapter">()</button>

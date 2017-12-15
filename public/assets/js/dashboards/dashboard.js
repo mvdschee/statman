@@ -18,15 +18,15 @@ window.onload = function() {
   trigger.findTrigger();
 };
 
-// linkToggle
-document.getElementById("js-new-link").onclick = function() {
-  if ($(this).text() == "Close") {
-    $(this).text("Link nodes")
-  } else {
-    $(this).text("Close");
-    linkToggle()
-  }
-};
+// // linkToggle
+// document.getElementById("js-new-link").onclick = function() {
+//   if ($(this).text() == "Close") {
+//     $(this).text("Link nodes")
+//   } else {
+//     $(this).text("Close");
+//     linkToggle()
+//   }
+// };
 
 // addChapter
 document.getElementById("js-chapter").onclick = function() {
@@ -159,29 +159,37 @@ function addChapter() {
 }
 
 // linkToggle
-function linkToggle() {
+function linkToggle(id) {
   var source = '',
-  target = '',
-  svg = d3.select('#js-storyworld').select("g");
+      target = '';
 
-  svg.selectAll(".node").on("click", function() {
-    if (source === '') {
-      source = this.id;
-      $('#' + this.id).toggleClass("active", true);
-    } else {
-      if (source === this.id) {
-        source = '';
-        $('#' + this.id).toggleClass("active", false);
-      } else {
-        if (target === this.id) {
-          target = '';
-          $('#' + this.id).toggleClass("active", false);
-        } else {
-          target = this.id;
-          $('#' + this.id).toggleClass("active", true);
-    } } }
-  });
-  document.getElementById("js-save-link").onclick = function() { if (source && target) { buildLink(source, target) }};
+  if (source === '') {
+    source = this.id;
+    console.log("source", source);
+    $('#' + this.id).toggleClass("active", true);
+  } else {
+    target = this.id;
+    console.log("target", target);
+    $('#' + this.id).toggleClass("active", true);
+    // if (source === id) {
+    //   source = '';
+    //   console.log("source", source);
+    //   $('#' + id).toggleClass("active", false);
+    // } else {
+    //   if (target === id) {
+    //     target = '';
+    //     console.log("target", target);
+    //     $('#' + id).toggleClass("active", false);
+    //   } else {
+    //
+    //   }
+    // }
+  }
+  console.log(source, target);
+  if (source && target) {
+    // buildLink(source, target)
+    console.log("build succesful");
+  };
 }
 
 // buildLink
