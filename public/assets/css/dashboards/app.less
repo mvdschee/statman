@@ -1,6 +1,50 @@
+//-----------------------------------
+//              01. Mixins
+//              02. Variable
+//              03. Reset
+//              04. Fonts
+//              05. Base
+//              06. Common classnames
+//              07. Componenten
+//              08. Pages
+//              09. Responsive
+//-----------------------------------
+
+
+//-----------------------------------
+//              Mixins
+//-----------------------------------
+
+.size(@value){
+  width:@value;
+  height: @value;
+}
+
+//-----------------------------------
+//              Variable
+//-----------------------------------
+
 // variables
+@black:#000000;
 @white:#ffffff;
+@darkwhite:#F5F5F5;
+@blue:#148dfc;
 // end variables
+
+//-----------------------------------
+//              Fonts
+//-----------------------------------
+
+h2 {
+  font-family: 'Open Sans', sans-serif;
+  font-size: 18px;
+  font-weight: bold;
+  color:@white;
+}
+
+//-----------------------------------
+//              Base
+//-----------------------------------
 
 // standard values
 html {
@@ -14,14 +58,74 @@ body {
   overflow: hidden;
   background: linear-gradient(-135deg, #ce2e6a, #953294 50%, #4a30b1);
 }
+
+.button {
+  display: inline-block;
+  padding: 12px 55px;
+  letter-spacing: 1px;
+  font-size: 14px;
+  font-weight: 700;
+  border-radius: 50px;
+  -webkit-transition: all 0.15s;
+  -moz-transition: all 0.15s;
+  transition: all 0.15s;
+  color: #fff;
+  background: transparent;
+  border: 1.5px solid @darkwhite;
+}
 // end standard values
 
+//-----------------------------------
+//              Componenten
+//-----------------------------------
+
 // login
+.container {
+  position: absolute;
+  top: 50%;
+  margin-top: -15rem;
+  left: 0;
+  width: 100%;
+}
+
 .window {
-  width:350px;
-  height: 450px;
+  display: flex;
+  flex-direction: column;
+  overflow:hidden;
+  width:22rem;
+  height: 30rem;
   border-radius: 20px;
   background:@white;
-  margin: 0 auto;
+  margin:0 auto;
+
+  .top {
+    background: @blue;
+    width:100%;
+    height: 5rem;
+  }
+
+  .middle {
+    width: 100%;
+    background: @white;
+    flex: 1;
+  }
+
+  .bottom {
+    height: 6rem;
+    background: @darkwhite;
+  }
 }
+
+.inner-top {
+  padding:1rem 1rem 0;
+}
+
+.svg-icon {
+  padding:.5rem .5rem 0;
+  float:left;
+  fill:@white;
+  .size(2rem);
+}
+
+
 // end login
