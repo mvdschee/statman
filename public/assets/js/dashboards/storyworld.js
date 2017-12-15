@@ -13,8 +13,12 @@ function loadStory(graph) {
 
   // build storywold layout
   var svg = d3.select("#js-storyworld"),
-      width = +svg.attr("width"),
-      height = +svg.attr("height");
+      width =  window.innerWidth,
+      height = window.innerHeight;
+
+  d3.select('#js-storyworld')
+    .attr("width", width)
+    .attr("height", height);
 
   svg.select("rect")
       .attr("x", -2000)
