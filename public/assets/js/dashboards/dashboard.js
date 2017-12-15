@@ -18,6 +18,10 @@ window.onload = function() {
   trigger.findTrigger();
 };
 
+// reset value of input on page load
+$('input[name=_source]').val('');
+$('input[name=_target]').val('');
+
 // // linkToggle
 // document.getElementById("js-new-link").onclick = function() {
 //   if ($(this).text() == "Close") {
@@ -160,33 +164,19 @@ function addChapter() {
 
 // linkToggle
 function linkToggle(id) {
-  var source = '',
-      target = '';
+  var source = $('input[name=_source]').val(),
+      target = $('input[name=_target]').val();
 
   if (source === '') {
-    source = this.id;
-    console.log("source", source);
-    $('#' + this.id).toggleClass("active", true);
+    source = $('input[name=_source]').val(id);
+    $('#' + id).toggleClass("active", true);
   } else {
-    target = this.id;
-    console.log("target", target);
-    $('#' + this.id).toggleClass("active", true);
-    // if (source === id) {
-    //   source = '';
-    //   console.log("source", source);
-    //   $('#' + id).toggleClass("active", false);
-    // } else {
-    //   if (target === id) {
-    //     target = '';
-    //     console.log("target", target);
-    //     $('#' + id).toggleClass("active", false);
-    //   } else {
-    //
-    //   }
-    // }
+    target = $('input[name=_target]').val(id);
+    $('#' + id).toggleClass("active", true);
   }
-  console.log(source, target);
   if (source && target) {
+    console.log("Source", source);
+    console.log("Target", target);
     // buildLink(source, target)
     console.log("build succesful");
   };

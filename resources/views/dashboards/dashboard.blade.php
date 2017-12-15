@@ -1,7 +1,8 @@
 @extends('layouts.master')
 @section('content')
 	<input type="hidden" name="_token" value="{{ Session::token() }}">
-
+	<input type="hidden" name="_source" value="">
+	<input type="hidden" name="_target" value="">
 
 		<div class="canvas">
 			@if ($token)
@@ -12,8 +13,6 @@
 				@endif
 
 				<header class="header">
-					{{-- <button id="js-new-link" class="trigger_2">Link post</button> --}}
-
 					{{-- Chapter --}}
 					<button id="js-chapter" class="chapter">()</button>
 

@@ -51,6 +51,54 @@ function loadStory(graph) {
   }
   d3.select('svg').select('rect').call(zoom).on("dblclick.zoom", null);
 
+
+  // filters go in defs element
+  var defs = svg.append("defs");
+
+  // create filter with id #drop-shadow
+  // height=130% so that the shadow is not clipped
+  var filter = defs.append("filter")
+      .attr("id", "drop-shadow")
+      .attr("height", "130%");
+
+  // SourceAlpha refers to opacity of graphic that this filter will be applied to
+  // convolve that with a Gaussian with standard deviation 3 and store result
+  // in blur
+  filter.append("feGaussianBlur")
+      .attr("in", "SourceAlpha")
+      .attr("stdDeviation", 4)
+      .attr("result", "blur");
+
+  // translate output of Gaussian blur to the right and downwards with 2px
+  // store result in offsetBlur
+  filter.append("feOffset")
+      .attr("in", "blur")
+      .attr("dx", 0)
+      .attr("dy", 2)
+      .attr("result", "offsetBlur");
+
+  filter.append("feFlood")
+     .attr("in", "offsetBlur")
+     .attr("flood-color", "rgba(0, 0, 0, 0.2)")
+     .attr("flood-opacity", "1")
+     .attr("result", "offsetColor");
+
+ filter.append("feComposite")
+   .attr("in", "offsetColor")
+   .attr("in2", "offsetBlur")
+   .attr("operator", "in")
+   .attr("result", "offsetBlur");
+
+  // overlay original SourceGraphic over translated blurred opacity by using
+  // feMerge filter. Order of specifying inputs is important!
+  var feMerge = filter.append("feMerge");
+
+  feMerge.append("feMergeNode")
+      .attr("in", "offsetBlur")
+  feMerge.append("feMergeNode")
+      .attr("in", "SourceGraphic");
+
+
   svg = d3.select('#js-storyworld').select("g");
 
   // Setup link to source and target
@@ -60,7 +108,8 @@ function loadStory(graph) {
       .data(dataset.links)
       .enter().append("line")
         .attr("stroke", "#415a77")
-        .attr("stroke-width", "4px");
+        .attr("stroke-width", "4px")
+        .on("contextmenu", function() {d3.event.preventDefault(); console.log("clicky click");});
 
   // Setup node
   var node = svg.selectAll(".node")
@@ -68,6 +117,7 @@ function loadStory(graph) {
       .enter().append("g")
         .attr("class", "node")
         .attr("id", function(d) { return d.id })
+        .style("filter", "url(#drop-shadow)")
         .on("contextmenu", function() {d3.event.preventDefault(); linkToggle(this.id)})
         .call(d3.drag()
             .on("start", dragstarted)
