@@ -57,6 +57,17 @@ class ProjectsController extends Controller
 
       $data['pages'] = $pages;
       $data['invites'] = $invites;
+      $i = 0;
+      foreach($invites as $invite){
+         $email = $invite['invited_email'];
+         $checkuser = User::where('email', $email)->first();
+         if(!empty($checkuser['id'])){
+            $data['invites'][$i]['status'] = 1;
+         } else {
+            $data['invites'][$i]['status'] = 0;
+         }
+         $i++;
+      }
       $data['project_id'] = $project_id;
       return view('dashboards/project-settings')->with('data', $data)->with('user', $user);
     }

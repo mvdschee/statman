@@ -55,22 +55,35 @@
                            {{ csrf_field() }}
                            <input type="hidden" name="option" value="{{ $data['project_id'] }}">
                            <input type="hidden" name="user" value="{{$users['user_id']}}">
-                           <td><button style="background:red;" type="submit">Leave project</button></td>
+                           <td><button style="background:red;">delete</button></td>
+                           <td class="hidden" id="deletebuttons">
+                              <button style="background:darkgrey;" id="cancel" type="submit">cancel</button>
+                              <button style="background:red;" type="submit">confirm</button>
+                           </td>
+                           <td></td>
                         </form>
                      @endif
                   </tr>
                   @endforeach
                   @if(!empty($data['invites'][0]['id']))
                      @foreach($data['invites'] as $invite)
-                        <td>name</td>
-                        @if($invite['role_index_id'] == 1)
-                           <td>Owner</td>
-                        @elseif($invite['role_index_id'] == 2)
-                           <td>Writer</td>
-                        @elseif($invite['role_index_id'] == 2)
-                           <td>Reader</td>
-                        @endif
-                        <td>status?</td>
+                        <tr>
+                           <td>name</td>
+
+                           @if($invite['role_index_id'] == 1)
+                              <td>Owner</td>
+                           @elseif($invite['role_index_id'] == 2)
+                              <td>Writer</td>
+                           @elseif($invite['role_index_id'] == 2)
+                              <td>Reader</td>
+                           @endif
+
+                           @if($invite['status'] == 0)
+                              <td>invited</td>
+                           @elseif($invite['status'] == 1)
+                              <td>has account</td>
+                           @endif
+                        </tr>
                      @endforeach
                   @endif
             </tbody>
@@ -99,7 +112,7 @@
             </tbody>
          </table>
       @endif
-      
+
     </div>
 
 </section>
