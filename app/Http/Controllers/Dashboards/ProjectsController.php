@@ -33,16 +33,16 @@ class ProjectsController extends Controller
 
 
       $i = 0;
-      //Finds all connected social media services
-      $pages = Service::where('project_id', $project_id)->get();
       $invites = InviteToken::where('project_id', $project_id)->get();
       $data['project'] = $project;
       $i = 0;
+
       //assigns all the users in an array
       foreach($users as $useraccess){
          $data['access'][$i] = $useraccess;
          $i++;
       }
+
       $i = 0;
       foreach($users as $projectusers){
          $userdata = User::where('id', $projectusers->user_id)->first();
@@ -51,6 +51,10 @@ class ProjectsController extends Controller
       }
       foreach($users as $projectusers){
       }
+
+      //Finds all connected social media services
+      $pages = Service::where('project_id', $project_id)->get();
+
       $data['pages'] = $pages;
       $data['invites'] = $invites;
       $data['project_id'] = $project_id;

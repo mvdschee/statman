@@ -79,25 +79,6 @@
          <table>
             <thead>
                <td>name</td>
-               <td>status</td>
-               <td></td>
-            </thead>
-            <tbody>
-               <tr>
-                  <td>recognizeable value</td>
-                  <td>pending</td>
-                  <form class="" action="{{ url('/delete-invite') }}" method="post">
-                     {{ csrf_field() }}
-                     <input type="hidden" name="option" value="{{ $data['project_id'] }}">
-                     <td><button style="background:red;" type="submit">X</button></td>
-                  </form>
-               </tr>
-            </tbody>
-         </table>
-         <hr>
-         <table>
-            <thead>
-               <td>name</td>
                <td>platform</td>
                <td></td>
             </thead>
@@ -113,12 +94,12 @@
                         <input type="hidden" name="option" value="{{ $data['project_id'] }}">
                         <td><button style="background:red;" type="submit">X</button></td>
                      </form>
-                     <td>{{$data['pages'][0]['service_index']}}</td>
                   @endif
                </tr>
             </tbody>
          </table>
       @endif
+      
     </div>
 
 </section>
