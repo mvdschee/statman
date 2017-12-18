@@ -18,20 +18,6 @@ window.onload = function() {
   trigger.findTrigger();
 };
 
-// reset value of input on page load
-$('input[name=_source]').val('');
-$('input[name=_target]').val('');
-
-// // linkToggle
-// document.getElementById("js-new-link").onclick = function() {
-//   if ($(this).text() == "Close") {
-//     $(this).text("Link nodes")
-//   } else {
-//     $(this).text("Close");
-//     linkToggle()
-//   }
-// };
-
 // addChapter
 document.getElementById("js-chapter").onclick = function() {
   addChapter()
@@ -174,11 +160,9 @@ function linkToggle(id) {
     target = $('input[name=_target]').val(id);
     $('#' + id).toggleClass("active", true);
   }
+
   if (source && target) {
-    console.log("Source", source);
-    console.log("Target", target);
-    // buildLink(source, target)
-    console.log("build succesful");
+    buildLink($('input[name=_source]').val(), $('input[name=_target]').val())
   };
 }
 
@@ -206,7 +190,40 @@ function buildLink(Source, Target) {
     // sends the JSON to the database
     pushToBackend(storyJSON);
   });
+  // reset value of input on page load
+  $('input[name=_source]').val('');
+  $('input[name=_target]').val('');
+
 }
+
+// Delete link
+function deleteLink(id) {
+  d3.json(pathname+'/get-page', function(graph) {
+    var story = JSON.parse(graph.story);
+
+    // check chapter in storyworld
+    if (story.chapters) { var chapterBuilder = story.chapters; }else{ var chapterBuilder = []; }
+
+    // check nodes in storyworld
+    if (story.nodes) { var storyBuilder = story.nodes; }else{ var storyBuilder = []; }
+
+    // check link in storyworld
+    if (story.links) { var linkBuilder = story.links; }else{ var linkBuilder = []; }
+
+    // Find link with id and exclude from new array
+    var data = $.grep(linkBuilder, function(e){ return e.id != id;});
+    linkBuilder = data;
+
+    var storyJSON = {nodes: storyBuilder, links: linkBuilder, chapters: chapterBuilder};
+
+    storyJSON = JSON.stringify(storyJSON);
+
+    // sends the JSON to the database
+    pushToBackend(storyJSON);
+  });
+}
+
+
 
 // reloadStory
 function reloadStory(data) {
@@ -267,6 +284,7 @@ function pushToBackend (storyJSON) {
     data: {storyJSON, '_token': $('input[name=_token]').val(), project},
     dataType: 'json'
   });
+  // remove svg components otherwise it would just add more.
   $("#js-storyworld").find("*").not("rect").remove();
   initStoryWorld()
 }

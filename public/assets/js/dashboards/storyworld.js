@@ -107,9 +107,10 @@ function loadStory(graph) {
       .selectAll("line")
       .data(dataset.links)
       .enter().append("line")
-        .attr("stroke", "#415a77")
+        .attr("id", function(d) { return d.id })
+        .attr("stroke", "rgba(255, 255, 255, 0.5)")
         .attr("stroke-width", "4px")
-        .on("contextmenu", function() {d3.event.preventDefault(); console.log("clicky click");});
+        .on("contextmenu", function() {d3.event.preventDefault(); deleteLink(this.id)});
 
   // Setup node
   var node = svg.selectAll(".node")
@@ -117,7 +118,7 @@ function loadStory(graph) {
       .enter().append("g")
         .attr("class", "node")
         .attr("id", function(d) { return d.id })
-        .style("filter", "url(#drop-shadow)")
+        // .style("filter", "url(#drop-shadow)")
         .on("contextmenu", function() {d3.event.preventDefault(); linkToggle(this.id)})
         .call(d3.drag()
             .on("start", dragstarted)
@@ -155,12 +156,13 @@ function loadStory(graph) {
     .attr("height", 60);
 
   node.append("svg:a")
-  .attr("xlink:href", function(d){return d.url;})
-  .attr("target", "_blank")
+  // .attr("xlink:href", function(d){return d.url;})
+  // .attr("target", "_blank")
   .attr("x", -25)
   .attr("y", -25)
   .attr("width", 50)
   .attr("height", 50)
+  .on("contextmenu", function() {d3.event.preventDefault(); linkToggle(this.id)})
   .append("text")
     .attr("x", 28)
     .attr("y", 5)
