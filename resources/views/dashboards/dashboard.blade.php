@@ -3,6 +3,7 @@
 	<input type="hidden" name="_token" value="{{ Session::token() }}">
 	<input type="hidden" name="_source" value="">
 	<input type="hidden" name="_target" value="">
+	<input type="hidden" name="_node" value="">
 
 		<div class="canvas">
 			@if ($token)
@@ -15,6 +16,7 @@
 				<header class="header">
 					{{-- Chapter --}}
 					<button id="js-chapter" class="chapter">()</button>
+					<button id="js-delete-chapter" class="delete-chapter">X</button>
 
 					{{-- Refresh --}}
 					<button id="js-refresh">-></button>

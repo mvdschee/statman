@@ -120,6 +120,7 @@ function loadStory(graph) {
         .attr("id", function(d) { return d.id })
         // .style("filter", "url(#drop-shadow)")
         .on("contextmenu", function() {d3.event.preventDefault(); linkToggle(this.id)})
+        .on("click", function() {deleteNode(this.id)})
         .call(d3.drag()
             .on("start", dragstarted)
             .on("drag", dragged)

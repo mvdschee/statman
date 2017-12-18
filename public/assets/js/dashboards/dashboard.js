@@ -23,6 +23,12 @@ document.getElementById("js-chapter").onclick = function() {
   addChapter()
 };
 
+// delete chapter button
+document.getElementById("js-delete-chapter").onclick = function() {
+  var id = $('input[name=_node]').val();
+  deleteChapter(id);
+};
+
 // reload storyworld button
 document.getElementById("js-refresh").onclick = function() {
   d3.json(pathname+'/get-page', function(graph) {
@@ -68,6 +74,10 @@ function loginCheck(){
 
 // check if JSON has a Storyworld
 function initStoryWorld() {
+  // reset values on reload and all
+  $('#js-delete-chapter').toggleClass("active", false);
+  $('input[name=_node]').val('');
+
   d3.json(pathname+'/get-page', function(graph) {
     var story = JSON.parse(graph.story);
 
@@ -223,6 +233,44 @@ function pushRenameChapter(id, title) {
   });
 }
 
+// Delete link
+function deleteChapter(id) {
+  d3.json(pathname+'/get-page', function(graph) {
+    var story = JSON.parse(graph.story);
+
+    // check chapter in storyworld
+    if (story.chapters) { var chapterBuilder = story.chapters; }else{ var chapterBuilder = []; }
+
+    // check nodes in storyworld
+    if (story.nodes) { var storyBuilder = story.nodes; }else{ var storyBuilder = []; }
+
+    // check link in storyworld
+    if (story.links) { var linkBuilder = story.links; }else{ var linkBuilder = []; }
+
+    // Find chapter with id and exclude from new array
+    var dataChapter = $.grep(chapterBuilder, function(e){ return e.id != id;});
+    chapterBuilder = dataChapter;
+
+    // Find chapter with id and exclude from new array
+    var dataStory = $.grep(storyBuilder, function(e){ return e.id != id;});
+    storyBuilder = dataStory;
+
+    // Find link with id and exclude from new array
+    var dataLink = $.grep(linkBuilder, function(e){
+      if (e.source != id) { if (e.target != id) {return e;} }
+    });
+
+    linkBuilder = dataLink;
+
+    var storyJSON = {nodes: storyBuilder, links: linkBuilder, chapters: chapterBuilder};
+
+    storyJSON = JSON.stringify(storyJSON);
+
+    // sends the JSON to the database
+    pushToBackend(storyJSON);
+  });
+}
+
 // ------------
 // Link logica
 // ------------
@@ -306,6 +354,33 @@ function deleteLink(id) {
 // --------------
 // other logica
 // --------------
+
+// delete nodes
+function deleteNode(id) {
+  var pattern = /ch/,
+      exists = pattern.test(id),
+      deleted = $('input[name=_node]').val();
+
+  // if it is a chapter toggle button
+  if (exists) {
+    if (deleted === id) {
+      $('#js-delete-chapter').toggleClass("active", false);
+      $('#' + id).toggleClass("active", false);
+      $('input[name=_node]').val('');
+    } else {
+      if ($('#js-delete-chapter').hasClass('active')) {
+        $('#' + id).toggleClass("active", false);
+        $('#js-delete-chapter').toggleClass("active", false);
+        $('#' + deleted).toggleClass("active", false);
+        $('input[name=_node]').val('');
+      } else {
+        $('#' + id).toggleClass("active", true);
+        $('#js-delete-chapter').toggleClass("active", true);
+        $('input[name=_node]').val(id);
+      }
+    }
+  }
+}
 
 // reloadStory
 function reloadStory(data) {
