@@ -18,12 +18,12 @@ window.onload = function() {
   trigger.findTrigger();
 };
 
-// addChapter
+// add chapter button
 document.getElementById("js-chapter").onclick = function() {
   addChapter()
 };
 
-// reloadStory
+// reload storyworld button
 document.getElementById("js-refresh").onclick = function() {
   d3.json(pathname+'/get-page', function(graph) {
     reloadStory(graph);
@@ -101,6 +101,10 @@ function spawnNewStory(data) {
   });
 }
 
+// ---------------
+// Chapter logica
+// ---------------
+
 // addChapter
 function addChapter() {
   var d = new Date(),
@@ -147,6 +151,81 @@ function addChapter() {
     });
   }
 }
+
+function renameChapter(id) {
+  var pattern = /ch/,
+      exists = pattern.test(id)
+      title = $('#' + id).text();
+
+  if (exists) {
+    $("body").on( "keydown", function(event) {
+      // enter key
+      if(event.which === 13){
+          title = $('#' + id).text();
+          pushRenameChapter(id, escape(title));
+          $("body").off( "keydown");
+      } else {
+        // backspace key
+        if(event.which === 8){
+          event.preventDefault();
+          backSpace();
+        } else {
+          let chr = String.fromCharCode(event.which);
+          $('#' + id).append(chr.toLowerCase())
+        }
+      }
+    });
+
+    // verwijderen van characters
+    function backSpace(){
+      title = $('#' + id).text();
+      $('#' + id).text(title.substr(0, title.length - 1));
+    }
+  }
+
+}
+
+function pushRenameChapter(id, title) {
+  var id = id.slice(5);
+
+  d3.json(pathname+'/get-page', function(graph) {
+    var story = JSON.parse(graph.story);
+
+    // check chapter in storyworld
+    if (story.chapters) { var chapterBuilder = story.chapters; }else{ var chapterBuilder = []; }
+
+    // check nodes in storyworld
+    if (story.nodes) { var storyBuilder = story.nodes; }else{ var storyBuilder = []; }
+
+    // check link in storyworld
+    if (story.links) { var linkBuilder = story.links; }else{ var linkBuilder = []; }
+
+    // find chapter with id and change title
+    var dataChapter = $.grep(chapterBuilder, function(e){ return e.id == id;});
+
+    if(dataChapter && dataChapter.length == 1) {
+      dataChapter[0].name = title;
+    }
+
+    // find story with id and change title
+    var dataStory = $.grep(storyBuilder, function(e){ return e.id == id;});
+
+    if(dataStory && dataStory.length == 1) {
+      dataStory[0].name = title;
+    }
+
+    var storyJSON = {nodes: storyBuilder, links: linkBuilder, chapters: chapterBuilder};
+
+    storyJSON = JSON.stringify(storyJSON);
+
+    // sends the JSON to the database
+    pushToBackend(storyJSON);
+  });
+}
+
+// ------------
+// Link logica
+// ------------
 
 // linkToggle
 function linkToggle(id) {
@@ -224,6 +303,9 @@ function deleteLink(id) {
 }
 
 
+// --------------
+// other logica
+// --------------
 
 // reloadStory
 function reloadStory(data) {

@@ -162,8 +162,9 @@ function loadStory(graph) {
   .attr("y", -25)
   .attr("width", 50)
   .attr("height", 50)
-  .on("contextmenu", function() {d3.event.preventDefault(); linkToggle(this.id)})
   .append("text")
+    .attr("id", function(d) { return "text_" + d.id })
+    .on("dblclick", function() {renameChapter(this.id)})
     .attr("x", 28)
     .attr("y", 5)
     .text(function(d) { return d.name });
