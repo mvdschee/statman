@@ -82,16 +82,32 @@ class ProjectsController extends Controller
       $count_users_on_project = UserAccess::where('project_id', $project)->count();
       if($access->role_index_id == 1){
          if($count_users_on_project <=1){
-            return "you are the last user on this project. If this project ended, please delete it.";
-         }
-         if($user->id == $deleted_user->id){
-            return "you cannot delete yourself dickhead.";
+            return redirect()->back()->withErrors(['you are the last user on this project. If this project ended, please delete it.']);
          } else {
             $deleted_user->delete();
-            return "Deleted " . decrypt($deleted_user_data->name);
+            return redirect()->back()->withErrors(['Deleted: '. decrypt($deleted_user_data->name)]);
          }
       } else {
-         return "fuck off m8 you shouldn't have that option, stop trying to break my shit";
+         return redirect()->back()->withErrors(['You have no access to this function.']);
+      }
+   }
+
+   public function deleteService(Request $request){
+      $data['project'] = $request->option;
+      $data['id'] = $request->id;
+
+      $user = Auth::user();
+      $access = UserAccess::where('user_id', $user->id)->where('project_id', $data['project'])->first();
+      
+      if(!empty($user) && !empty($access)){
+         if($access->role_index_id == 1){
+            $service = Service::where('id', $data['id'])->where('project_id', $data['project'])->first();
+            $service->delete();
+            return redirect()->back()->withErrors(['Deleted service.']);
+         } else {
+            return redirect()->back()->withErrors(['You do not have access to this function']);
+         }
+         return redirect()->back()->withErrors(['Something went wrong.']);
       }
    }
 }

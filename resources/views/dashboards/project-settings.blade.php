@@ -1,6 +1,11 @@
 @extends('layouts.master')
 @section('content')
 <section class="settings container">
+   @if($errors->any())
+      <div class="error">
+         <h1>{{$errors->first()}}</h1>
+      </div>
+   @endif
 
     @if (session('status'))
         <div id="js-error" class="alert alert-success">
@@ -97,21 +102,32 @@
             </thead>
             <tbody>
                <tr>
+                  {{-- {{dd($data['pages'])}} --}}
                   @if(!empty($data['pages'][0]))
-                     <td>{{decrypt($data['pages'][0]['service_page_name'])}}</td>
-                     @if($data['pages'][0]['service_index'] == 0)
-                        <td>facebook</td>
-                     @endif
-                     <form class="" action="{{ url('/delete-service') }}" method="post">
-                        {{ csrf_field() }}
-                        <input type="hidden" name="option" value="{{ $data['project_id'] }}">
-                        <td><button style="background:red;" type="submit">X</button></td>
-                     </form>
+                     @foreach($data['pages'] as $page)
+                        <tr>
+                           <td>{{decrypt($page['service_page_name'])}}</td>
+
+                           @if($page['service_index'] == 0)
+                              <td>facebook</td>
+                           @elseif($page['service_index'] == 1)
+                              <td>instagram</td>
+                           @endif
+                        {{-- {{$data['pages']}} --}}
+                        <form class="" action="{{ url('/delete-service') }}" method="post">
+                           {{ csrf_field() }}
+                           <input type="hidden" name="option" value="{{ $data['project_id'] }}">
+                           <input type="hidden" name="id" value="{{ $page['id'] }}">
+                           <td><button style="background:red;" type="submit">X</button></td>
+                        </form>
+                        </tr>
+                     @endforeach
                   @endif
                </tr>
             </tbody>
          </table>
       @endif
+      <a href="/{{$data['project_id']}}/instagram">add instagram</a>
 
     </div>
 
