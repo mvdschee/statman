@@ -98,6 +98,21 @@ function loadStory(graph) {
   feMerge.append("feMergeNode")
       .attr("in", "SourceGraphic");
 
+  var defs = svg.append("defs");
+
+  var filter = defs.append("filter")
+      .attr("id", "solid")
+      .attr("width", "1")
+      .attr("height", "1")
+      .attr("x", "0")
+      .attr("y", "0");
+
+  filter.append("feFlood")
+     .attr("in", "offsetBlur")
+     .attr("flood-color", "rgba(255, 255, 255, 0.8)");
+
+ filter.append("feComposite")
+   .attr("in", "SourceGraphic");
 
   svg = d3.select('#js-storyworld').select("g");
 
@@ -127,19 +142,19 @@ function loadStory(graph) {
             .on("end", dragended));
 
   node.append("defs")
-  .append("rect")
-    .attr("id", function(d) { return "rect_" + d.id })
-    .attr("x", -25)
-    .attr("y", -25)
-    .attr("width", 50)
-    .attr("height", 50)
-    .attr("rx", "25");
+    .append("rect")
+      .attr("id", function(d) { return "rect_" + d.id })
+      .attr("x", -25)
+      .attr("y", -25)
+      .attr("width", 50)
+      .attr("height", 50)
+      .attr("rx", "25");
 
   node.select("defs")
-  .append("clipPath")
-    .attr("id", function(d) { return "clip_" + d.id })
-    .append("use")
-      .attr("xlink:href", function(d) { return "#rect_" + d.id });
+    .append("clipPath")
+      .attr("id", function(d) { return "clip_" + d.id })
+      .append("use")
+        .attr("xlink:href", function(d) { return "#rect_" + d.id });
 
   // // random background color
   node.append("use")
@@ -159,16 +174,16 @@ function loadStory(graph) {
   node.append("svg:a")
   // .attr("xlink:href", function(d){return d.url;})
   // .attr("target", "_blank")
-  .attr("x", -25)
-  .attr("y", -25)
-  .attr("width", 50)
-  .attr("height", 50)
-  .append("text")
-    .attr("id", function(d) { return "text_" + d.id })
-    .on("dblclick", function() {renameChapter(this.id)})
-    .attr("x", 28)
-    .attr("y", 5)
-    .text(function(d) { return d.name });
+    .attr("text-anchor", "middle")
+    .attr("x", 0)
+    .attr("y", 0)
+    .append("text")
+      .attr("id", function(d) { return "text_" + d.id })
+      .attr("filter", "url(#solid)")
+      .on("dblclick", function() {renameChapter(this.id)})
+      .attr("x", 0)
+      .attr("y", 45)
+      .text(function(d) { return d.name });
 
   simulation.nodes(dataset.nodes).on("tick", ticked);
 

@@ -9,7 +9,7 @@
 var pathname = window.location.pathname,
     project = pathname.substr(11),
     newURL = window.location.protocol + "//" + window.location.host + "/",
-    chapterColor = '#A73C5A',
+    chapterColor = 'rgba(255, 255, 255, 0.8)',
     FacebookColor = '#3b5998';
 
 // triggers
@@ -403,7 +403,7 @@ function reloadStory(data) {
       name: entry.name,
       url: entry.url,
       image: entry.image,
-      stroke: entry.stroke,
+      stroke: "rgba(255, 255, 255, 0)",
       fill: entry.fill
     });
   })
@@ -444,4 +444,19 @@ function pushToBackend (storyJSON) {
   // remove svg components otherwise it would just add more.
   $("#js-storyworld").find("*").not("rect").remove();
   initStoryWorld()
+}
+
+
+document.getElementById("js-hacker").onclick = function() {
+  growthHacker(1400, 700, 200)
+};
+
+function growthHacker(l, s, c) {
+  var likes = 12,
+      shares = 12,
+      comments = 12;
+
+  var growthFactor = (likes + l / shares + s / comments + c);
+
+  console.log(growthFactor);
 }
