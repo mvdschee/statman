@@ -64,7 +64,12 @@
                 <button type="submit" class="btn">Log me in</button>
               </span>
 
-            
+              <div class="checkbox">
+                <span class="checkbox-block">
+                  <input type="checkbox" id="checkbox" />
+                  <label for="checkbox"><p>Remember me</p></label>
+                </span>
+            </div>
 
           </form>
         </div>
@@ -73,7 +78,9 @@
           <span class="bottom-block">
             <a href="#">Don't have an account? Create one here</a>
           </span>
-          <a href="{{ url('/password/reset') }}">Forgot your password?</a>
+          <span class="bottom-element">
+            <a href="{{ url('/password/reset') }}">Forgot your password?</a>
+          </span>
         </div>
     </section>
 </div>
