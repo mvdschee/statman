@@ -22,9 +22,10 @@
 					<button id="js-refresh">-></button>
 					<button id="js-hacker" class="chapter">(x)</button>
 			</header>
-			<svg id="js-storyworld" class="storyworld">
-				<rect class="zoom-layer"></rect>
-			</svg>
+			<div id="js-world-container">				
+				<div id="js-storyworld" class="storyworld">
+				</div>
+			</div>
 		</div>
 
 	@else

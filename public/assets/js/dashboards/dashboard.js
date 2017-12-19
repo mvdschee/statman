@@ -8,9 +8,7 @@
 // variables
 var pathname = window.location.pathname,
     project = pathname.substr(11),
-    newURL = window.location.protocol + "//" + window.location.host + "/",
-    chapterColor = 'rgba(255, 255, 255, 0.8)',
-    FacebookColor = '#3b5998';
+    newURL = window.location.protocol + "//" + window.location.host + "/";
 
 // triggers
 window.onload = function() {
@@ -141,17 +139,13 @@ function addChapter() {
         id: 'ch_' + n,
         name: chapterTitle,
         url:'',
-        image: newURL+ 'assets/img/chapter.svg',
-        stroke: chapterColor,
-        fill: chapterColor
+        image: newURL+ 'assets/img/chapter.svg'
       });
       storyBuilder.push({
         id: 'ch_' + n,
         name: chapterTitle,
         url:'',
-        image: newURL+ 'assets/img/chapter.svg',
-        stroke: chapterColor,
-        fill: chapterColor
+        image: newURL+ 'assets/img/chapter.svg'
       });
 
       storyJSON = JSON.stringify(storyJSON);
@@ -402,9 +396,7 @@ function reloadStory(data) {
       id: entry.id,
       name: entry.name,
       url: entry.url,
-      image: entry.image,
-      stroke: "rgba(255, 255, 255, 0)",
-      fill: entry.fill
+      image: entry.image
     });
   })
 
@@ -427,9 +419,7 @@ function storyBuilderPush(entry, storyBuilder) {
     id: 'fb_' + entry.id,
     name: entry.name,
     url:'https://facebook.com/'+ entry.id,
-    image: newURL+ 'assets/img/facebook-app-logo.svg',
-    stroke: FacebookColor,
-    fill: FacebookColor
+    image: newURL+ 'assets/img/facebook-app-logo.svg'
   });
 }
 
