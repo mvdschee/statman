@@ -47,7 +47,7 @@ window.fbAsyncInit = function() {
       xfbml      : true,
       version    : 'v2.8'
   });
-  // loginCheck();
+  loginCheck();
   initStoryWorld();
 }
 
