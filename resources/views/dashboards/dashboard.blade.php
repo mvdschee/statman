@@ -23,7 +23,6 @@
 
 					{{-- TEMP buttons --}}
 					<a href="/story-list"><button class="chapter"><-</button></a>
-					<button id="js-hacker" class="chapter">(x)</button>
 			</header>
 				<div id="js-storyworld" class="storyworld">
 				</div>

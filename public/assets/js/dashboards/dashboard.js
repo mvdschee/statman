@@ -93,7 +93,7 @@ function spawnNewStory(data) {
   var storyBuilder = [];
   var storyJSON = {nodes: storyBuilder, links: [], chapters: []};
 
-  FB.api( '/me/posts', { access_token: data.token, fields:'id, name'}, function(response) {
+  FB.api( '/me/posts', { access_token: data.token, fields:'id, name, likes, shares, comments'}, function(response) {
     if (response && !response.error) {
       response.data.forEach(function(entry){
         storyBuilderPush(entry, storyBuilder);
@@ -145,6 +145,9 @@ function addChapter() {
       storyBuilder.push({
         id: 'ch_' + n,
         type: 'ch',
+        likes: 8,
+        comments: 8,
+        shares: 8,
         name: chapterTitle,
         url:'',
         image: newURL+ 'assets/img/chapter.svg'
@@ -168,7 +171,7 @@ function renameChapter(id) {
       // enter key
       if(event.which === 13){
           title = $('#' + id).text();
-          pushRenameChapter(id, escape(title));
+          pushRenameChapter(id, title);
           $("body").off( "keydown");
       } else {
         // backspace key
@@ -397,13 +400,16 @@ function reloadStory(data) {
     storyBuilder.push({
       id: entry.id,
       type: entry.type,
+      likes: 8,
+      comments: 8,
+      shares: 8,
       name: entry.name,
       url: entry.url,
       image: entry.image
     });
   })
 
-  FB.api( '/me/posts', { access_token: data.token, fields:'id, name'}, function(response) {
+  FB.api( '/me/posts', { access_token: data.token, fields:'id, name, likes, shares, comments'}, function(response) {
     if (response && !response.error) {
       response.data.forEach(function(entry){
           storyBuilderPush(entry, storyBuilder);
@@ -418,10 +424,23 @@ function reloadStory(data) {
 
 // A function to push an array in to the JSON for storyBuilder
 function storyBuilderPush(entry, storyBuilder) {
+  var l = 0,
+      c = 0,
+      s = 0,
+      n = 'Post';
+
+  if (entry.likes) {l = entry.likes.data.length;};
+  if (entry.comments) {c = entry.comments.data.length;};
+  if (entry.shares) {s = entry.shares.count;};
+  if (entry.name) {n = entry.name;};
+
   storyBuilder.push({
     id: 'fb_' + entry.id,
     type: 'fb',
-    name: entry.name,
+    name: n,
+    likes: l,
+    comments: c,
+    shares: s,
     url:'https://facebook.com/'+ entry.id,
     image: newURL+ 'assets/img/facebook-app-logo.svg'
   });
@@ -440,17 +459,41 @@ function pushToBackend (storyJSON) {
   initStoryWorld()
 }
 
-
-document.getElementById("js-hacker").onclick = function() {
-  growthHacker(1400, 700, 200)
-};
-
+//
 function growthHacker(l, s, c) {
-  var likes = 12,
-      shares = 12,
-      comments = 12;
 
-  var growthFactor = (likes + l / shares + s / comments + c);
+  function likes(l) {
+    var a = 10;
+    var b = a * Math.sqrt(l);
+    return b;
+  }
 
-  console.log(growthFactor);
+  function shares(s) {
+    var a = 12;
+    var b = a * Math.sqrt(l);
+    return b;
+  }
+
+  function comments(c) {
+    var a = 14;
+    var b = a * Math.sqrt(l);
+    return b;
+  }
+
+  var growthFactor = likes(l) + comments(c) + shares(s);
+
+  if (growthFactor <= 40 ) {
+    growthFactor = 40;
+    return growthFactor;
+
+  } else {
+    if (growthFactor >= 140) {
+      growthFactor = 140;
+      return growthFactor;
+
+    } else {
+      return growthFactor;
+
+    }
+  }
 }

@@ -146,7 +146,9 @@
 }
 
 .node {
-  display: block;
+  .displayflex();
+  .flex-direction(column);
+  .align-items(center);
   position: absolute;
 
   &#ch p:hover {
@@ -179,18 +181,18 @@
     background-image: url('../../img/facebook-app-logo.svg');
     background-repeat: no-repeat;
     background-position: center;
+    background-size: 50%;
   }
 }
 
 .node-text {
-  position: absolute;
-  bottom: -40px;
-  left: 0;
-  text-align: center;
-  width: 100%;
-  background: white;
-  border-radius: 10px;
+  width: auto;
+  padding: 2px 5px;
+  margin: 10px 0 0 0;
   z-index: 2;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  text-align: center;
   cursor: pointer;
 }
 
