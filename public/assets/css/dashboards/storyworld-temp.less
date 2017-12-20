@@ -91,6 +91,7 @@
   left: 10px;
   background-color: transparent;
   padding: 0;
+  z-index: 2;
 }
 
 .delete-chapter {
@@ -122,10 +123,22 @@
 
 .storyworld{
   display: block;
-  width: 4000px;
-  height: 2000px;
   position: relative;
-  border: 10px solid grey;
+  cursor: grab;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
+
+  &:active {
+    cursor: grabbing;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
+  }
+
+  svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
 }
 
 .nodes {
@@ -135,19 +148,50 @@
 .node {
   display: block;
   position: absolute;
+
+  &#ch p:hover {
+    background: rgba(255, 255, 255, 0.6);
+  }
+}
+
+.node-image {
+  display: block;
   border-radius: 50%;
   background: grey;
-
+  cursor: pointer;
+  box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.2);
 
   &.active {
-    .transition(0.3s);
-    border: 1px solid red;
+    border: 2px solid @red;
   }
 
   &[id^='ch_'] {
-    background: white;
+    background: rgba(255, 255, 255, 0.6);
+    background-image: url('../../img/chapter.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    box-shadow: rgba(255, 255, 255, 0.33) 0px 0px 0px 9px, rgba(255, 255, 255, 0.12) 0px 0px 0px 18px;
   }
 
+  &[id^='fb_'] {
+    background: #3b579d;
+    background-image: url('../../img/facebook-app-logo.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+}
+
+.node-text {
+  position: absolute;
+  bottom: -40px;
+  left: 0;
+  text-align: center;
+  width: 100%;
+  background: white;
+  border-radius: 10px;
+  z-index: 2;
+  cursor: pointer;
 }
 
 .link {
@@ -156,6 +200,11 @@
   background: white;
   width: 10px;
   height: 2px;
+  cursor: pointer;
+
+  &:hover {
+    stroke-width: 10px;
+  }
 
 }
 

@@ -20,12 +20,13 @@
 
 					{{-- Refresh --}}
 					<button id="js-refresh">-></button>
+
+					{{-- TEMP buttons --}}
+					<a href="/story-list"><button class="chapter"><-</button></a>
 					<button id="js-hacker" class="chapter">(x)</button>
 			</header>
-			<div id="js-world-container">				
 				<div id="js-storyworld" class="storyworld">
 				</div>
-			</div>
 		</div>
 
 	@else

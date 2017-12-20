@@ -47,7 +47,7 @@ window.fbAsyncInit = function() {
       xfbml      : true,
       version    : 'v2.8'
   });
-  loginCheck();
+  // loginCheck();
   initStoryWorld();
 }
 
@@ -137,12 +137,14 @@ function addChapter() {
 
       chapterBuilder.push({
         id: 'ch_' + n,
+        type: 'ch',
         name: chapterTitle,
         url:'',
         image: newURL+ 'assets/img/chapter.svg'
       });
       storyBuilder.push({
         id: 'ch_' + n,
+        type: 'ch',
         name: chapterTitle,
         url:'',
         image: newURL+ 'assets/img/chapter.svg'
@@ -394,6 +396,7 @@ function reloadStory(data) {
   chapterBuilder.forEach( function(entry) {
     storyBuilder.push({
       id: entry.id,
+      type: entry.type,
       name: entry.name,
       url: entry.url,
       image: entry.image
@@ -417,6 +420,7 @@ function reloadStory(data) {
 function storyBuilderPush(entry, storyBuilder) {
   storyBuilder.push({
     id: 'fb_' + entry.id,
+    type: 'fb',
     name: entry.name,
     url:'https://facebook.com/'+ entry.id,
     image: newURL+ 'assets/img/facebook-app-logo.svg'

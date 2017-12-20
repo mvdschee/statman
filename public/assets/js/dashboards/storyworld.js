@@ -16,23 +16,31 @@ function loadStory(graph) {
       width =  window.innerWidth,
       height = window.innerHeight;
 
-  d3.select("#js-world-container")
+  d3.select("#js-storyworld")
     .style("width", width + 'px')
-    .style("height", height + 'px');
+    .style("height", height + 'px')
+    .append("div")
+      .attr("id", "js-world");
 
-  var transform = d3.zoom()
-  .scaleExtent([0.3, 2.5])
-  .on('zoom', transformFn);
+  // drag to move around the storywold
+  var zoom = d3.zoom()
+  // .scaleExtent([0.3, 2.5])
+  .on('zoom', zoomFn);
 
-  d3.select("#js-world-container").call(transform).on("dblclick.zoom", null);
-
-
-  function transformFn() {
-    d3.select("#js-world-container")
-      .attr('style', 'transform: translate(' + d3.event.transform.x + 'px,' + d3.event.transform.y + 'px)');
+  function zoomFn() {
+    d3.select('svg').select('g')
+      .attr('transform', 'translate(' + d3.event.transform.x + ',' + d3.event.transform.y + ')');
+    //
+    d3.select("#js-world")
+      .style("transform", function(d) {return 'translate(' + d3.event.transform.x + 'px,' + d3.event.transform.y + 'px)';});
   }
 
-  var repelForce = d3.forceManyBody().strength(-140).distanceMax(150).distanceMin(10);
+  d3.select('svg').select('rect').call(zoom).on("dblclick.zoom", null);
+
+  d3.select("#js-storyworld").call(zoom).on("dblclick.zoom", null);
+
+
+  var repelForce = d3.forceManyBody().strength(-140).distanceMax(100).distanceMin(10);
 
   var attractForce = d3.forceManyBody().strength(-100).distanceMax(100).distanceMin(60);
 
@@ -43,6 +51,8 @@ function loadStory(graph) {
       .force("link", d3.forceLink(dataset.links).id(function(d) { return d.id; }))
       .force("center", d3.forceCenter(width / 2, height / 2));
 
+  svg = d3.select('#js-world');
+
   // Setup node
   var node = svg.append("div")
       .attr("class", "nodes")
@@ -50,24 +60,41 @@ function loadStory(graph) {
       .data(dataset.nodes)
       .enter().append("div")
         .attr("class", "node")
-        .attr("id", function(d) { return d.id })
-        .style("left", function(d) { return d.x + "px"; }) //x
-        .style("top", function(d) { return d.y + "px"; }) //y
+        .attr("id", function(d) { return d.type })
+        .style("left", function(d) { return d.x + "px"; })
+        .style("top", function(d) { return d.y + "px"; })
         .style("transform", "translate(" + -50 + "px," + -50 + "px)")
-        .style("width", 100 + "px")
-        .style("height", 100 + "px")
-        .on("contextmenu", function() {d3.event.preventDefault(); linkToggle(this.id)})
-        .on("click", function() {deleteNode(this.id)})
         .call(d3.drag()
-            .on("start", dragstarted)
-            .on("drag", dragged)
-            .on("end", dragended));
+          .on("start", dragstarted)
+          .on("drag", dragged)
+          .on("end", dragended));
+
+  node.append("div")
+    .attr("id", function(d) { return d.id })
+    .attr("class", "node-image")
+    .style("width", 100 + "px")
+    .style("height", 100 + "px")
+    .on("contextmenu", function() {d3.event.preventDefault(); linkToggle(this.id)})
+    .on("click", function() {deleteNode(this.id)})
+
+  node.append("p")
+    .attr("class", "node-text")
+    .attr("id", function(d) { return "text_" + d.id })
+    .on("dblclick", function() {renameChapter(this.id)})
+    .text(function(d) { return d.name });
 
 
   d3.select('#js-storyworld').append("svg");
   svg = d3.select('#js-storyworld').select("svg")
-    .attr("width", 4000)
-    .attr("height", 2000);
+    .attr("width", width)
+    .attr("height", height)
+
+  svg.append("rect")
+    .attr("class", "zoom-layer")
+    .attr("x", -2000)
+    .attr("y", -2000)
+    .attr("width", 9999)
+    .attr("height", 9999);
 
   // Setup link to source and target
   var link = svg.append("g")
@@ -83,7 +110,7 @@ function loadStory(graph) {
 
   simulation.nodes(dataset.nodes).on("tick", ticked);
 
-  simulation.force("link").links(dataset.links).distance(120);
+  simulation.force("link").links(dataset.links).distance(160);
 
 
   function ticked() {
