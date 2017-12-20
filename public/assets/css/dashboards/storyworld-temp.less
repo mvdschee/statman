@@ -1,0 +1,211 @@
+//-----------------------------------
+//              Mixins
+//-----------------------------------
+@import "../global/mixins";
+//-----------------------------------
+//              Variable
+//-----------------------------------
+
+@spacing:           1.2rem;
+@font-size:         1.3rem;
+@white:             #ffffff;
+@black:             #000000;
+@grey:              #4A4A4A;
+@lightgrey:         #f7f7f7;
+@red:               #f14343;
+@orange:            #ff9900;
+@blue:              #2391fe;
+@green:             #a6ca00;
+@hamburger:         @black;
+@navigationBlack:   @black;
+@navigationWhite:   @white;
+@primcolor:         #527e9c;
+@seccolor:          #ee6352;
+@panelBackground:   #f5f5f5;
+@panelBorder:       #e8e8e8;
+@panelLine:         #979797;
+@hover:             #e7e7e7;
+@loginText:         #939393;
+@loginSmall:        #818181;
+@loginCircle:       rgba(193, 193, 193, 0.2);
+@loginPrim:         #36c9c6;
+@loginSec:          #28b8b5;
+@tabBackground:     #434343;
+@formInput:         @white;
+@text:              #717171;
+@border:            #b0b0b0;
+@shadow:            rgba(0, 0, 0, 0.39);
+@storyWorldHeader:  #3b5998;
+@storyWorldHeaderBorder: #7086b4;
+@storyWorldPost:    #adb9d4;
+
+//-----------------------------------
+//              Resets
+//-----------------------------------
+
+@import "../global/reset";
+@import "../global/normalize";
+
+
+// buttons and zoom
+.button{
+    .border-radius();
+    .transition();
+    position: relative;
+    padding: 0.8rem;
+    margin: @spacing 0;
+    background-color: @loginPrim;
+    border: none;
+    color: @white;
+    font-size: 0.8rem;
+    font-weight: bold;
+
+    &:hover{
+        opacity: .8;
+        cursor: pointer;
+    }
+}
+
+.zoom-layer {
+  fill-opacity: 0;
+}
+
+// end buttons and zoom
+
+
+// dashboard
+.body {
+  .gradient(linear; #ce2e6a, #953294 50%, #4a30b1; -125deg);
+  grid-template-columns: auto;
+  position: relative;
+}
+
+.sidebar {
+  display: none;
+}
+
+.header{
+  width: auto;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background-color: transparent;
+  padding: 0;
+  z-index: 2;
+}
+
+.delete-chapter {
+  display: none;
+
+  &.active {
+    display: block;
+    background: @red;
+  }
+}
+
+.canvas {
+  display: block;
+  background: transparent;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+
+  svg {
+    border: none;
+    background: transparent;
+  }
+}
+
+#js-world-container {
+  display: block;
+  overflow: hidden;
+}
+
+.storyworld{
+  display: block;
+  position: relative;
+  cursor: grab;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
+
+  &:active {
+    cursor: grabbing;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
+  }
+
+  svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.nodes {
+  position: absolute;
+}
+
+.node {
+  display: block;
+  position: absolute;
+
+  &#ch p:hover {
+    background: rgba(255, 255, 255, 0.6);
+  }
+}
+
+.node-image {
+  display: block;
+  border-radius: 50%;
+  background: grey;
+  cursor: pointer;
+  box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.2);
+
+  &.active {
+    border: 2px solid @red;
+  }
+
+  &[id^='ch_'] {
+    background: rgba(255, 255, 255, 0.6);
+    background-image: url('../../img/chapter.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    box-shadow: rgba(255, 255, 255, 0.33) 0px 0px 0px 9px, rgba(255, 255, 255, 0.12) 0px 0px 0px 18px;
+  }
+
+  &[id^='fb_'] {
+    background: #3b579d;
+    background-image: url('../../img/facebook-app-logo.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+}
+
+.node-text {
+  position: absolute;
+  bottom: -40px;
+  left: 0;
+  text-align: center;
+  width: 100%;
+  background: white;
+  border-radius: 10px;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.link {
+  display: block;
+  position: absolute;
+  background: white;
+  width: 10px;
+  height: 2px;
+  cursor: pointer;
+
+  &:hover {
+    stroke-width: 10px;
+  }
+
+}
+
+// end dashboard
