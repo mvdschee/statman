@@ -76,7 +76,7 @@
 
         <div class="bottom">
           <span class="bottom-block">
-            <a href="#">Don't have an account? Create one here</a>
+            <a href="{{ URL::asset('/register')}}">Don't have an account? Create one here</a>
           </span>
           <span class="bottom-element">
             <a href="{{ url('/password/reset') }}">Forgot your password?</a>

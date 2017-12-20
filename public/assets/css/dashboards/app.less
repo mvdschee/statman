@@ -64,7 +64,6 @@ body {
 }
 
 .button {
-  width:9rem;
   border-radius: 50px;
   padding: .5rem 1.5rem;
   font-family: 'Open Sans', sans-serif;
@@ -77,6 +76,7 @@ body {
   background: transparent;
   border: 1px solid @grey;
   margin:.2rem;
+  cursor:pointer;
 }
 
 .noselect {
@@ -160,7 +160,8 @@ body {
       margin:.3rem auto;
 
       input[type="text"],
-      input[type="password"] {
+      input[type="password"],
+      input[type="email"] {
         box-sizing: border-box;
         -webkit-box-sizing: border-box;
         -moz-box-sizing: border-box;
@@ -180,7 +181,8 @@ body {
       }
 
       input[type="text"]:invalid,
-      input[type="password"]:invalid {
+      input[type="password"]:invalid,
+      input[type="email"]:invalid {
         outline:none;
         box-shadow: none;
         // border-bottom:2px solid @red;
@@ -199,6 +201,7 @@ body {
 
       .btn{
         .button;
+        width:9rem;
         display: inline-block;
 
         &:hover {
@@ -318,3 +321,55 @@ body {
   .size(2.2rem);
 }
 // end login
+
+// register
+.no-icon {
+  float:left;
+  padding:.5rem .5rem 0;
+  .size(1.5rem);
+}
+
+.buttons-create {
+  display:block;
+  margin:auto;
+  width: 19.05rem;
+  padding:1.5rem 0 1.5rem;
+}
+
+.btn-create {
+  .button;
+  width:19rem;
+  display: inline-block;
+
+  &:hover {
+    background: @blue;
+    color:@white;
+    border:1px solid @blue;
+  }
+}
+
+.bottom-block-create {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin:1.4rem 0 0;
+  width: 100%;
+  height: 2.25rem;
+  border-top:solid 1px @grey;
+  border-bottom:solid 1px @grey;
+  background: @white;
+
+  a {
+    text-decoration: none;
+    color:@darkblue;
+
+    &:hover {
+      color:@blue;
+    }
+  }
+}
+// end register
+
+// user settings
+
+// end user settings

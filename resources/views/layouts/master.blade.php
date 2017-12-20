@@ -32,7 +32,7 @@
 		<section class="sidebar">
 			@if (Auth::check())
 				<div class="profile">
-					<a href="{{ url('/settings') }}"><img  class="profile-picture" src="{{ Gravatar::get( Session::get( 'email' ), ['secure' => true, 'size'=>350] ) }}" alt="test"></a>
+					{{-- <a href="{{ url('/settings') }}"><img  class="profile-picture" src="{{ Gravatar::get( Session::get( 'email' ), ['secure' => true, 'size'=>350] ) }}" alt="test"></a> --}}
 					<h3 class="profile-name">{{ decrypt(Auth::user()->name) }}</h3>
 					<div class="profile-options">
 						<div class="logout">
