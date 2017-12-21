@@ -19,6 +19,7 @@ class CreateServices extends Migration
             $table->integer('project_id')->unsigned();
             $table->string('service_token', 550);
             $table->string('service_page_name');
+            $table->string('service_id');
             $table->timestamps();
         });
         Schema::table('services', function (Blueprint $table) {

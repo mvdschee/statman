@@ -34,6 +34,7 @@
 						<form method="POST" action="{{ url('/story-list') }}">
 							{{ csrf_field() }}
 							<input type="hidden" name="option" value="{{ $data['project_id'] }}">
+							<a href="/storysettings/{{ $data['project_id'] }}">settings</a>
 							<button type="submit"><i class='icon-user-add'></i></button>
 						</form>
 					</td>
@@ -55,7 +56,9 @@
 			</tr>
 			@foreach ($invites as $invite)
 				<tr>
-					<td class="add-button"><a href="/invited/{{ $invite['token'] }}"><i class='icon-plus'></i></a></td>
+					<td class="add-button">
+						<a href="/invited/{{ $invite['token'] }}"><i class='icon-plus'></i></a>
+					</td>
 					<td>{{ $invite['project_name'] }}</td>
 				</tr>
 			@endforeach

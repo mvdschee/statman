@@ -43,6 +43,15 @@ Route::get('/story-list', 'ListStoriesController@index')->middleware('auth', 've
 Route::post('/story-list', 'ListStoriesController@options')->middleware('auth', 'verified')->name('story-list');
 Route::post('/story-list/favorite', 'ListStoriesController@favoriteProject')->middleware('auth', 'verified')->name('favoriteProject');
 
+Route::get('/{project}/instagram', 'InstagramController@index')->middleware('auth', 'verified')->name('story-list');
+Route::get('/code', 'InstagramController@home')->middleware('auth', 'verified')->name('story-list');
+Route::get('/token/{code}', 'InstagramController@token')->middleware('auth', 'verified')->name('story-list');
+Route::get('/insta', 'InstagramController@getPosts')->middleware('auth', 'verified')->name('story-list');
+
+
+Route::post('/delete-service', 'Dashboards\ProjectsController@deleteService')->middleware('auth', 'verified')->name('story-list');
+
+
 Route::get('/add-user', 'AddUserController@index')->middleware('auth', 'verified')->name('add-user');
 Route::post('/add-user', 'AddUserController@sendInvite')->middleware('auth', 'verified')->name('add-user');
 
@@ -56,6 +65,11 @@ Route::post('/add-service/save-page', 'AddServiceController@savePage')->middlewa
 
 Route::get('/settings', 'SettingsController@index')->middleware('auth', 'verified')->name('settings');
 Route::post('/settings', 'SettingsController@updateProfile')->middleware('auth', 'verified')->name('settings');
+
+Route::get('/storysettings/{id}', 'Dashboards\ProjectsController@SettingsIndex')->middleware('auth', 'verified')->name('settings');
+Route::post('/delete-from-project', 'Dashboards\ProjectsController@DeleteUserFromProject')->middleware('auth', 'verified')->name('settings');
+
+
 
 Route::get('/verify', 'VerifyController@index')->middleware('auth')->name('verify');
 Route::post('/verify', 'VerifyController@verify')->middleware('auth')->name('verify');

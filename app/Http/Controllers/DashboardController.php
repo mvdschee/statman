@@ -142,10 +142,22 @@ class DashboardController extends Controller
 
         $project_id = $project;
         $project = Project::where('id', $project_id)->first();
-        $project->delete();
-
-        $check = 'Your story has been deleted.';
-        return redirect('/story-list')->with('check', $check);
+        $story = Story::where('id', $project->story_id)->first();
+        $services = Service::where('project_id', $project_id)->get();
+        if(!empty($story->id) && !empty($project_id)){
+           if(!empty($services[0])){
+             foreach($services as $service){
+                $service->delete();
+             }
+          }
+           $project->delete();
+           $story->delete();
+           $check = 'Your story has been deleted.';
+           return redirect('/story-list')->with('check', $check);
+        } else {
+           $check = 'There was a problem deleting your story.';
+           return redirect()->back()->withErrors([$check]);
+        }
     }
 
     public function noArgument()
