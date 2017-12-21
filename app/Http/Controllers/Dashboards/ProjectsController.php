@@ -18,6 +18,7 @@ class ProjectsController extends Controller
     {
       //Get the user info, name and decrypts it
 		$user = Auth::user();
+      $user->name = $user->name;
 
       //Gets the access of the user on different prjoects and his/her role
 		$userAccess = UserAccess::where('user_id', $user->id)->get();
@@ -26,7 +27,7 @@ class ProjectsController extends Controller
 		$user->fullname = decrypt($user->name);
 
       //Gets the projects data
-      $project = Project::where('story_id', $project_id)->get();
+      $project = Project::where('story_id', $project_id)->first();
 
       //Finds all users connected to the project
       $users = UserAccess::where('project_id', $project_id)->get();
@@ -35,6 +36,7 @@ class ProjectsController extends Controller
       $i = 0;
       $invites = InviteToken::where('project_id', $project_id)->get();
       $data['project'] = $project;
+      $data['project']['project_name'] = decrypt($project['project_name']);
       $i = 0;
 
       //assigns all the users in an array
@@ -54,6 +56,12 @@ class ProjectsController extends Controller
 
       //Finds all connected social media services
       $pages = Service::where('project_id', $project_id)->get();
+      $i = 0;
+      foreach($pages as $page){
+         $page->service_page_name = decrypt($page->service_page_name);
+         $pages[$i] = $page;
+         $i++;
+      }
 
       $data['pages'] = $pages;
       $data['invites'] = $invites;
@@ -98,7 +106,7 @@ class ProjectsController extends Controller
 
       $user = Auth::user();
       $access = UserAccess::where('user_id', $user->id)->where('project_id', $data['project'])->first();
-      
+
       if(!empty($user) && !empty($access)){
          if($access->role_index_id == 1){
             $service = Service::where('id', $data['id'])->where('project_id', $data['project'])->first();

@@ -47,9 +47,10 @@ Route::post('/story-list/favorite', 'ListStoriesController@favoriteProject')->mi
 Route::get('/{project}/instagram', 'InstagramController@index')->middleware('auth', 'verified')->name('story-list');
 Route::get('/code', 'InstagramController@home')->middleware('auth', 'verified')->name('story-list');
 Route::get('/token/{code}', 'InstagramController@token')->middleware('auth', 'verified')->name('story-list');
-Route::get('/errorinstagram', 'InstagramController@error')->middleware('auth', 'verified')->name('story-list');
 Route::get('/instaposts', 'InstagramController@posts')->middleware('auth', 'verified')->name('story-list');
 Route::get('/insta', 'InstagramController@getPosts')->middleware('auth', 'verified')->name('story-list');
+
+
 Route::post('/delete-service', 'Dashboards\ProjectsController@deleteService')->middleware('auth', 'verified')->name('story-list');
 
 

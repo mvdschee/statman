@@ -12,13 +12,9 @@ use App\Service;
 
 class instagram extends Model
 {
-   private $apiCallback = 'http://statman.info/code';
-
-   private $apioauthurl = 'https://api.instagram.com/oauth/authorize';
-   private $apioauthtokenurl = 'https://api.instagram.com/oauth/access_token';
 
    public function new(){
-      $this['apiCallback'] = 'http://statman.info/code';
+      $this['apiCallback'] = env('APP_URL').'/code';
       $this['apioauthurl'] = 'https://api.instagram.com/oauth/authorize';
       $this['apioauthtokenurl'] = 'https://api.instagram.com/oauth/access_token';
    }
@@ -44,7 +40,7 @@ class instagram extends Model
           ->withData( array( 'client_id' => env('INSTA_CLIENT_ID'),
                              'client_secret' => env('INSTA_CLIENT_SECRET'),
                              'grant_type' => 'authorization_code',
-                             'redirect_uri' => 'http://statman.info/code',
+                             'redirect_uri' => env('APP_URL') . '/code',
                              'code' => $apiData['code']) )
           ->returnResponseObject()
           ->post();

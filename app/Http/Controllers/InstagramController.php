@@ -53,7 +53,7 @@ class InstagramController extends Controller
      // dd($token);
      $session['project'] = '';
      $data = $instagram->newprofile($token);
-     return redirect()->back()->withErrors([$data]);
+     return redirect(env('APP_URL') . '/story-list')->withErrors(['Instagram succesfully connected.']);
 
   }
 

@@ -16,16 +16,19 @@
 
     <div class="settings-container">
       @if(!empty($data['project']))
-         <h2>{{htmlspecialchars(decrypt($user->name))}}</h2>
-         <p>{{ htmlspecialchars(decrypt($data['project'][0]['project_name'])) }}</p>
-      </br>
-      <a href="#">
-         <form method="POST" action="{{ url('/story-list') }}">
-            {{ csrf_field() }}
-            <input type="hidden" name="option" value="{{ $data['project_id'] }}">
-            <button type="submit"><i class='icon-user-add'></i></button>
-         </form>
-      </a>
+         <h2>{{$user->fullname}}</h2>
+         <p>{{$data['project']['project_name'] }}</p>
+
+      <form method="POST" action="{{ url('/story-list') }}">
+         {{ csrf_field() }}
+         <input type="hidden" name="option" value="{{ $data['project_id'] }}">
+         <button type="submit"><i class='icon-user-add'></i></button>
+      </form>
+      <form action="/dashboard/delete-page" method="POST" onsubmit="return confirm('Are you sure you want to delete your story? This cannot be reversed.');">
+         {{ csrf_field() }}
+         <input type="hidden" name="project" value="{{ $data['project_id'] }}">
+         <button type="submit" id="js-delete-story">Delete story</button>
+      </form>
       </br>
          <table>
             <thead>
@@ -102,11 +105,10 @@
             </thead>
             <tbody>
                <tr>
-                  {{-- {{dd($data['pages'])}} --}}
                   @if(!empty($data['pages'][0]))
                      @foreach($data['pages'] as $page)
                         <tr>
-                           <td>{{decrypt($page['service_page_name'])}}</td>
+                           <td>{{$page['service_page_name']}}</td>
 
                            @if($page['service_index'] == 0)
                               <td>facebook</td>
