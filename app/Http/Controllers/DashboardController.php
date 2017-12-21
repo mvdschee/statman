@@ -20,7 +20,7 @@ class DashboardController extends Controller
 
     public function index($project_id)
     {
-        if ($project_id == 'null') {
+        if ($project_id == null) {
             $message = 'You must first create or join a story.';
             return redirect('/story-list')->with('check', $message);
         }
