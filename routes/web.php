@@ -43,11 +43,9 @@ Route::get('/story-list', 'ListStoriesController@index')->middleware('auth', 've
 Route::post('/story-list', 'ListStoriesController@options')->middleware('auth', 'verified')->name('story-list');
 Route::post('/story-list/favorite', 'ListStoriesController@favoriteProject')->middleware('auth', 'verified')->name('favoriteProject');
 
-//instagram
 Route::get('/{project}/instagram', 'InstagramController@index')->middleware('auth', 'verified')->name('story-list');
 Route::get('/code', 'InstagramController@home')->middleware('auth', 'verified')->name('story-list');
 Route::get('/token/{code}', 'InstagramController@token')->middleware('auth', 'verified')->name('story-list');
-Route::get('/instaposts', 'InstagramController@posts')->middleware('auth', 'verified')->name('story-list');
 Route::get('/insta', 'InstagramController@getPosts')->middleware('auth', 'verified')->name('story-list');
 
 

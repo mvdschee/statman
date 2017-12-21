@@ -18,8 +18,7 @@ class InstagramController extends Controller
         session(['project' => $project]);
          return redirect($login);
      } else {
-         dd($_GET['code']);
-         return view('dashboards/instagram');
+        return redirect(env('APP_URL' . '/story-list'));
      }
    }
    /**
@@ -29,8 +28,6 @@ class InstagramController extends Controller
     */
     public function home(Request $request){
       //get token from url
-      // dd($request->session()->all());
-      // dd($session['project']);
       $code = $_SERVER['REQUEST_URI'] . '&';
       $array = explode('&', $code);
       $i = 0;
@@ -50,7 +47,6 @@ class InstagramController extends Controller
      $token = $instagram->getOAuthToken($code);
      $session = $request->session()->all();
      $token->project_id = $session['project'];
-     // dd($token);
      $session['project'] = '';
      $data = $instagram->newprofile($token);
      return redirect(env('APP_URL') . '/story-list')->withErrors(['Instagram succesfully connected.']);

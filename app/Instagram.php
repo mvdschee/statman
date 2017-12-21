@@ -20,7 +20,6 @@ class instagram extends Model
    }
 
    public function getLoginUrl() {
-      // dd($this);
       return $this->apioauthurl . '?client_id=' . env('INSTA_CLIENT_ID') . '&redirect_uri=' . urlencode($this->apiCallback) .'&response_type=code';
    }
 

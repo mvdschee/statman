@@ -61,8 +61,6 @@
 					@endif
 					<li class="navigation-item"><a href="{{ url('/story-list') }}">Story list</a></li>
 					<li class="navigation-item"><a href="{{ url('/create-story') }}">Create Story</a></li>
-					<li class="navigation-item"><a href="{{ url('/instagram') }}">instagram</a></li>
-					<li class="navigation-item"><a href="{{ url('/instaposts') }}">posts instagram</a></li>
 				</ul>
 			</nav>
 		</section>
