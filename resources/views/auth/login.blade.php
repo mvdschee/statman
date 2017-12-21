@@ -60,7 +60,9 @@
               </div>
 
               <span class="buttons">
-                <button type="button" class="btn">Cancel</button>
+                <a href="{{ URL::asset('/')}}">
+                  <button type="button" class="btn">Cancel</button>
+                </a>
                 <button type="submit" class="btn">Log me in</button>
               </span>
 
