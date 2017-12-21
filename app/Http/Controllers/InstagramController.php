@@ -10,7 +10,6 @@ class InstagramController extends Controller
 
    public function index($project)
    {
-     //
      $instagram = new Instagram;
      $instagram->new();
      $login = $instagram->getLoginUrl();
@@ -41,7 +40,6 @@ class InstagramController extends Controller
     }
 
    public function token($code, Request $request){
-     $profiles = Instagram::all();
      $instagram = new Instagram;
      $instagram->new();
      $token = $instagram->getOAuthToken($code);

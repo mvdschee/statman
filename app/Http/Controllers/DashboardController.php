@@ -91,7 +91,7 @@ class DashboardController extends Controller
         }
         else{
             $token = "";
-            $service = Service::where('project_id', $project_id)->first();
+            $service = Service::where('project_id', $project_id)->where('service_index', 0)->first();
             if ($service) {
                 $token = decrypt($service->service_token);
                 $name = decrypt($service->service_page_name);
