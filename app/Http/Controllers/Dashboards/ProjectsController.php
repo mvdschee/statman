@@ -20,15 +20,12 @@ class ProjectsController extends Controller
 		$user = Auth::user();
       $user->name = $user->name;
 
-      //Gets the access of the user on different projects and his/her role
-		$userAccess = UserAccess::where('user_id', $user->id)->get();
-      $continue = false;
-      foreach($userAccess as $access){
-         if($access->project_id == $project_id){
-            $continue = true;
-         } elseif($access->project_id !== $project_id && $continue == false){
-            return redirect(env('APP_URL') . '/story-list')->withErrors(['You do not have access to this project']);
-         }
+      $projectcheck = Project::where('id', $project_id)->first();
+
+      //if the story does not exist, return to story list and give error
+      if ($projectcheck == null) {
+          $message = 'You have no access to this project or it does not exist.';
+          return redirect('/story-list')->with('check', $message);
       }
 
       //Gets the full name of the user

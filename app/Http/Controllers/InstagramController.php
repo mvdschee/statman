@@ -10,6 +10,7 @@ class InstagramController extends Controller
 
    public function index($project)
    {
+     //
      $instagram = new Instagram;
      $instagram->new();
      $login = $instagram->getLoginUrl();
@@ -47,30 +48,18 @@ class InstagramController extends Controller
      $token->project_id = $session['project'];
      $session['project'] = '';
      $data = $instagram->newprofile($token);
-     return redirect(env('APP_URL') . '/story-list')->withErrors(['Instagram succesfully connected.']);
+     $message = "successfully connected to Instagram!";
+     return redirect(env('APP_URL') . '/story-list')->with('check', $message);
 
   }
 
-  public function getPosts(){
-     $profiles = Instagram::all();
+  public function getPosts($project_id){
+     $profiles = Service::where('project_id', $project_id)->where('service_index', 1);
      $i = 0;
      foreach($profiles as $profile){
         $posts[$i] = $profile->getPosts($profile);
         $i++;
      }
      return $posts;
- }
-
-  public function posts(){
-     $data = '';
-     $posts = '';
-     $profiles = Instagram::all();
-     $i = 0;
-     foreach($profiles as $profile){
-        $posts[$i] = $profile->getPosts($profile);
-        $i++;
-     }
-     return $posts;
-     return view('dashboards/instaposts')->with('posts', '');
  }
 }
