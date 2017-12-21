@@ -8,9 +8,7 @@
 // variables
 var pathname = window.location.pathname,
     project = pathname.substr(11),
-    newURL = window.location.protocol + "//" + window.location.host + "/",
-    chapterColor = '#A73C5A',
-    FacebookColor = '#3b5998';
+    newURL = window.location.protocol + "//" + window.location.host + "/";
 
 // triggers
 window.onload = function() {
@@ -18,30 +16,18 @@ window.onload = function() {
   trigger.findTrigger();
 };
 
-// linkToggle
-document.getElementById("js-new-link").onclick = function() {
-  if ($(this).text() == "Close") {
-    $(this).text("Link nodes")
-  } else {
-    $(this).text("Close");
-    linkToggle()
-  }
-};
-
-// addChapter
+// add chapter button
 document.getElementById("js-chapter").onclick = function() {
-  $(this).toggleClass("active");
-  $('#chapter-input').toggleClass("active");
-
-  if ($(this).text() == "Close") {
-    $(this).text("Add chapter")
-  } else {
-    $(this).text("Close");
-    addChapter()
-  }
+  addChapter()
 };
 
-// reloadStory
+// delete chapter button
+document.getElementById("js-delete-chapter").onclick = function() {
+  var id = $('input[name=_node]').val();
+  deleteChapter(id);
+};
+
+// reload storyworld button
 document.getElementById("js-refresh").onclick = function() {
   d3.json(pathname+'/get-page', function(graph) {
     reloadStory(graph);
@@ -86,6 +72,10 @@ function loginCheck(){
 
 // check if JSON has a Storyworld
 function initStoryWorld() {
+  // reset values on reload and all
+  $('#js-delete-chapter').toggleClass("active", false);
+  $('input[name=_node]').val('');
+
   d3.json(pathname+'/get-page', function(graph) {
     var story = JSON.parse(graph.story);
 
@@ -103,17 +93,10 @@ function spawnNewStory(data) {
   var storyBuilder = [];
   var storyJSON = {nodes: storyBuilder, links: [], chapters: []};
 
-  FB.api( '/me/posts', { access_token: data.token, fields:'id, name'}, function(response) {
+  FB.api( '/me/posts', { access_token: data.token, fields:'id, name, likes, shares, comments'}, function(response) {
     if (response && !response.error) {
       response.data.forEach(function(entry){
-        storyBuilder.push({
-          id: 'fb_' + entry.id,
-          name: entry.name,
-          url:'https://facebook.com/'+ entry.id,
-          image: newURL+ 'assets/img/facebook-app-logo.svg',
-          stroke: FacebookColor,
-          fill: FacebookColor
-        });
+        storyBuilderPush(entry, storyBuilder);
       });
 
       storyJSON = JSON.stringify(storyJSON);
@@ -126,82 +109,187 @@ function spawnNewStory(data) {
   });
 }
 
+// ---------------
+// Chapter logica
+// ---------------
+
 // addChapter
 function addChapter() {
   var d = new Date(),
   n = d.getTime(),
-  chapterTitle = $('input[name=_chapter]').val('');
+  chapterTitle = "Title";
 
-  document.getElementById("js-save-chapter").onclick = function() {
+  if (chapterTitle !== '') {
 
-    chapterTitle = $('input[name=_chapter]').val();
+    d3.json(pathname+'/get-page', function(graph) {
+      var story = JSON.parse(graph.story);
 
-    if (chapterTitle !== '') {
+      // check chapter in storyworld
+      if (story.chapters) { var chapterBuilder = story.chapters; }else{ var chapterBuilder = []; }
 
-      d3.json(pathname+'/get-page', function(graph) {
-        var story = JSON.parse(graph.story);
+      // check nodes in storyworld
+      if (story.nodes) { var storyBuilder = story.nodes; }else{ var storyBuilder = []; }
 
-        // check chapter in storyworld
-        if (story.chapters) { var chapterBuilder = story.chapters; }else{ var chapterBuilder = []; }
+      // check link in storyworld
+      if (story.links) { var linkBuilder = story.links; }else{ var linkBuilder = []; }
 
-        // check nodes in storyworld
-        if (story.nodes) { var storyBuilder = story.nodes; }else{ var storyBuilder = []; }
+      var storyJSON = {nodes: storyBuilder, links: linkBuilder, chapters: chapterBuilder};
 
-        // check link in storyworld
-        if (story.links) { var linkBuilder = story.links; }else{ var linkBuilder = []; }
-
-        var storyJSON = {nodes: storyBuilder, links: linkBuilder, chapters: chapterBuilder};
-
-        chapterBuilder.push({
-          id: 'ch_' + n,
-          name: chapterTitle,
-          url:'',
-          image: newURL+ 'assets/img/chapter.svg',
-          stroke: chapterColor,
-          fill: chapterColor
-        });
-        storyBuilder.push({
-          id: 'ch_' + n,
-          name: chapterTitle,
-          url:'',
-          image: newURL+ 'assets/img/chapter.svg',
-          stroke: chapterColor,
-          fill: chapterColor
-        });
-
-        storyJSON = JSON.stringify(storyJSON);
-
-        // sends the JSON to the database
-        pushToBackend(storyJSON);
+      chapterBuilder.push({
+        id: 'ch_' + n,
+        type: 'ch',
+        name: chapterTitle,
+        url:'',
+        image: newURL+ 'assets/img/chapter.svg'
       });
-    }
-  };
+      storyBuilder.push({
+        id: 'ch_' + n,
+        type: 'ch',
+        likes: 8,
+        comments: 8,
+        shares: 8,
+        name: chapterTitle,
+        url:'',
+        image: newURL+ 'assets/img/chapter.svg'
+      });
+
+      storyJSON = JSON.stringify(storyJSON);
+
+      // sends the JSON to the database
+      pushToBackend(storyJSON);
+    });
+  }
 }
 
-// linkToggle
-function linkToggle() {
-  var source = '',
-  target = '',
-  svg = d3.select('#js-storyworld').select("g");
+function renameChapter(id) {
+  var pattern = /ch/,
+      exists = pattern.test(id)
+      title = $('#' + id).text();
 
-  svg.selectAll(".node").on("click", function() {
-    if (source === '') {
-      source = this.id;
-      $('#' + this.id).toggleClass("active", true);
-    } else {
-      if (source === this.id) {
-        source = '';
-        $('#' + this.id).toggleClass("active", false);
+  if (exists) {
+    $("body").on( "keydown", function(event) {
+      // enter key
+      if(event.which === 13){
+          title = $('#' + id).text();
+          pushRenameChapter(id, title);
+          $("body").off( "keydown");
       } else {
-        if (target === this.id) {
-          target = '';
-          $('#' + this.id).toggleClass("active", false);
+        // backspace key
+        if(event.which === 8){
+          event.preventDefault();
+          backSpace();
         } else {
-          target = this.id;
-          $('#' + this.id).toggleClass("active", true);
-    } } }
+          let chr = String.fromCharCode(event.which);
+          $('#' + id).append(chr.toLowerCase())
+        }
+      }
+    });
+
+    // verwijderen van characters
+    function backSpace(){
+      title = $('#' + id).text();
+      $('#' + id).text(title.substr(0, title.length - 1));
+    }
+  }
+
+}
+
+function pushRenameChapter(id, title) {
+  var id = id.slice(5);
+
+  d3.json(pathname+'/get-page', function(graph) {
+    var story = JSON.parse(graph.story);
+
+    // check chapter in storyworld
+    if (story.chapters) { var chapterBuilder = story.chapters; }else{ var chapterBuilder = []; }
+
+    // check nodes in storyworld
+    if (story.nodes) { var storyBuilder = story.nodes; }else{ var storyBuilder = []; }
+
+    // check link in storyworld
+    if (story.links) { var linkBuilder = story.links; }else{ var linkBuilder = []; }
+
+    // find chapter with id and change title
+    var dataChapter = $.grep(chapterBuilder, function(e){ return e.id == id;});
+
+    if(dataChapter && dataChapter.length == 1) {
+      dataChapter[0].name = title;
+    }
+
+    // find story with id and change title
+    var dataStory = $.grep(storyBuilder, function(e){ return e.id == id;});
+
+    if(dataStory && dataStory.length == 1) {
+      dataStory[0].name = title;
+    }
+
+    var storyJSON = {nodes: storyBuilder, links: linkBuilder, chapters: chapterBuilder};
+
+    storyJSON = JSON.stringify(storyJSON);
+
+    // sends the JSON to the database
+    pushToBackend(storyJSON);
   });
-  document.getElementById("js-save-link").onclick = function() { if (source && target) { buildLink(source, target) }};
+}
+
+// Delete link
+function deleteChapter(id) {
+  d3.json(pathname+'/get-page', function(graph) {
+    var story = JSON.parse(graph.story);
+
+    // check chapter in storyworld
+    if (story.chapters) { var chapterBuilder = story.chapters; }else{ var chapterBuilder = []; }
+
+    // check nodes in storyworld
+    if (story.nodes) { var storyBuilder = story.nodes; }else{ var storyBuilder = []; }
+
+    // check link in storyworld
+    if (story.links) { var linkBuilder = story.links; }else{ var linkBuilder = []; }
+
+    // Find chapter with id and exclude from new array
+    var dataChapter = $.grep(chapterBuilder, function(e){ return e.id != id;});
+    chapterBuilder = dataChapter;
+
+    // Find chapter with id and exclude from new array
+    var dataStory = $.grep(storyBuilder, function(e){ return e.id != id;});
+    storyBuilder = dataStory;
+
+    // Find link with id and exclude from new array
+    var dataLink = $.grep(linkBuilder, function(e){
+      if (e.source != id) { if (e.target != id) {return e;} }
+    });
+
+    linkBuilder = dataLink;
+
+    var storyJSON = {nodes: storyBuilder, links: linkBuilder, chapters: chapterBuilder};
+
+    storyJSON = JSON.stringify(storyJSON);
+
+    // sends the JSON to the database
+    pushToBackend(storyJSON);
+  });
+}
+
+// ------------
+// Link logica
+// ------------
+
+// linkToggle
+function linkToggle(id) {
+  var source = $('input[name=_source]').val(),
+      target = $('input[name=_target]').val();
+
+  if (source === '') {
+    source = $('input[name=_source]').val(id);
+    $('#' + id).toggleClass("active", true);
+  } else {
+    target = $('input[name=_target]').val(id);
+    $('#' + id).toggleClass("active", true);
+  }
+
+  if (source && target) {
+    buildLink($('input[name=_source]').val(), $('input[name=_target]').val())
+  };
 }
 
 // buildLink
@@ -228,6 +316,69 @@ function buildLink(Source, Target) {
     // sends the JSON to the database
     pushToBackend(storyJSON);
   });
+  // reset value of input on page load
+  $('input[name=_source]').val('');
+  $('input[name=_target]').val('');
+
+}
+
+// Delete link
+function deleteLink(id) {
+  d3.json(pathname+'/get-page', function(graph) {
+    var story = JSON.parse(graph.story);
+
+    // check chapter in storyworld
+    if (story.chapters) { var chapterBuilder = story.chapters; }else{ var chapterBuilder = []; }
+
+    // check nodes in storyworld
+    if (story.nodes) { var storyBuilder = story.nodes; }else{ var storyBuilder = []; }
+
+    // check link in storyworld
+    if (story.links) { var linkBuilder = story.links; }else{ var linkBuilder = []; }
+
+    // Find link with id and exclude from new array
+    var data = $.grep(linkBuilder, function(e){ return e.id != id;});
+    linkBuilder = data;
+
+    var storyJSON = {nodes: storyBuilder, links: linkBuilder, chapters: chapterBuilder};
+
+    storyJSON = JSON.stringify(storyJSON);
+
+    // sends the JSON to the database
+    pushToBackend(storyJSON);
+  });
+}
+
+
+// --------------
+// other logica
+// --------------
+
+// delete nodes
+function deleteNode(id) {
+  var pattern = /ch/,
+      exists = pattern.test(id),
+      deleted = $('input[name=_node]').val();
+
+  // if it is a chapter toggle button
+  if (exists) {
+    if (deleted === id) {
+      $('#js-delete-chapter').toggleClass("active", false);
+      $('#' + id).toggleClass("active", false);
+      $('input[name=_node]').val('');
+    } else {
+      if ($('#js-delete-chapter').hasClass('active')) {
+        $('#' + id).toggleClass("active", false);
+        $('#js-delete-chapter').toggleClass("active", false);
+        $('#' + deleted).toggleClass("active", false);
+        $('input[name=_node]').val('');
+      } else {
+        $('#' + id).toggleClass("active", true);
+        $('#js-delete-chapter').toggleClass("active", true);
+        $('input[name=_node]').val(id);
+      }
+    }
+  }
 }
 
 // reloadStory
@@ -245,28 +396,23 @@ function reloadStory(data) {
 
   var storyJSON = {nodes: storyBuilder, links: linkBuilder, chapters: chapterBuilder};
 
-  chapterBuilder.forEach( function(i) {
+  chapterBuilder.forEach( function(entry) {
     storyBuilder.push({
-      id: i.id,
-      name: i.name,
-      url: i.url,
-      image: i.image,
-      stroke: i.stroke,
-      fill: i.fill
+      id: entry.id,
+      type: entry.type,
+      likes: 8,
+      comments: 8,
+      shares: 8,
+      name: entry.name,
+      url: entry.url,
+      image: entry.image
     });
   })
 
-  FB.api( '/me/posts', { access_token: data.token, fields:'id, name'}, function(response) {
+  FB.api( '/me/posts', { access_token: data.token, fields:'id, name, likes, shares, comments'}, function(response) {
     if (response && !response.error) {
       response.data.forEach(function(entry){
-          storyBuilder.push({
-            id: 'fb_' + entry.id,
-            name: entry.name,
-            url:'https://facebook.com/'+ entry.id,
-            image: newURL+ 'assets/img/facebook-app-logo.svg',
-            stroke: FacebookColor,
-            fill: FacebookColor
-          });
+          storyBuilderPush(entry, storyBuilder);
       });
     }
     storyJSON = JSON.stringify(storyJSON);
@@ -276,13 +422,78 @@ function reloadStory(data) {
   });
 }
 
+// A function to push an array in to the JSON for storyBuilder
+function storyBuilderPush(entry, storyBuilder) {
+  var l = 0,
+      c = 0,
+      s = 0,
+      n = 'Post';
+
+  if (entry.likes) {l = entry.likes.data.length;};
+  if (entry.comments) {c = entry.comments.data.length;};
+  if (entry.shares) {s = entry.shares.count;};
+  if (entry.name) {n = entry.name;};
+
+  storyBuilder.push({
+    id: 'fb_' + entry.id,
+    type: 'fb',
+    name: n,
+    likes: l,
+    comments: c,
+    shares: s,
+    url:'https://facebook.com/'+ entry.id,
+    image: newURL+ 'assets/img/facebook-app-logo.svg'
+  });
+}
+
 // A function to send the storyworld to the database
 function pushToBackend (storyJSON) {
   $.ajax({
     type: "POST",
     url: pathname+'/save-story',
     data: {storyJSON, '_token': $('input[name=_token]').val(), project},
-    dataType: 'json',
-    succes: location.reload()
+    dataType: 'json'
   });
+  // remove svg components otherwise it would just add more.
+  $("#js-storyworld").find("*").not("rect").remove();
+  initStoryWorld()
+}
+
+//
+function growthHacker(l, s, c) {
+
+  function likes(l) {
+    var a = 10;
+    var b = a * Math.sqrt(l);
+    return b;
+  }
+
+  function shares(s) {
+    var a = 12;
+    var b = a * Math.sqrt(l);
+    return b;
+  }
+
+  function comments(c) {
+    var a = 14;
+    var b = a * Math.sqrt(l);
+    return b;
+  }
+
+  var growthFactor = likes(l) + comments(c) + shares(s);
+
+  if (growthFactor <= 40 ) {
+    growthFactor = 40;
+    return growthFactor;
+
+  } else {
+    if (growthFactor >= 140) {
+      growthFactor = 140;
+      return growthFactor;
+
+    } else {
+      return growthFactor;
+
+    }
+  }
 }
