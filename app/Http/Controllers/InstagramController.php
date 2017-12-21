@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Instagram;
 use Illuminate\Http\Request;
+use App\Service;
+use Illuminate\Support\Facades\Crypt;
+use Auth;
+use App\UserAccess;
 
 class InstagramController extends Controller
 {
@@ -49,17 +53,33 @@ class InstagramController extends Controller
      $session['project'] = '';
      $data = $instagram->newprofile($token);
      $message = "successfully connected to Instagram!";
-     return redirect(env('APP_URL') . '/story-list')->with('check', $message);
+     return redirect('/story-list')->with('check', $message);
 
   }
 
   public function getPosts($project_id){
-     $profiles = Service::where('project_id', $project_id)->where('service_index', 1);
-     $i = 0;
-     foreach($profiles as $profile){
-        $posts[$i] = $profile->getPosts($profile);
-        $i++;
-     }
-     return $posts;
- }
+      $user = Auth::id();
+      $access = UserAccess::where([
+              ['project_id', '=', $project_id],
+              ['user_id', '=', $user]
+          ])->first();
+
+      if ($access == null) {
+          return "invalid project id supplied.";
+      } else {
+         $services = Service::where('project_id', $project_id)->where('service_index', 1)->get();
+         $i = 0;
+         $posts = '';
+         if($services){
+           foreach($services as $service){
+              $service = new Instagram;
+              $posts[$i] = $service->getPosts($project_id);
+              $i++;
+           }
+           return $posts;
+         } else {
+           return false;
+         }
+      }
+   }
 }

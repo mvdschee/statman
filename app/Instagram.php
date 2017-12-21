@@ -90,19 +90,19 @@ class instagram extends Model
    }
 
 
-   // MAKE THIS FUNCTION IN JAVASCRIPT
-   public function getPosts($profile){
+   public function getPosts($project){
+      $service = Service::where('project_id', $project)->where('service_index', 1)->first();
+
       //get access_token from database
-      $token = decrypt($profile->token);
+      $token = decrypt($service->service_token);
       //Get user_id from database
-      $userid = $profile->profileid;
+      $userid = decrypt($service->service_id);
       //define url for request
       $apiHost = 'https://api.instagram.com/v1/users/'.$userid.'/media/recent/?access_token='.$token;
       //execute request
       $response = Curl::to($apiHost)
         // ->returnResponseObject()
         ->get();
-
 
      //json to object
      $response = json_decode($response);
