@@ -73,6 +73,8 @@ function loginCheck(){
 // check if JSON has a Storyworld
 function initStoryWorld() {
   // reset values on reload and all
+  //console.log($('body').css());
+
   $('#js-delete-chapter').toggleClass("active", false);
   $('input[name=_node]').val('');
 
@@ -81,9 +83,11 @@ function initStoryWorld() {
 
     if (!story) {
         spawnNewStory(graph);
+        
     }
     else{
         loadStory(graph);
+        getNodePosition();
     }
   });
 }
@@ -101,7 +105,7 @@ function spawnNewStory(data) {
 
       storyJSON = JSON.stringify(storyJSON);
 
-      // sends the JSON to the database
+      // sends the   JSON to the database
       pushToBackend(storyJSON);
 
       initStoryWorld();
@@ -496,4 +500,43 @@ function growthHacker(l, s, c) {
 
     }
   }
+}
+
+
+function getNodePosition(){
+
+  /*
+  var checkExistNodes = setInterval(function() {
+   if ($('.node').css('left')) {
+      console.log("Node exists!");
+      nodesDoExist = true;   
+      clearInterval(checkExistNodes);
+   }
+  }, 100); // check every 100ms
+  */
+  if (!localStorage.positions){
+      //int object tor storing positions
+      var postionNodes = {};
+
+      $( ".node" ).each(function(index) {
+          //get css per node
+          var node_id = $(this).children('div').attr('id');
+          var pos_left = $(this).css('left');
+          var pos_top = $(this).css('top')
+          //build opjects 
+          postionNodes[node_id] = {
+          'left' : pos_left,
+          'top'  : pos_top
+          };
+      });  
+      //store object as sting to local storage
+      localStorage.setItem("positions", JSON.stringify(postionNodes));
+      console.log("new postions postion values stored locally");
+      console.log(localStorage.positions);
+  }
+  else{
+      console.log("postions already stored!");
+      console.log(localStorage.positions);
+  }
+
 }
