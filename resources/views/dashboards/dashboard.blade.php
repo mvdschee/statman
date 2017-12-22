@@ -5,39 +5,44 @@
 	<input type="hidden" name="_target" value="">
 	<input type="hidden" name="_node" value="">
 
-		<div class="canvas">
-			@if ($token)
-				@if ($message)
-					<div class="message">
-						{{ $message }}
-					</div>
-				@endif
+	<div class="canvas">
+			@if ($message)
+				<div class="message">
+					{{ $message }}
+				</div>
+			@endif
 
-				<header class="header">
+			<header class="header">
+				@if ($token)
 					{{-- Chapter --}}
 					<button id="js-chapter" class="chapter">()</button>
 					<button id="js-delete-chapter" class="delete-chapter">X</button>
 
 					{{-- Refresh --}}
 					<button id="js-refresh">-></button>
+				@endif
 
-					{{-- TEMP buttons --}}
-					<a href="/story-list"><button class="chapter"><-</button></a>
-			</header>
-				<div id="js-storyworld" class="storyworld">
-				</div>
+				{{-- TEMP buttons --}}
+				<a href="/story-list"><button class="chapter"><-</button></a>
+		</header>
+
+		<div id="js-storyworld" class="storyworld">
 		</div>
 
-	@else
-		{{-- PLEASE REMOVE THIS SHIT --}}
-		<div class="no-page">
-			<h3>It seems like you have not connected any social media to your project!</h3>
-			<small>To see your storyworld and data, you must first press the button below to connect your social media page to your story!</small>
-			<a class="button" href="{{ url('/add-service/'.$project->id) }}">Connect social media</a>
-		</div>
-	@endif
+		@if (!$token)
+			<div id="js-center">
+				<h1 >Looks like you got nothing to show off yet!</h1>
+				<p>Please go to the settings and connect a social media platform.</p>
+			</div>
+		@endif
+	</div>
 
 	{{-- JS assets --}}
+		{{-- window.data = { "services": @foreach ($pageData as $w) "service_index": "{{ $w}}", @endforeach ]} --}}
+	<script>
+		window.data = { "services": [@foreach ($pageData as $w){"service_index": "{{ $w}}"}, @endforeach]};
+	</script>
+
 	<script type="text/javascript">
 		(function(d, s, id){
 				var js, fjs = d.getElementsByTagName(s)[0];
@@ -48,7 +53,7 @@
 		}(document, 'script', 'facebook-jssdk'));
 	</script>
 	<script type="text/javascript" src="{{ URL::asset("assets/js/lib/d3.min.js") }}"></script>
-	<script src={{ URL::asset("assets/js/lib/classtoggle.min.js") }}></script>
+	<script type="text/javascript" src="{{ URL::asset("assets/js/lib/classtoggle.min.js") }}"></script>
 	<script type="text/javascript" src="{{ URL::asset("assets/js/lib/jquery-3.2.1.js") }}"></script>
 	<script type="text/javascript" src="{{ URL::asset("assets/js/dashboards/dashboard.js") }}"></script>
 	<script type="text/javascript" src="{{ URL::asset("assets/js/dashboards/storyworld.js") }}"></script>

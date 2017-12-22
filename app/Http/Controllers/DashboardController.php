@@ -57,7 +57,7 @@ class DashboardController extends Controller
             $pageData = array();
 
             foreach ($pages as $page) {
-              array_push ($pageData, decrypt($page['service_page_name']));
+              array_push ($pageData, $page['service_index']);
             }
 
             $token = $this->getToken($project_id);

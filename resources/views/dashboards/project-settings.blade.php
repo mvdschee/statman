@@ -129,9 +129,41 @@
             </tbody>
          </table>
       @endif
-      <a href="/{{$data['project_id']}}/instagram">add instagram</a>
+      <a class="button" href="/{{$data['project_id']}}/instagram">add instagram</a>
+      <a class="button" href="{{ url('/add-service/'.$project_id) }}">add facebook</a>
 
     </div>
+
+    <script type="text/javascript">
+    (function(d, s, id){
+        var js, fjs = d.getElementsByTagName(s)[0];
+        if (d.getElementById(id)) {return;}
+        js = d.createElement(s); js.id = id;
+        js.src = "//connect.facebook.net/en_US/sdk.js";
+        fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+
+    window.fbAsyncInit = function() {
+      FB.init({
+          appId      : '188876558188407',
+          xfbml      : true,
+          version    : 'v2.8'
+      });
+      loginCheck();
+    }
+
+    function loginCheck(){
+      FB.getLoginStatus(function(response) {
+          if (response.status === 'connected') {
+              return true;
+          }
+          else {
+              console.log("please login to Facebook");
+              return false;
+          }
+      });
+    }
+    </script>
 
 </section>
 @endsection

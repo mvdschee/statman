@@ -8,8 +8,7 @@
 
 
 // load JSON and build links and nodes
-function loadStory(graph) {
-  var dataset = JSON.parse(graph.story);
+function loadStory(dataset) {
 
   // build storywold layout
   var svg = d3.select("#js-storyworld"),

@@ -80,7 +80,7 @@ class ProjectsController extends Controller
          $i++;
       }
       $data['project_id'] = $project_id;
-      return view('dashboards/project-settings')->with('data', $data)->with('user', $user);
+      return view('dashboards/project-settings', compact('data', 'user', 'project_id'));
     }
 
     public function DeleteUserFromProject(Request $request){

@@ -8,60 +8,54 @@
 // variables
 var pathname = window.location.pathname,
     project = pathname.substr(11),
-    newURL = window.location.protocol + "//" + window.location.host + "/";
+    newURL = window.location.protocol + "//" + window.location.host + "/",
+    instagram = false,
+    facebook = false;
 
 // triggers
 window.onload = function() {
   var trigger = new Trigger();
   trigger.findTrigger();
-};
 
-// add chapter button
-document.getElementById("js-chapter").onclick = function() {
-  addChapter()
-};
+  window.data.services.forEach(function(i) {
 
-// delete chapter button
-document.getElementById("js-delete-chapter").onclick = function() {
-  var id = $('input[name=_node]').val();
-  deleteChapter(id);
-};
+    if(i.service_index == 0) {
+      facebook = true;
+    }
+    if (i.service_index == 1) {
+      instagram = true;
+    }
 
-// reload storyworld button
-document.getElementById("js-refresh").onclick = function() {
-  d3.json(pathname+'/get-page', function(graph) {
-    reloadStory(graph);
   });
-};
 
-// ---------------------------------
-//
-//          Facebook API
-//         Powered by FB
-//
-// ----------------------------------
-
-window.fbAsyncInit = function() {
-  FB.init({
-      appId      : '188876558188407',
-      xfbml      : true,
-      version    : 'v2.8'
-  });
-  loginCheck();
   initStoryWorld();
-}
 
-function loginCheck(){
-  FB.getLoginStatus(function(response) {
-      if (response.status === 'connected') {
-          return true;
-      }
-      else {
-          console.log("please login to Facebook");
-          return false;
-      }
-  });
-}
+  // add chapter button
+  if ($("js-chapter").length == 1) {
+    document.getElementById("js-chapter").onclick = function() {
+      addChapter()
+    };
+  }
+
+  // delete chapter button
+  if ($("js-delete-chapter").length == 1) {
+    document.getElementById("js-delete-chapter").onclick = function() {
+      var id = $('input[name=_node]').val();
+      deleteChapter(id);
+    };
+  }
+
+  // reload storyworld button
+  if ($("js-refresh").length == 1) {
+    document.getElementById("js-refresh").onclick = function() {
+      d3.json(pathname+'/get-page', function(graph) {
+        reloadStory(graph);
+      });
+    };
+  }
+};
+
+
 
 // ---------------------------------
 //
@@ -76,37 +70,87 @@ function initStoryWorld() {
   $('#js-delete-chapter').toggleClass("active", false);
   $('input[name=_node]').val('');
 
-  d3.json(pathname+'/get-page', function(graph) {
-    var story = JSON.parse(graph.story);
 
-    if (!story) {
-        spawnNewStory(graph);
-    }
-    else{
-        loadStory(graph);
+  d3.json(pathname+'/get-page', function(graph) {
+    console.log(graph);
+    if (!graph == null) {
+      var story = JSON.parse(graph.story);
+      loadStory(story);
+    } else {
+      var story = [];
+      spawnNewStory(graph.token);
     }
   });
 }
 
 // Get  post and build JSON
-function spawnNewStory(data) {
+function spawnNewStory(token) {
   var storyBuilder = [];
   var storyJSON = {nodes: storyBuilder, links: [], chapters: []};
 
-  FB.api( '/me/posts', { access_token: data.token, fields:'id, name, likes, shares, comments'}, function(response) {
-    if (response && !response.error) {
-      response.data.forEach(function(entry){
-        storyBuilderPush(entry, storyBuilder);
+  function instagram() {
+    return new Promise(function(resolve, reject) {
+        d3.json(pathname+'/instagram', function(response) {
+          if (response.error) return reject(response.error);
+
+          var platform = 'instagram';
+
+          response[0].data.forEach(function(entry){
+            storyBuilderPush(entry, storyBuilder, platform);
+          });
+
+          var result = storyBuilder;
+          resolve(result);
+        });
+    });
+  }
+
+  function facebook() {
+    return new Promise(function(resolve, reject) {
+      FB.init({
+        appId      : '188876558188407',
+        xfbml      : true,
+        version    : 'v2.8'
       });
 
-      storyJSON = JSON.stringify(storyJSON);
+      FB.api( '/me/posts', { access_token: token, fields:'id, name, likes, shares, comments'}, function(response) {
+        if (response.error) return reject(response.error);
 
-      // sends the JSON to the database
-      pushToBackend(storyJSON);
+          var platform = 'facebook';
 
-      initStoryWorld();
-    }
+          response.data.forEach(function(entry){
+            storyBuilderPush(entry, storyBuilder, platform);
+          });
+
+          var result = storyBuilder;
+          resolve(result);
+      });
+    });
+  }
+
+  var promises = [];
+  if (instagram) {promises.push(instagram());};
+  if (facebook) {promises.push(facebook());};
+
+  Promise.all(promises).then(function() {
+    arguments[0].forEach(function(entry){
+      entry.forEach(function(i){
+        storyBuilder.push(i);
+      });
+    });
+  }, function(err) {
+      console.log("whooeps");
   });
+
+  console.log(promises);
+
+  console.log(storyJSON);
+  storyJSON = JSON.stringify(storyJSON);
+  console.log(storyJSON);
+  console.log(storyBuilder);
+  // sends the JSON to the database
+  // pushToBackend(storyJSON);
+
 }
 
 // ---------------
@@ -411,8 +455,9 @@ function reloadStory(data) {
 
   FB.api( '/me/posts', { access_token: data.token, fields:'id, name, likes, shares, comments'}, function(response) {
     if (response && !response.error) {
+      var platform = 'facebook';
       response.data.forEach(function(entry){
-          storyBuilderPush(entry, storyBuilder);
+          storyBuilderPush(entry, storyBuilder, platform);
       });
     }
     storyJSON = JSON.stringify(storyJSON);
@@ -423,27 +468,49 @@ function reloadStory(data) {
 }
 
 // A function to push an array in to the JSON for storyBuilder
-function storyBuilderPush(entry, storyBuilder) {
+function storyBuilderPush(entry, storyBuilder, platform) {
   var l = 0,
       c = 0,
       s = 0,
       n = 'Post';
 
-  if (entry.likes) {l = entry.likes.data.length;};
-  if (entry.comments) {c = entry.comments.data.length;};
-  if (entry.shares) {s = entry.shares.count;};
-  if (entry.name) {n = entry.name;};
 
-  storyBuilder.push({
-    id: 'fb_' + entry.id,
-    type: 'fb',
-    name: n,
-    likes: l,
-    comments: c,
-    shares: s,
-    url:'https://facebook.com/'+ entry.id,
-    image: newURL+ 'assets/img/facebook-app-logo.svg'
-  });
+  switch (platform) {
+    case 'instagram':
+      if (entry.likes) {l = entry.likes.count;};
+      if (entry.comments) {c = entry.comments.count;};
+      if (entry.caption) {n = entry.caption.text;};
+
+      storyBuilder.push({
+        id: 'in_' + entry.id,
+        type: 'in',
+        name: n,
+        likes: l,
+        comments: c,
+        shares: s,
+        url:entry.link,
+        image: newURL+ 'assets/img/instagram.svg'
+      });
+
+      break;
+    case 'facebook':
+      if (entry.likes) {l = entry.likes.data.length;};
+      if (entry.comments) {c = entry.comments.data.length;};
+      if (entry.shares) {s = entry.shares.count;};
+      if (entry.name) {n = entry.name;};
+
+      storyBuilder.push({
+        id: 'fb_' + entry.id,
+        type: 'fb',
+        name: n,
+        likes: l,
+        comments: c,
+        shares: s,
+        url:'https://facebook.com/'+ entry.id,
+        image: newURL+ 'assets/img/facebook-app-logo.svg'
+      });
+      break;
+  }
 }
 
 // A function to send the storyworld to the database
