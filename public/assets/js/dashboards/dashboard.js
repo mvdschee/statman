@@ -31,14 +31,14 @@ window.onload = function() {
   initStoryWorld();
 
   // add chapter button
-  if ($("js-chapter").length == 1) {
+  if ($("js-chapter")) {
     document.getElementById("js-chapter").onclick = function() {
       addChapter()
     };
   }
 
   // delete chapter button
-  if ($("js-delete-chapter").length == 1) {
+  if ($("js-delete-chapter")) {
     document.getElementById("js-delete-chapter").onclick = function() {
       var id = $('input[name=_node]').val();
       deleteChapter(id);
@@ -46,7 +46,7 @@ window.onload = function() {
   }
 
   // reload storyworld button
-  if ($("js-refresh").length == 1) {
+  if ($("js-refresh")) {
     document.getElementById("js-refresh").onclick = function() {
       d3.json(pathname+'/get-page', function(graph) {
         reloadStory(graph);
@@ -72,13 +72,12 @@ function initStoryWorld() {
 
 
   d3.json(pathname+'/get-page', function(graph) {
-    console.log(graph);
-    if (!graph == null) {
-      var story = JSON.parse(graph.story);
-      loadStory(story);
-    } else {
+    if (graph == null) {
       var story = [];
       spawnNewStory(graph.token);
+    } else {
+      var story = JSON.parse(graph.story);
+      loadStory(story);
     }
   });
 }
@@ -94,12 +93,13 @@ function spawnNewStory(token) {
           if (response.error) return reject(response.error);
 
           var platform = 'instagram';
+          var instagramResult = [];
 
           response[0].data.forEach(function(entry){
-            storyBuilderPush(entry, storyBuilder, platform);
+            storyBuilderPush(entry, instagramResult, platform);
           });
 
-          var result = storyBuilder;
+          var result = instagramResult;
           resolve(result);
         });
     });
@@ -117,12 +117,13 @@ function spawnNewStory(token) {
         if (response.error) return reject(response.error);
 
           var platform = 'facebook';
+          var facebookResult = [];
 
           response.data.forEach(function(entry){
-            storyBuilderPush(entry, storyBuilder, platform);
+            storyBuilderPush(entry, facebookResult, platform);
           });
 
-          var result = storyBuilder;
+          var result = facebookResult;
           resolve(result);
       });
     });
@@ -138,18 +139,14 @@ function spawnNewStory(token) {
         storyBuilder.push(i);
       });
     });
+    storyJSON = JSON.stringify(storyJSON);
+
+    // sends the JSON to the database
+    pushToBackend(storyJSON);
+
   }, function(err) {
-      console.log("whooeps");
+      console.log("whooeps", err);
   });
-
-  console.log(promises);
-
-  console.log(storyJSON);
-  storyJSON = JSON.stringify(storyJSON);
-  console.log(storyJSON);
-  console.log(storyBuilder);
-  // sends the JSON to the database
-  // pushToBackend(storyJSON);
 
 }
 
@@ -428,6 +425,7 @@ function deleteNode(id) {
 // reloadStory
 function reloadStory(data) {
   var story = JSON.parse(data.story);
+  var token = data.token;
 
   // check chapter in storyworld
   if (story.chapters) { var chapterBuilder = story.chapters; }else{ var chapterBuilder = []; }
@@ -439,6 +437,7 @@ function reloadStory(data) {
   if (story.links) { var linkBuilder = story.links; }else{ var linkBuilder = []; }
 
   var storyJSON = {nodes: storyBuilder, links: linkBuilder, chapters: chapterBuilder};
+
 
   chapterBuilder.forEach( function(entry) {
     storyBuilder.push({
@@ -453,18 +452,67 @@ function reloadStory(data) {
     });
   })
 
-  FB.api( '/me/posts', { access_token: data.token, fields:'id, name, likes, shares, comments'}, function(response) {
-    if (response && !response.error) {
-      var platform = 'facebook';
-      response.data.forEach(function(entry){
-          storyBuilderPush(entry, storyBuilder, platform);
+  function instagram() {
+    return new Promise(function(resolve, reject) {
+        d3.json(pathname+'/instagram', function(response) {
+          if (response.error) return reject(response.error);
+
+          var platform = 'instagram';
+          var instagramResult = [];
+
+          response[0].data.forEach(function(entry){
+            storyBuilderPush(entry, instagramResult, platform);
+          });
+
+          var result = instagramResult;
+          resolve(result);
+        });
+    });
+  }
+
+  function facebook() {
+    return new Promise(function(resolve, reject) {
+      FB.init({
+        appId      : '188876558188407',
+        xfbml      : true,
+        version    : 'v2.8'
       });
-    }
+
+      FB.api( '/me/posts', { access_token: token, fields:'id, name, likes, shares, comments'}, function(response) {
+        if (response.error) return reject(response.error);
+
+          var platform = 'facebook';
+          var facebookResult = [];
+
+          response.data.forEach(function(entry){
+            storyBuilderPush(entry, facebookResult, platform);
+          });
+
+          var result = facebookResult;
+          resolve(result);
+      });
+    });
+  }
+
+
+  var promises = [];
+  if (instagram) {promises.push(instagram());};
+  if (facebook) {promises.push(facebook());};
+  Promise.all(promises).then(function() {
+    arguments[0].forEach(function(entry){
+      entry.forEach(function(i){
+        storyBuilder.push(i);
+      });
+    });
     storyJSON = JSON.stringify(storyJSON);
 
     // sends the JSON to the database
     pushToBackend(storyJSON);
+
+  }, function(err) {
+      console.log("whooeps", err);
   });
+
 }
 
 // A function to push an array in to the JSON for storyBuilder
