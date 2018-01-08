@@ -63,6 +63,23 @@ body {
   background: linear-gradient(-135deg, #ce2e6a, #953294 50%, #4a30b1);
 }
 
+.login-view {
+  width: 100%;
+  height: 100%;
+}
+
+.main {
+  width: 100%;
+  height: 100%;
+}
+
+.container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+}
+
 .button {
   border-radius: 50px;
   padding: .5rem 1.5rem;
@@ -120,36 +137,28 @@ body {
 //-----------------------------------
 
 // login top
-.container {
-  position: absolute;
-  top: 50%;
-  margin-top: -15rem;
-  left: 0;
-  width: 100%;
-}
-
 .window {
   display: flex;
-  flex-direction: column;
   overflow:hidden;
-  width:22rem;
-  height: 28rem;
+  position: relative;
+  box-sizing: border-box;
+  padding: 2rem 2rem 8rem;
   border-radius: 20px;
   background:@white;
   margin:0 auto;
 
   .top {
+    position: absolute;
+    top:0;
+    width: 100%;
+    margin:0 -2rem 0;
     background: @blue;
-    width:100%;
-    height: 5rem;
   }
 
 // begin middle section
   .middle {
-    width: 100%;
     background: @white;
-    flex: 1;
-    padding:2rem 0 0;
+    padding:4rem 0 0;
 
     .middle-block {
       width:19.05rem;
@@ -276,10 +285,15 @@ body {
 
 }
 // end middle section
+
   .bottom {
+    position: absolute;
+    bottom:0;
+    width: 100%;
+    height: 6rem;
+    margin:0 -2rem 0;
     font-family: 'Open Sans', sans-serif;
     font-size: 16px;
-    height: 6rem;
     background: @darkwhite;
   }
 
@@ -321,6 +335,7 @@ body {
     }
   }
 }
+// end window
 
 .inner-top {
   padding:1rem 1rem 0;
@@ -345,7 +360,7 @@ body {
   display:block;
   margin:auto;
   width: 19.05rem;
-  padding:1.5rem 0 1.5rem;
+  padding:2rem 0 0;
 }
 
 .btn-create {

@@ -29,7 +29,7 @@
 	</head>
 
 	<body class="body" >
-		<section class="sidebar">
+		{{-- <section class="sidebar"> --}}
 			@if (Auth::check())
 				<div class="profile">
 					{{-- <h3 class="profile-name">{{ decrypt(Auth::user()->name) }}</h3> --}}
@@ -63,7 +63,7 @@
 					<li class="navigation-item"><a href="{{ url('/create-story') }}">Create Story</a></li>
 				</ul>
 			</nav> --}}
-		</section>
+		{{-- </section> --}}
 
 		<div class="main">
 			@yield('content')
