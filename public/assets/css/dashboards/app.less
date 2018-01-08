@@ -79,6 +79,31 @@ body {
   cursor:pointer;
 }
 
+.buttons {
+  display:block;
+  padding:2.5rem 0 .8rem;
+  margin:auto;
+  width: 19.1rem;
+
+  a {
+    text-decoration-style: none;
+    text-decoration: none;
+    color:@black;
+  }
+
+  .btn {
+    .button;
+    width:9rem;
+    display: inline-block;
+
+    &:hover {
+      background: @blue;
+      color:@white;
+      border:1px solid @blue;
+    }
+  }
+}
+
 .noselect {
   -webkit-touch-callout: none; /* iOS Safari */
     -webkit-user-select: none; /* Safari */
@@ -159,6 +184,12 @@ body {
       width:15rem;
       margin:.3rem auto;
 
+      input[type="text"]::-webkit-input-placeholder,
+      input[type="password"]::-webkit-input-placeholder,
+      input[type="email"]::-webkit-input-placeholder {
+        font-style: italic;
+      }
+
       input[type="text"],
       input[type="password"],
       input[type="email"] {
@@ -191,32 +222,6 @@ body {
       input[type="text"]:default {
         border-bottom:1px solid @grey;
       }
-    }
-
-    .buttons {
-      display:block;
-      padding:2.5rem 0 .8rem;
-      margin:auto;
-      width: 19.05rem;
-
-      a {
-        text-decoration-style: none;
-        text-decoration: none;
-        color:@black;
-      }
-
-      .btn{
-        .button;
-        width:9rem;
-        display: inline-block;
-
-        &:hover {
-          background: @blue;
-          color:@white;
-          border:1px solid @blue;
-        }
-      }
-
     }
 // end form
 
@@ -378,5 +383,9 @@ body {
 // end register
 
 // user settings
-
+// bottom form
+.buttons-settings {
+  padding:1.5rem 0 .8rem;
+}
+// end bottom form
 // end user settings

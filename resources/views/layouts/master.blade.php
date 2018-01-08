@@ -32,8 +32,8 @@
 		<section class="sidebar">
 			@if (Auth::check())
 				<div class="profile">
+					{{-- <h3 class="profile-name">{{ decrypt(Auth::user()->name) }}</h3> --}}
 					{{-- <a href="{{ url	('/settings') }}"><img  class="profile-picture" src="{{ Gravatar::get( Session::get( 'email' ), ['secure' => true, 'size'=>350] ) }}" alt="test"></a> --}}
-					<h3 class="profile-name">{{ decrypt(Auth::user()->name) }}</h3>
 					<div class="profile-options">
 						<div class="logout">
 							<a href="{{ url('/logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="icon-sign-out"></a>
@@ -52,7 +52,7 @@
 				</div>
 			@endif
 
-			<nav class="navigation">
+			{{-- <nav class="navigation">
 				<ul class="navigation-group">
 					@if(Auth::user()->favorite)
 						<li class="navigation-item">
@@ -62,7 +62,7 @@
 					<li class="navigation-item"><a href="{{ url('/story-list') }}">Story list</a></li>
 					<li class="navigation-item"><a href="{{ url('/create-story') }}">Create Story</a></li>
 				</ul>
-			</nav>
+			</nav> --}}
 		</section>
 
 		<div class="main">
