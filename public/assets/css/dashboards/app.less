@@ -49,10 +49,11 @@ h2 {
 
 h3 {
   font-family: 'Open Sans', sans-serif;
-  font-size: 18px;
+  font-size: 14px;
   font-weight: bold;
   color:@darkgrey;
   line-height: 0;
+  text-align: center;
 }
 
 p {
@@ -337,7 +338,7 @@ body {
   .bottom-element {
     display: flex;
     justify-content: center;
-    margin:.6rem 0 0;
+    margin:.6rem 0;
     font-size: 13px;
     font-style: italic;
 
@@ -423,31 +424,16 @@ body {
 
 // detail post
 // middle block
-.posts-statics {
-  .middle {
-    padding:0 0 0 0;
-  }
-
-}
-
 .circle {
   display: flex;
   .titles {
-    padding: 0 1rem 0;
+    padding: .4rem 1rem 0;
   }
 }
 
 .circle img{
   .size(4rem);
   border-radius: 50%;
-}
-
-.circle-text {
-}
-
-.middle-block-detail {
-  width: 40rem;
-  margin: 0 auto;
 }
 
 .light {
@@ -460,4 +446,60 @@ body {
   color: rgba(107, 107, 107, 0.7);
 }
 // end middle block
+
+// bottom
+.chart {
+  display: inline;
+  width: 40rem;
+  height: 20rem;
+  background: @blue;
+}
+
+.centerblock {
+  padding: 1rem;
+  background: @white;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 20px;
+  width: 840px;
+  box-sizing: border-box;
+  overflow: hidden;
+  position: relative;
+  padding-bottom: 200px;
+
+  .bottom-new {
+    position: absolute;
+    bottom: 0;
+    background: @darkwhite;
+    margin:0 -1rem -1rem -1rem;
+    padding: 1rem;
+    width: 100%;
+    display: block;
+    box-sizing: border-box;
+  }
+}
+
+.engagement {
+  display: inline-block;
+  width: 49%;
+  float: left;
+  text-align: center;
+  background: @white;
+  margin-bottom: 1rem;
+  border-radius: 20px;
+  ul {
+    margin: 0;
+    padding: 0;
+    li {
+      list-style: none;
+      display: inline-block;
+      margin: 1rem;
+    }
+  }
+}
+
+.negative {
+  float: right
+}
+// end bottom
 // end detail post
