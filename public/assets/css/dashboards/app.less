@@ -20,6 +20,21 @@
   height: @value;
 }
 
+.size2(@value, @value2){
+  width: @value;
+  height: @value2;
+}
+
+.noselect {
+  -webkit-touch-callout: none; /* iOS Safari */
+    -webkit-user-select: none; /* Safari */
+     -khtml-user-select: none; /* Konqueror HTML */
+       -moz-user-select: none; /* Firefox */
+        -ms-user-select: none; /* Internet Explorer/Edge */
+            user-select: none; /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+
 //-----------------------------------
 //              Variable
 //-----------------------------------
@@ -28,6 +43,7 @@
 @black:#000000;
 @grey:#969696;
 @darkgrey:#6b6b6b;
+@lightgrey:#c4c4c4;
 @white:#ffffff;
 @darkwhite:#F5F5F5;
 @blue:#148dfc;
@@ -448,34 +464,25 @@ body {
 // end middle block
 
 // bottom
-.chart {
-  display: inline;
-  width: 40rem;
-  height: 20rem;
-  background: @blue;
-}
-
 .centerblock {
-  padding: 1rem;
   background: @white;
-  margin-left: auto;
-  margin-right: auto;
+  margin: 0 auto 0;
+  padding:1rem 1rem 5rem;
   border-radius: 20px;
-  width: 840px;
+  width: 48rem;
   box-sizing: border-box;
   overflow: hidden;
   position: relative;
-  padding-bottom: 200px;
 
   .bottom-new {
-    position: absolute;
+    // position: absolute;
     bottom: 0;
     background: @darkwhite;
     margin:0 -1rem -1rem -1rem;
     padding: 1rem;
     width: 100%;
-    display: block;
-    box-sizing: border-box;
+    // display: block;
+    // box-sizing: border-box;
   }
 }
 
@@ -487,13 +494,17 @@ body {
   background: @white;
   margin-bottom: 1rem;
   border-radius: 20px;
+  h3 {
+    margin:1.5rem 0 .5rem;
+  }
+
   ul {
     margin: 0;
     padding: 0;
     li {
       list-style: none;
       display: inline-block;
-      margin: 1rem;
+      margin: 1.5rem 1.5rem 0;
     }
   }
 }
@@ -501,5 +512,85 @@ body {
 .negative {
   float: right
 }
+
+.chart {
+  display: inline-block;
+  width: 100%;
+  height: 20rem;
+  // background: @blue;
+}
+
+.chartblock {
+  display: flex;
+  width: 100%;
+  height: 5rem;
+  // background: @green;
+}
+
+// toggle
+.toggle {
+  margin:0 auto;
+  .noselect();
+
+  p {
+    display: inline-block;
+    color:@white;
+    opacity: .5;
+    padding: 4px 16px 0;
+    max-width: 60px;
+    margin: 5px;
+  }
+}
+
+input[type=checkbox]{
+	height: 0;
+	width: 0;
+	visibility: hidden;
+}
+
+label {
+	cursor: pointer;
+  .size2(200px, 40px);
+	background: @lightgrey;
+	display: block;
+	border-radius: 100px;
+	position: relative;
+}
+
+label:after {
+  position: absolute;
+
+	content: 'Last post';
+  font-family: 'Open Sans', sans-serif;
+  font-size: 14px;
+  line-height: 36px;
+  text-align: center;
+  color:@white;
+  -webkit-transition: content 2s;
+
+	top: 2px;
+	left: 2.5px;
+  width: 90px;
+  height: 36px;
+	background: @blue;
+	border-radius: 90px;
+	transition: 0.3s;
+}
+
+input:checked + label {
+  background: @lightgrey;
+}
+
+input:checked + label:after {
+	left: calc(100% - 1px);
+	transform: translateX(-100%);
+  content: 'Average';
+}
+
+label:active:after {
+  width: 60px;
+}
+// end toggle
+
 // end bottom
 // end detail post

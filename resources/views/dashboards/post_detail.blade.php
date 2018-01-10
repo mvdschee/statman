@@ -75,7 +75,17 @@
 
 
             <div class="chart">
+              <div class="chartblock">
 
+                <div class="toggle">
+                  <input type="checkbox" id="switch" />
+                  <label for="switch">
+                    <p>Last post</p>
+                    <p>Average</p>
+                  </label>
+                </div>
+
+              </div>
             </div>
 
 
