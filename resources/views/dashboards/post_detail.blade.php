@@ -85,6 +85,17 @@
                   </label>
                 </div>
 
+                <div class="sidebar">
+                  <div class="box">
+                    <div class="bullet"></div>
+                      <p>Last post</p>
+                  </div>
+                  <div class="box">
+                    <div class="bullet2"></div>
+                    <p>This post</p>
+                  </div>
+                </div>
+
               </div>
             </div>
 

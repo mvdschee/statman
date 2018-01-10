@@ -517,14 +517,12 @@ body {
   display: inline-block;
   width: 100%;
   height: 20rem;
-  // background: @blue;
 }
 
 .chartblock {
   display: flex;
   width: 100%;
   height: 5rem;
-  // background: @green;
 }
 
 // toggle
@@ -534,8 +532,7 @@ body {
 
   p {
     display: inline-block;
-    color:@white;
-    opacity: .5;
+    color:@darkgrey;
     padding: 4px 16px 0;
     max-width: 60px;
     margin: 5px;
@@ -592,5 +589,39 @@ label:active:after {
 }
 // end toggle
 
+.sidebar {
+  position: absolute;
+  .size2(11rem, 5rem);
+  right: 0;
+
+  .box {
+    display: inline-block;
+    .size(5rem);
+  }
+
+  p {
+    display: inline-block;
+    width: 3rem;
+    padding: .5em 1.5rem 0;
+  }
+
+  .bullet {
+    width: 10px;
+    height: 10px;
+    background-image: radial-gradient(circle at 0 0, #0075ff 4%, #092471);
+    border-radius: 25px;
+    position: absolute;
+    top:50%;
+  }
+
+  .bullet2 {
+    width: 10px;
+    height: 10px;
+    background-image: radial-gradient(circle at 0 0, #db3391 4%, #092471);
+    border-radius: 25px;
+    position: absolute;
+    top:50%;
+  }
+}
 // end bottom
 // end detail post
