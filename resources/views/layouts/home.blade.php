@@ -42,6 +42,7 @@
 	</head>
 
 	<body id="top" class="home">
+		<canvas class="fireworks"></canvas>
 		<header id="scroll" class="header" itemscope itemtype="https://schema.org/WPHeader">
 			<h1 class="hide-from-layout">Statman</h1>
 			<a class="logo" href="/">Statman</a>
@@ -82,6 +83,7 @@
 			<h3>Statman</h3>
 			<p>with <img src="{{ URL::asset("assets/img/pompebled.svg") }}" alt="heart"> from YumYum</p>
 		</footer>
+		<script src={{ URL::asset("assets/js/lib/anime.min.js") }}></script>
 		<script src={{ URL::asset("assets/js/lib/classtoggle.min.js") }}></script>
 		<script src={{ URL::asset("assets/js/frontpages/home.js") }}></script>
 	</body>
