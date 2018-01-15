@@ -13,7 +13,7 @@
         <div class="buttons">
           @if (Route::has('login'))
             @unless(Auth::check())
-              <a class="button" href="{{ url('/register') }}">Sign me up!</a>
+              {{-- <a class="button" href="{{ url('/register') }}">Sign me up!</a> --}}
             @endunless
           @endif
         </div>
@@ -78,7 +78,7 @@
         <p>Make an account now and start conquering!</p>
         @if (Route::has('login'))
           @unless(Auth::check())
-            <a class="button" href="{{ url('/register') }}">Sign me up!</a>
+            {{-- <a class="button" href="{{ url('/register') }}">Sign me up!</a> --}}
           @endunless
         @endif
       </article>

@@ -29,7 +29,7 @@ var fireworks = (function() {
   var pointerX = 0;
   var pointerY = 0;
   var tap = ('ontouchstart' in window || navigator.msMaxTouchPoints) ? 'touchstart' : 'mousedown';
-  var colors = ['#FF1461', '#18FF92', '#5A87FF', '#FBF38C'];
+  var colors = ['#A502FF', '#9EFF00', '#02A7FF', '#FF00BF','#f14343'];
 
   function setCanvasSize() {
     canvasEl.width = window.innerWidth * 2;
