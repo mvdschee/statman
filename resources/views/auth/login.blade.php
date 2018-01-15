@@ -19,7 +19,7 @@
 
 
         <div class="middle">
-            <form id="login" role="form" method="POST" action="{{ url('/login') }}">
+            <form id="login" role="form" method="POST" action="{{ route('login') }}">
             {{ csrf_field() }}
                 @if ($errors->has('email'))
                     <span class="help-block">

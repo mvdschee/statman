@@ -22,7 +22,6 @@
 		<meta itemprop="image" content="{{ URL::asset("assets/img/statman.svg") }}">
 		<link rel="shortcut icon" href="{{ URL::asset("assets/img/statman-line.svg") }}">
 		<link rel="stylesheet" href="{{ URL::asset("assets/css/dashboards/app.css") }}">
-		<link href="https://fonts.googleapis.com/css?family=Open+Sans" rel="stylesheet">
 
 		<title>Statman | Login</title>
 
