@@ -75,10 +75,6 @@
 			<h2 class="nocontent hide-from-layout">Footer</h2>
 			<ul class="navigation-group">
 				<li class="navigation-item"><a href="{{ url('/privacy') }}" itemprop="url">Privacy</a></li>
-				{{-- <li class="navigation-item"><a href="#" itemprop="url">About</a></li> --}}
-				{{-- <li class="navigation-item"><a href="#" itemprop="url">Terms</a></li> --}}
-				{{-- <li class="navigation-item"><a href="#" itemprop="url">Contact</a></li> --}}
-				{{-- <li class="navigation-item"><a href="#" itemprop="url">Help</a></li> --}}
 			</ul>
 			<h3>Statman</h3>
 			<p>with <img src="{{ URL::asset("assets/img/pompebled.svg") }}" alt="heart"> from YumYum</p>
