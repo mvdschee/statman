@@ -20,10 +20,10 @@
 						<img src="https://images.pexels.com/photos/785544/pexels-photo-785544.jpeg?w=1260&h=750&dpr=2&auto=compress&cs=tinysrgb" alt="">
 						<div class="info-block">
 							<div class="information">
-								<h4>{{ $data['project_name'] }}</h4>
+								<a href="/dashboard/{{ $data['project_id'] }}"><h4>{{ $data['project_name'] }}</h4></a>
 								<p>Date</p>
 							</div>
-							<a href="/storysettings/{{ $data['project_id'] }}"><i class="cog"></i></a>
+							<a href="/storysettings/{{ $data['project_id'] }}"><i class="cog"></i></a>	
 						</div>
 					</div>
 			@endforeach
