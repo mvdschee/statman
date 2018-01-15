@@ -1,4 +1,3 @@
-
 // ---------------------------------
 //
 //       StoryWorld Building
@@ -61,7 +60,7 @@ function loadStory(graph) {
       .enter().append("div")
         .attr("class", "node")
         .attr("id", function(d) { return d.type })
-        .style("left", function(d) { return d.x + "px"; })
+        .style("left", function(d) { return d.x = 300 + "px"; })
         .style("top", function(d) { return d.y + "px"; })
         .style("width", function(d) { return growthHacker(d.likes, d.comments, d.shares) + "px"})
         .style("transform", function(d) { return "translate(" + -growthHacker(d.likes, d.comments, d.shares)/2 + "px," + -growthHacker(d.likes, d.comments, d.shares)/2 + "px)"})

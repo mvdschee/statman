@@ -516,27 +516,61 @@ function getNodePosition(){
   */
   if (!localStorage.positions){
       //int object tor storing positions
-      var postionNodes = {};
-
-      $( ".node" ).each(function(index) {
-          //get css per node
-          var node_id = $(this).children('div').attr('id');
-          var pos_left = $(this).css('left');
-          var pos_top = $(this).css('top')
-          //build opjects 
-          postionNodes[node_id] = {
-          'left' : pos_left,
-          'top'  : pos_top
-          };
-      });  
-      //store object as sting to local storage
-      localStorage.setItem("positions", JSON.stringify(postionNodes));
+      saveNodePositions();
       console.log("new postions postion values stored locally");
       console.log(localStorage.positions);
   }
   else{
-      console.log("postions already stored!");
-      console.log(localStorage.positions);
+      console.log("Postions of nodes already stored!");
+      repositionNodes();
   }
+}
 
+function checkNodesChanges(){
+  console.log(' checkNodesChanges');
+  $( ".node" )
+  .mouseup(function() {
+    saveNodePositions();
+  })
+  .mousedown(function() {
+    console.log('down');
+  });
+  return true;
+}
+
+function saveNodePositions(){
+  console.log('save nodes positions troll');
+  var postionNodes = {};
+
+  $( ".node" ).each(function(index) {
+    //get css per node
+    var node_id = $(this).children('div').attr('id');
+    var pos_left = $(this).css('left');
+    var pos_top = $(this).css('top');
+    //build opjects 
+    postionNodes[node_id] = {
+    'left' : pos_left,
+    'top'  : pos_top
+    };
+  }); 
+  console.log(postionNodes);
+  //store object as sting to local storage
+  localStorage.setItem("positions", JSON.stringify(postionNodes));
+}
+
+function repositionNodes(){
+  
+  var postionNodes = JSON.parse(localStorage.positions);
+  
+  window.setTimeout(function(){
+
+    $.each(postionNodes, function( index, value ) {
+      $('#'+index).parent().css("left:"+postionNodes[index]['left']);
+      $('#'+index).parent().css("top:"+postionNodes[index]['top']);
+    });
+    
+    console.log(postionNodes);
+    alert('timeout');
+
+  }, 2000);
 }
