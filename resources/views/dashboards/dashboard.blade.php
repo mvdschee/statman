@@ -12,20 +12,6 @@
 				</div>
 			@endif
 
-			<header class="header">
-				@if ($token)
-					{{-- Chapter --}}
-					<button id="js-chapter" class="chapter">()</button>
-					<button id="js-delete-chapter" class="delete-chapter">X</button>
-
-					{{-- Refresh --}}
-					<button id="js-refresh">-></button>
-				@endif
-
-				{{-- TEMP buttons --}}
-				<a href="/story-list"><button class="chapter"><-</button></a>
-		</header>
-
 		<div id="js-storyworld" class="storyworld">
 		</div>
 

@@ -1,72 +1,60 @@
 @extends('layouts.master')
 @section('content')
 
-<link rel="stylesheet" href="{{ URL::asset("assets/css/dashboards/second.nested.css") }}">
-<div class="panel" id="page">
-	<div class="legend-block">
-		<legend><h1 style="cursor: pointer" id="button">Story Overview</h1></legend>
-		<p>Select the story you want to work with.</p>
+<section class="hero">
+	<div class="hero-content">
+		<span class="hero-icon" style="background-image: url({{ URL::asset("assets/img/Storyworld-Title-Icon.svg") }});"></span>
+		<span>
+			<h1>STORY OVERVIEW</h1>
+			<p>Select the story you want to work with.</p>
+		</span>
 	</div>
-    @if (session('check'))
-    <div class="error">
-    	{{ session('check') }}
-    </div>
-    @endif
-	@if ($data)
-	<div class="container-story">
-		<div class="project-group">
+</section>
+
+@if (session('check'))
+	<div class="error">
+		{{ session('check') }}
+	</div>
+@endif
+
+<section class="stories">
+	<div class="stories-group">
+		@if ($data)
 			@foreach ($data as $data)
-					<div class="project-item">
-						<img src="https://images.pexels.com/photos/785544/pexels-photo-785544.jpeg?w=1260&h=750&dpr=2&auto=compress&cs=tinysrgb" alt="">
-						<div class="info-block">
-							<div class="information">
-								<a href="/dashboard/{{ $data['project_id'] }}"><h4>{{ $data['project_name'] }}</h4></a>
-								<p>Date</p>
-							</div>
-							<a href="/storysettings/{{ $data['project_id'] }}"><i class="cog"></i></a>	
-						</div>
+				<div class="stories-item">
+					<a class="stories-image" href="/dashboard/{{ $data['project_id'] }}" style="background-image: url({{ URL::asset("assets/img/group-4.png") }});">
+					</a>
+					<div class="item-footer">
+						<span class="left">
+							<h4>{{ $data['project_name'] }}</h4>
+							<p>19 jan 2018</p>
+						</span>
+						<a class="right" href="/storysettings/{{ $data['project_id'] }}"></a>
 					</div>
+				</div>
 			@endforeach
-			<a class="add-project-item" href='{{ url('/create-story') }}'>
-				<div><i></i></div>
-			</a>
-		</div>
+			<a class="stories-item add" href='{{ url('/create-story') }}'></a>
+		@else
+			<a class="stories-item add" href='{{ url('/create-story') }}'></a>
+		@endif
 	</div>
-	@else
-		<h3 class="no-story">You have no stories yet, do you want to create a new one?</h3>
-		<a class="button" href='{{ url('/create-story') }}'>Create a story</a>
-		{{-- Todo: styling van link --}}
-	@endif
+</section>
 
-	@if ($invites)
-		<legend><h2 class="invite_header">Invites</h2></legend>
-		<table class="storylist">
+{{-- Who wrote this and what does it do? --}}
+@if ($invites)
+	<legend><h2 class="invite_header">Invites</h2></legend>
+	<table class="storylist">
+		<tr>
+			<th class="tableheader add-button"></th>
+			<th class="tableheader align-left">Project name</th>
+		</tr>
+		@foreach ($invites as $invite)
 			<tr>
-				<th class="tableheader add-button"></th>
-				<th class="tableheader align-left">Project name</th>
+				<td class="add-button"><a href="/invited/{{ $invite['token'] }}"><i class='icon-plus'></i></a></td>
+				<td>{{ $invite['project_name'] }}</td>
 			</tr>
-			@foreach ($invites as $invite)
-				<tr>
-					<td class="add-button"><a href="/invited/{{ $invite['token'] }}"><i class='icon-plus'></i></a></td>
-					<td>{{ $invite['project_name'] }}</td>
-				</tr>
-			@endforeach
-		</table>
-	@endif
-</div>
-<script type="text/javascript">
-window.onload = function() {
-	var button = document.getElementById('button');
-	button.onclick = function(){
-		var body = document.getElementById('page')
-		if(body.classList == ""){
-			body.classList = "spinnerino";
-		} else {
-			body.classList = "";
-		}
-	}
-
-};
-</script>
+		@endforeach
+	</table>
+@endif
 
 @endsection

@@ -28,29 +28,32 @@
 		<noscript><p><img src="https://analytics.ewake.nl/piwik.php?idsite=6&rec=1" style="border:0;" alt="" /></p></noscript>
 	</head>
 
-	<body class="body" >
-			@if (Auth::check())
-				<div class="profile">
+	<body class="body {{Route::currentRouteName()}}" >
+		@if (Auth::check())
+			<header class="header">
 
-					<div class="profile-options">
-						<div class="logout">
-							<a href="{{ url('/logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="icon-sign-out"></a>
-							<a href="{{ url('/logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Log out</a>
-						</div>
+				<a href="{{ url('/logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="logout icon-sign-out">Log out</a>
+				<a class="settings icon-cog" href="{{ url('/settings') }}">Settings</a>
+				@if (Route::currentRouteName() == 'dashboard')
+					@if ($token)
+						{{-- Chapter --}}
+						<button id="js-chapter" class="chapter">Add Chapter</button>
+						<button id="js-delete-chapter" class="delete-chapter">Delete Chapter</button>
 
-						<div class="settings">
-							<a href="{{ url('/settings') }}" class="icon-cog"></a>
-							<a href="{{ url('/settings') }}">Settings</a>
-						</div>
+						{{-- Refresh --}}
+						<button id="js-refresh">Refresh</button>
+					@endif
+					<a href="/story-list"><button class="chapter">Go Back</button></a>
+				@endif
 
-					</div>
-					<form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-						{{ csrf_field() }}
-					</form>
-				</div>
-			@endif
+				{{-- TEMP buttons --}}
+				<form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+					{{ csrf_field() }}
+				</form>
+			</header>
+		@endif
 
-		<div class="main">
+		<div class="main clear">
 			@yield('content')
 		</div>
 		<script src={{ URL::asset("assets/js/dashboards/app.js") }}></script>
