@@ -32,21 +32,21 @@
 		@if (Auth::check())
 			<header class="header">
 
-				<a href="{{ url('/logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="logout icon-sign-out">Log out</a>
-				<a class="settings icon-cog" href="{{ url('/settings') }}">Settings</a>
+				<a href="{{ url('/logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="logout but icon-sign-out">Log out</a>
+				<a class="settings icon-cog but" href="{{ url('/settings') }}">Settings</a>
 				@if (Route::currentRouteName() == 'dashboard')
+					<a class="but chapter" href="/story-list">Go Back</a>
 					@if ($token)
 						{{-- Chapter --}}
-						<button id="js-chapter" class="chapter">Add Chapter</button>
-						<button id="js-delete-chapter" class="delete-chapter">Delete Chapter</button>
+						<button id="js-chapter" class="but chapter">Add Chapter</button>
+						<button id="js-delete-chapter" class="but delete-chapter">Delete Chapter</button>
 
 						{{-- Refresh --}}
-						<button id="js-refresh">Refresh</button>
+						<button class="but" id="js-refresh">Refresh</button>
 					@endif
-					<a href="/story-list"><button class="chapter">Go Back</button></a>
 				@endif
 
-				{{-- TEMP buttons --}}
+				{{-- TEMP but --}}
 				<form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
 					{{ csrf_field() }}
 				</form>

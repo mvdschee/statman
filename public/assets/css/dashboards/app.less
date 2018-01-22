@@ -59,6 +59,7 @@
 @darkblue:#636A82;
 @green:#66bb6a;
 @red:#DE3737;
+@spacing:           1.2rem;
 // end variables
 
 //-----------------------------------
@@ -111,14 +112,23 @@ body {
   background-repeat: no-repeat;
 }
 
+.header {
+  .displayflex();
+  .flex-direction(column);
+  width: 10rem;
+  position: absolute;
+}
+
 .login-view {
   width: 100%;
   height: 100%;
+  min-height: 100vh;
 }
 
 .main {
   width: 100%;
   height: 100%;
+  min-height: 100vh;
 }
 
 .container {
@@ -589,13 +599,10 @@ label:after {
   text-align: center;
   color:@white;
   -webkit-transition: content 2s;
-
 	top: 2px;
 	left: 2.5px;
   width: 90px;
   height: 36px;
-	background: @blue;
-	border-radius: 90px;
 	transition: 0.3s;
 }
 
@@ -782,3 +789,172 @@ label:active:after {
   border-radius: 25px;
   background: cover no-repeat center;
 }
+
+
+// buttons and zoom
+.but{
+    .border-radius();
+    .transition();
+    padding: 0.8rem;
+    margin: 0.2rem 0;
+    background-color: #36c9c6;
+    border: none;
+    color: @white;
+    font-size: 0.8rem;
+    font-weight: bold;
+    width: auto;
+    text-align: left;
+
+    &:hover{
+        opacity: .8;
+        cursor: pointer;
+    }
+}
+
+.zoom-layer {
+  fill-opacity: 0;
+}
+
+// end buttons and zoom
+
+
+// dashboard
+.body {
+  .gradient(linear; #ce2e6a, #953294 50%, #4a30b1; -125deg);
+  grid-template-columns: auto;
+  position: relative;
+}
+
+.delete-chapter {
+  display: none;
+
+  &.active {
+    display: block;
+    background: @red;
+  }
+}
+
+.canvas {
+  display: block;
+  background: transparent;
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  overflow: hidden;
+
+  svg {
+    border: none;
+    background: transparent;
+  }
+
+  #js-center {
+    display: block;
+    position: absolute;
+    color: @white;
+    top: 48%;
+    width: 100%;
+    text-align: center;
+  }
+}
+
+#js-world-container {
+  display: block;
+  overflow: hidden;
+}
+
+.storyworld{
+  display: block;
+  position: relative;
+  cursor: grab;
+  cursor: -moz-grab;
+  cursor: -webkit-grab;
+
+  &:active {
+    cursor: grabbing;
+    cursor: -moz-grabbing;
+    cursor: -webkit-grabbing;
+  }
+
+  svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.nodes {
+  position: absolute;
+}
+
+.node {
+  .displayflex();
+  .flex-direction(column);
+  .align-items(center);
+  position: absolute;
+
+  &#ch p:hover {
+    background: rgba(255, 255, 255, 0.6);
+  }
+}
+
+.node-image {
+  display: block;
+  border-radius: 50%;
+  background: grey;
+  cursor: pointer;
+  box-shadow: 0 3px 5px 0 rgba(0, 0, 0, 0.2);
+
+  &.active {
+    border: 2px solid @red;
+  }
+
+  &[id^='ch_'] {
+    background: rgba(255, 255, 255, 0.6);
+    background-image: url('../../img/chapter.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+    box-shadow: rgba(255, 255, 255, 0.33) 0px 0px 0px 9px, rgba(255, 255, 255, 0.12) 0px 0px 0px 18px;
+  }
+
+  &[id^='fb_'] {
+    background: #3b579d;
+    background-image: url('../../img/facebook-app-logo.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 50%;
+  }
+
+  &[id^='in_'] {
+    background-image: url('../../img/instagram-node.svg');
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: contain;
+  }
+}
+
+.node-text {
+  width: auto;
+  padding: 2px 5px;
+  margin: 10px 0 0 0;
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.8);
+  border-radius: 10px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.link {
+  display: block;
+  position: absolute;
+  background: white;
+  width: 10px;
+  height: 2px;
+  cursor: pointer;
+
+  &:hover {
+    stroke-width: 10px;
+  }
+}
+
+// end dashboard

@@ -17,7 +17,7 @@
 
 
         <div class="middle">
-            <form role="form" method="POST" action="{{ route('register') }}">
+            <form role="form" method="POST" action="{{ route('settings') }}">
             {{ csrf_field() }}
               @if ($errors->has('email'))
                   <span class="help-block">
@@ -77,7 +77,7 @@
 
         <div class="bottom">
           <span class="buttons buttons-settings">
-            <a href="{{ URL::asset('/')}}">
+            <a href="{{ URL::asset('/story-list')}}">
               <button type="button" class="btn">Cancel</button>
             </a>
             <button type="submit" class="btn">Confirm</button>

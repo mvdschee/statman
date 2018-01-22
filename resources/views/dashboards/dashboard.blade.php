@@ -43,5 +43,4 @@
 	<script type="text/javascript" src="{{ URL::asset("assets/js/lib/jquery-3.2.1.js") }}"></script>
 	<script type="text/javascript" src="{{ URL::asset("assets/js/dashboards/dashboard.js") }}"></script>
 	<script type="text/javascript" src="{{ URL::asset("assets/js/dashboards/storyworld.js") }}"></script>
-	<link rel="stylesheet" href="{{ URL::asset("assets/css/dashboards/storyworld-temp.css") }}">
 @endsection
