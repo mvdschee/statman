@@ -11,12 +11,12 @@
                 </g>
               </g>
             </svg>
-            <h2>{{ $Name }}</h2>
+            <h2 class="h2-title">{{ $Name }}</h2>
           </div>
         </div>
 
 
-        <div class="middle">
+        <div class="middle">  
             <form role="form" method="POST" action="{{ route('settings') }}">
             {{ csrf_field() }}
               @if ($errors->has('email'))

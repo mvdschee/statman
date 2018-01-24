@@ -32,6 +32,11 @@ Route::get('/privacy', function () {
 	return view('frontpages.privacy', compact('title'));
 });
 
+Route::get('/posts/1', function() {
+	return view('dashboards.post_detail');
+});
+
+
 Route::get('/dashboard/{project_id}/get-page', 'DashboardController@getSocialMedia')->middleware('auth', 'verified')->name('get-social-media');
 Route::post('/dashboard/delete-page', 'DashboardController@deleteProject')->middleware('auth', 'verified')->name('delete-page');
 Route::post('/dashboard/{project_id}/save-story', 'DashboardController@saveStory')->middleware('auth', 'verified')->name('save-story');
