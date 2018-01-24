@@ -77,12 +77,16 @@
                                </g>
                              </svg>
                            </td>
-                           <td>
+                           <td class="td-style">
                              {{$users['name']}}
                            </td>
-                          
+
                            @if($users['role_index_id'] == 1)
-                              <td>Owner</td>
+                              <td>
+                                <div class="td-block">
+                                  Owner
+                                </div>
+                              </td>
                            @elseif($users['role_index_id'] == 2)
                               <td>Writer</td>
                            @elseif($users['role_index_id'] == 2)
@@ -104,10 +108,92 @@
                                  {{ csrf_field() }}
                                  <input type="hidden" name="option" value="{{ $data['project_id'] }}">
                                  <input type="hidden" name="user" value="{{$users['user_id']}}">
-                                 <td><button style="background:red;">delete</button></td>
+                                 <td>
+                                   <button type="button" name="delete" class="btn-close close"></button>
+                                 </td>
                                  <td class="hidden" id="deletebuttons">
-                                    <button style="background:darkgrey;" id="cancel" type="submit">cancel</button>
-                                    <button style="background:red;" type="submit">confirm</button>
+
+                                    <button id="cancel" class="btn-cancel" type="submit">
+                                      <svg class="cancel" xmlns="http://www.w3.org/2000/svg">
+                                        <polyline points="9 10 4 15 9 20"></polyline>
+                                        <path d="M20 4v7a4 4 0 0 1-4 4H4"></path>
+                                      </svg>
+                                    </button>
+
+                                    <button type="submit" class="btn-submit">
+                                      <svg class="submit" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <polyline points="20 6 9 17 4 12">
+                                        </polyline>
+                                      </svg>
+                                    </button>
+                                 </td>
+                                 <td></td>
+                              </form>
+                           @endif
+                        </tr>
+
+                        {{-- alleen voor preview --}}
+                        <tr class="tr-style">
+                           <td>
+                             {{-- by default user icon --}}
+                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="304 392 88 176" class="svg-icon2">
+                               <g id="User_Standaard" data-name="User Standaard" transform="translate(-2893 -1800)">
+                                 <g id="guy">
+                                   <path id="Path_1" data-name="Path 1" class="cls-1" d="M36,0A36,36,0,1,1,0,36,36,36,0,0,1,36,0Z" transform="translate(3205 2192)"/>
+                                   <path id="Union_1" data-name="Union 1" class="cls-1" d="M19,96A19,19,0,0,1,0,77V47.484C0,21.259,19.7,0,44,0S88,21.259,88,47.484V77A19,19,0,0,1,69,96Z" transform="translate(3197 2272)"/>
+                                 </g>
+                               </g>
+                             </svg>
+                           </td>
+                           <td class="td-style">
+                             {{$users['name']}}
+                           </td>
+
+                           @if($users['role_index_id'] == 1)
+                              <td>
+                                <div class="td-block">
+                                  Owner
+                                </div>
+                              </td>
+                           @elseif($users['role_index_id'] == 2)
+                              <td>Writer</td>
+                           @elseif($users['role_index_id'] == 2)
+                              <td>Reader</td>
+                           @endif
+                           @if($users['user_id'] !== $user['id'])
+                              @if($user['role_index_id'] !== 1)
+
+                                 <form class="" action="{{ url('/delete-from-project') }}" method="post">
+                                    {{ csrf_field() }}
+                                    <input type="hidden" name="option" value="{{ $data['project_id'] }}">
+                                    <input type="hidden" name="user" value="{{$users['user_id']}}">
+                                    <td><button style="background:red;" type="submit">X</button></td>
+                                 </form>
+                              @endif
+                           @else
+
+                              <form class="" action="{{ url('/delete-from-project') }}" method="post">
+                                 {{ csrf_field() }}
+                                 <input type="hidden" name="option" value="{{ $data['project_id'] }}">
+                                 <input type="hidden" name="user" value="{{$users['user_id']}}">
+                                 <td>
+                                   <button type="button" name="delete" class="btn-close close"></button>
+                                 </td>
+                                 <td class="hidden" id="deletebuttons">
+
+                                    <button id="cancel" class="btn-cancel" type="submit">
+                                      <svg class="cancel" xmlns="http://www.w3.org/2000/svg">
+                                        <polyline points="9 10 4 15 9 20"></polyline>
+                                        <path d="M20 4v7a4 4 0 0 1-4 4H4"></path>
+                                      </svg>
+                                    </button>
+
+                                    <button type="submit" class="btn-submit">
+                                      <svg class="submit" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                                        <polyline points="20 6 9 17 4 12">
+                                        </polyline>
+                                      </svg>
+                                    </button>
                                  </td>
                                  <td></td>
                               </form>

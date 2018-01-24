@@ -971,7 +971,7 @@ label:active:after {
 }
 
 .block {
-  width: 120%;
+  width: 115%;
   margin:0 -2rem 0;
   padding: 0 0 .5rem;
   font-family: 'Open Sans', sans-serif;
@@ -1008,8 +1008,8 @@ label:active:after {
 .tr-style {
 
   td {
-    // padding: .5rem 1rem 1rem;
     vertical-align: middle;
+    text-align: center;
 
     svg {
       margin: auto auto;
@@ -1017,6 +1017,68 @@ label:active:after {
     }
   }
 }
+
+.td-style {
+  padding:.5rem 10rem .5rem 1rem;
+}
+
+.td-block {
+  border-radius: 50px;
+  padding: 0.3rem 2.5rem;
+  background: transparent;
+  border: 1px solid @grey;
+  margin:.5rem;
+}
+
+// close button
+.btn-close {
+  .size(1.5rem);
+  border-radius: 50%;
+  background: @red;
+  border: none;
+  cursor: pointer;
+}
+
+.close:before {
+  content: "✖";
+  color: @white;
+}
+// end close button
+
+// cancel button
+.btn-cancel {
+  .size(1.5rem);
+  border-radius: 50%;
+  background: @blue;
+  border: none;
+  cursor: pointer;
+}
+
+.cancel {
+  fill:transparent;
+  stroke:@white;
+  stroke-width:2;
+  stroke-linecap:round;
+  stroke-linejoin:round;
+}
+// end cancel button
+
+// submit button
+.btn-submit {
+  .size(1.5rem);
+  border-radius: 50%;
+  background: @green;
+  border: none;
+  cursor: pointer;
+}
+
+.submit {
+  fill:transparent;
+  stroke:@white;
+  stroke-width:3;
+  stroke-linecap:round;
+}
+// end submit button
 
 .svg-icon2 {
   display: block;
