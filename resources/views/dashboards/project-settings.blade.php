@@ -236,7 +236,7 @@
                <form action="/dashboard/delete-page" method="POST" onsubmit="return confirm('Are you sure you want to delete your story? This cannot be reversed.');">
                   {{ csrf_field() }}
                   <input type="hidden" name="project" value="{{ $data['project_id'] }}">
-                  <button type="submit" id="js-delete-story">Delete story</button>
+                  <button type="submit" id="js-delete-story" class="btn-close close"></button>
                </form>
 
                <table>
@@ -271,9 +271,11 @@
                   </tbody>
                </table>
             @endif
-            <a class="button" href="/{{$data['project_id']}}/instagram">add instagram</a>
-            <a class="button" href="{{ url('/add-service/'.$project_id) }}">add facebook</a>
 
+            <div class="add-group">
+              <a class="button add" href="/{{$data['project_id']}}/instagram">add instagram</a>
+              <a class="button add" href="{{ url('/add-service/'.$project_id) }}">add facebook</a>
+            </div>
           </div>
 
           <script type="text/javascript">
