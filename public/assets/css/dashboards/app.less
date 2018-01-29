@@ -206,6 +206,82 @@ body {
 //-----------------------------------
 //              Componenten
 //-----------------------------------
+// menu navigation master
+@-webkit-keyframes rollout{
+  0% {
+    display: none;
+    margin-top: 0;
+    opacity: 0;
+    transform: rotate(15deg);
+  }
+  1% {
+    display: block;
+    margin-top: -8px;
+    transform: rotate(15deg);
+    opacity: 0;
+  }
+  100% {
+    display: block;
+    margin-top: 0;
+    transform: rotate(0deg);
+    opacity: 1;
+  }
+}
+
+.menu {
+  img {
+    display: inline-block;
+    width: 80px;
+    border-radius: 50%;
+    border: solid 2px white;
+    box-sizing: border-box;
+    margin-bottom: 8px;
+    cursor: pointer;
+    z-index: 41;
+  }
+  ul {
+    margin: 0;
+    padding: 0;
+  }
+
+  ul .item {
+    list-style: none;
+    background: white;
+    color: purple;
+    width: 60px;
+    height: 60px;
+    padding: 16px 21px;
+    display: none;
+    box-sizing: border-box;
+    border-radius: 50%;
+    margin-left: 14px;
+    font-size: 19pt;
+    margin-bottom: 8px;
+    z-index: -1;
+  }
+
+}
+
+
+.open > ul > .item
+{
+  z-index: -1;
+  animation-name: rollout;
+  animation-duration: .2s;
+  animation-timing-function: ease;
+  display: block;
+}
+.closed > ul > .item
+{
+  z-index: -1;
+  animation-name: rollout;
+  animation-duration: .2s;
+  animation-timing-function: ease;
+  animation-direction: reverse;
+  display: none;
+}
+// end menu navigation master
+
 
 // login top
 .window {

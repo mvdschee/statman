@@ -25,6 +25,21 @@
 				g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
 			})();
 		</script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script type="text/javascript">
+					$(document).ready(function()
+			{
+				$("#menubutton").click(function(){
+					if($("#menu").hasClass("open")){
+						$("#menu").toggleClass("open", false);
+						$("#menu").toggleClass("closed", true);
+					} else {
+						$("#menu").toggleClass("open", true);
+						$("#menu").toggleClass("closed", false);
+					}
+				});
+			});
+		</script>
 		<noscript><p><img src="https://analytics.ewake.nl/piwik.php?idsite=6&rec=1" style="border:0;" alt="" /></p></noscript>
 	</head>
 
@@ -32,8 +47,25 @@
 		@if (Auth::check())
 			<header class="header">
 
-				<a href="{{ url('/logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="logout but icon-sign-out">Log out</a>
-				<a class="settings icon-cog but" href="{{ url('/settings') }}">Settings</a>
+				<nav class="menu" id="menu">
+				  <img id="menubutton"src="https://pbs.twimg.com/profile_images/944003679031627777/dvVdOta2_400x400.jpg">
+				  <ul>
+				    <li class="item">
+							<a class="settings icon-cog but" href="{{ url('/settings') }}">Settings</a>
+						</li>
+				    <li class="item">
+
+						</li>
+						<li class="item">
+
+						</li>
+				    <li class="item">
+							<a href="{{ url('/logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="logout but icon-sign-out">Log out</a>
+						</li>
+					</ul>
+
+
+
 				@if (Route::currentRouteName() == 'dashboard')
 					<a class="but chapter" href="/story-list">Go Back</a>
 					@if ($token)
