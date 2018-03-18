@@ -1,269 +1,614 @@
-// Global variables
-var pathname = window.location.pathname;
-var project = pathname.substr(11);
+// ---------------------------------
+//
+//          Variables
+//         & Triggers
+//
+// ----------------------------------
 
-/* fbAsyncInit
- *
- * Set variables to connect the page with our facebook-app
- *
- */
-window.fbAsyncInit = function() {
-  FB.init({
-      appId      : '188876558188407',
-      xfbml      : true,
-      version    : 'v2.8'
+// variables
+var pathname = window.location.pathname,
+    project = pathname.substr(11),
+    newURL = window.location.protocol + "//" + window.location.host + "/",
+    instagram = false,
+    facebook = false;
+
+// triggers
+window.onload = function() {
+  var trigger = new Trigger();
+  trigger.findTrigger();
+
+  window.data.services.forEach(function(i) {
+
+    if(i.service_index == 0) {
+      facebook = true;
+    }
+    if (i.service_index == 1) {
+      instagram = true;
+    }
+
   });
-  loginCheck();
+
   initStoryWorld();
-}
 
-function loginCheck(){
-  FB.getLoginStatus(function(response) {
-      if (response.status === 'connected') {
-          return true;
-      }
-      else {
-          login_fb();
-          return false;
-      }
-  });
-}
+  // add chapter button
+  if ($("js-chapter")) {
+    document.getElementById("js-chapter").onclick = function() {
+      addChapter()
+    };
+  }
 
-function login_fb() {
-  FB.login(function(response){
-      if (response.authResponse) {
-      }
-      else{
-          window.location.replace("/story-list");
-      }
-  }, {
-      scope: 'manage_pages',
-      return_scopes: true
-  });
-}
+  // delete chapter button
+  if ($("js-delete-chapter")) {
+    document.getElementById("js-delete-chapter").onclick = function() {
+      var id = $('input[name=_node]').val();
+      deleteChapter(id);
+    };
+  }
 
-/* StoryWorld Building
- *
- * D3.js
- *
- */
-
-// build storywold layout
-var svg = d3.select("#js-storyworld"),
-    width = +svg.attr("width"),
-    height = +svg.attr("height");
-
-svg.select("rect")
-    .attr("x", -2000)
-    .attr("y", -2000)
-    .attr("width", 9999)
-    .attr("height", 9999);
-
-d3.select('#js-storyworld').append("g");
-
-// setup forces before rendering nodes and lines
-var simulation = d3.forceSimulation()
-    .force("link", d3.forceLink().id(function(d) { return d.id; }))
-    .force("charge", d3.forceManyBody())
-    .force("center", d3.forceCenter(width / 2, height / 2));
-
-// makes the svg element zoomable
-var zoom = d3.zoom()
-  .scaleExtent([1, 100])
-  .on('zoom', zoomFn);
-
-function zoomFn() {
-  d3.select('svg').select('g')
-    .attr('transform', 'translate(' + d3.event.transform.x + ',' + d3.event.transform.y + ') scale(' + d3.event.transform.k + ')');
-}
-d3.select('svg').select('rect').call(zoom);
+  // reload storyworld button
+  if ($("js-refresh")) {
+    document.getElementById("js-refresh").onclick = function() {
+      d3.json(pathname+'/get-page', function(graph) {
+        reloadStory(graph);
+      });
+    };
+  }
+};
 
 
+
+// ---------------------------------
+//
+//          JSON building
+//        Powered by Code
+//
+// ----------------------------------
+
+// check if JSON has a Storyworld
 function initStoryWorld() {
-  d3.json(pathname+'/get-page', function(graph) {
-    var story = JSON.parse(graph.story);
+  // reset values on reload and all
+  $('#js-delete-chapter').toggleClass("active", false);
+  $('input[name=_node]').val('');
 
-    if (!story) {
-        spawnNewStory(graph);
-    }
-    else{
-        loadStory(graph);
+
+  d3.json(pathname+'/get-page', function(graph) {
+    if (graph == null) {
+      var story = [];
+      spawnNewStory(graph.token);
+    } else {
+      var story = JSON.parse(graph.story);
+      loadStory(story);
     }
   });
 }
 
-function spawnNewStory(data) {
+// Get  post and build JSON
+function spawnNewStory(token) {
   var storyBuilder = [];
-  var storyJSON = {nodes: storyBuilder, links: []};
+  var storyJSON = {nodes: storyBuilder, links: [], chapters: []};
 
-  FB.api( '/me/posts', { access_token: data.token, fields:'id, picture'}, function(response) {
-    if (response && !response.error) {
-      response.data.forEach(function(entry){
-        if (entry.picture) {
-          storyBuilder.push({id: entry.id, name: 'facebook', url:'https://facebook.com/'+ entry.id, image: entry.picture});
-        } else {
-          storyBuilder.push({id: entry.id, name: 'facebook', url:'https://facebook.com/'+ entry.id, image: 'https://via.placeholder.com/350x250'});
-        }
+  function instagram() {
+    return new Promise(function(resolve, reject) {
+        d3.json(pathname+'/instagram', function(response) {
+          if (response.error) return reject(response.error);
+
+          var platform = 'instagram';
+          var instagramResult = [];
+
+          response[0].data.forEach(function(entry){
+            storyBuilderPush(entry, instagramResult, platform);
+          });
+
+          var result = instagramResult;
+          resolve(result);
+        });
+    });
+  }
+
+  function facebook() {
+    return new Promise(function(resolve, reject) {
+      FB.init({
+        appId      : '188876558188407',
+        xfbml      : true,
+        version    : 'v2.8'
+      });
+
+      FB.api( '/me/posts', { access_token: token, fields:'id, name, likes, shares, comments'}, function(response) {
+        if (response.error) return reject(response.error);
+
+          var platform = 'facebook';
+          var facebookResult = [];
+
+          response.data.forEach(function(entry){
+            storyBuilderPush(entry, facebookResult, platform);
+          });
+
+          var result = facebookResult;
+          resolve(result);
+      });
+    });
+  }
+
+  var promises = [];
+  if (instagram) {promises.push(instagram());};
+  if (facebook) {promises.push(facebook());};
+
+  Promise.all(promises).then(function() {
+    arguments[0].forEach(function(entry){
+      entry.forEach(function(i){
+        storyBuilder.push(i);
+      });
+    });
+    storyJSON = JSON.stringify(storyJSON);
+
+    // sends the JSON to the database
+    pushToBackend(storyJSON);
+
+  }, function(err) {
+      console.log("whooeps", err);
+  });
+
+}
+
+// ---------------
+// Chapter logica
+// ---------------
+
+// addChapter
+function addChapter() {
+  var d = new Date(),
+  n = d.getTime(),
+  chapterTitle = "Title";
+
+  if (chapterTitle !== '') {
+
+    d3.json(pathname+'/get-page', function(graph) {
+      var story = JSON.parse(graph.story);
+
+      // check chapter in storyworld
+      if (story.chapters) { var chapterBuilder = story.chapters; }else{ var chapterBuilder = []; }
+
+      // check nodes in storyworld
+      if (story.nodes) { var storyBuilder = story.nodes; }else{ var storyBuilder = []; }
+
+      // check link in storyworld
+      if (story.links) { var linkBuilder = story.links; }else{ var linkBuilder = []; }
+
+      var storyJSON = {nodes: storyBuilder, links: linkBuilder, chapters: chapterBuilder};
+
+      chapterBuilder.push({
+        id: 'ch_' + n,
+        type: 'ch',
+        name: chapterTitle,
+        url:'',
+        image: newURL+ 'assets/img/chapter.svg'
+      });
+      storyBuilder.push({
+        id: 'ch_' + n,
+        type: 'ch',
+        likes: 8,
+        comments: 8,
+        shares: 8,
+        name: chapterTitle,
+        url:'',
+        image: newURL+ 'assets/img/chapter.svg'
       });
 
       storyJSON = JSON.stringify(storyJSON);
 
       // sends the JSON to the database
-      $.ajax({
-        type: "POST",
-        url: pathname+'/save-story',
-        data: {storyJSON, '_token': $('input[name=_token]').val(), project},
-        dataType: 'json'
-      });
-
-      initStoryWorld();
-    }
-  });
-}
-
-// load Jeson an build links and nodes
-function loadStory(graph) {
-  var dataset = JSON.parse(graph.story);
-  svg = d3.select('#js-storyworld').select("g");
-
-  // Setup link to source and target
-  var link = svg.append("g")
-      .attr("class", "links")
-      .selectAll("line")
-      .data(dataset.links)
-      .enter().append("line")
-        .attr("stroke", "#415a77")
-        .attr("stroke-width", "4px");
-
-  // Setup node
-  var node = svg.selectAll(".node")
-      .data(dataset.nodes)
-      .enter().append("g")
-        .attr("class", "node")
-        .attr("id", function(d) { return d.id })
-        .call(d3.drag()
-            .on("start", dragstarted)
-            .on("drag", dragged)
-            .on("end", dragended));
-
-  node.append("defs")
-  .append("rect")
-    .attr("id", function(d) { return "rect_" + d.id })
-    .attr("x", -25)
-    .attr("y", -25)
-    .attr("width", 50)
-    .attr("height", 50)
-    .attr("rx", "25");
-
-  node.select("defs")
-  .append("clipPath")
-    .attr("id", function(d) { return "clip_" + d.id })
-    .append("use")
-      .attr("xlink:href", function(d) { return "#rect_" + d.id });
-
-  // // random background color
-  node.append("use")
-    .attr("xlink:href", function(d) { return "#rect_" + d.id })
-    .attr("stroke-width", "4px")
-    .attr("stroke", "#415a77")
-    .attr("fill", "#415a77");
-
-  node.append("image")
-    .attr("xlink:href", function(d) { return d.image })
-    .attr("clip-path", function(d) { return "url(#clip_" + d.id + ")"})
-    .attr("x", -75)
-    .attr("y", -75)
-    .attr("width", 150)
-    .attr("height", 150);
-
-  node.append("svg:a")
-  .attr("xlink:href", function(d){return d.url;})
-  .attr("target", "_blank")
-  .attr("x", -25)
-  .attr("y", -25)
-  .attr("width", 50)
-  .attr("height", 50)
-  .append("text")
-    .attr("x", 28)
-    .attr("y", 5)
-    .text(function(d) { return d.name });
-
-  simulation
-      .nodes(dataset.nodes)
-      .on("tick", ticked);
-
-  simulation
-      .force("link")
-      .links(dataset.links)
-      .distance(120);
-
-
-  function ticked() {
-    link
-        .attr("x1", function(d) { return d.source.x; })
-        .attr("y1", function(d) { return d.source.y; })
-        .attr("x2", function(d) { return d.target.x; })
-        .attr("y2", function(d) { return d.target.y; });
-
-    node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
+      pushToBackend(storyJSON);
+    });
   }
 }
 
-function dragstarted(d) {
-  if (!d3.event.active)
-  simulation.alphaTarget(0.3).restart();
-  d.fx = d.x;
-  d.fy = d.y;
-}
+function renameChapter(id) {
+  var pattern = /ch/,
+      exists = pattern.test(id)
+      title = $('#' + id).text();
 
-function dragged(d) {
-  d.fx = d3.event.x;
-  d.fy = d3.event.y;
-}
+  if (exists) {
+    $("body").on( "keydown", function(event) {
+      // enter key
+      if(event.which === 13){
+          title = $('#' + id).text();
+          pushRenameChapter(id, title);
+          $("body").off( "keydown");
+      } else {
+        // backspace key
+        if(event.which === 8){
+          event.preventDefault();
+          backSpace();
+        } else {
+          let chr = String.fromCharCode(event.which);
+          $('#' + id).append(chr.toLowerCase())
+        }
+      }
+    });
 
-function dragended(d) {
-  if (!d3.event.active)
-  simulation.alphaTarget(0);
-  d.fx = null;
-  d.fy = null;
-}
-
-// Link Building
-document.getElementById("js-new-link").onclick = function() {linkToggle()};
-
-function linkToggle(){
-  var source = '';
-  svg.selectAll(".node").on("click", function() {
-    if (source === '') {
-      source = this.id;
-    } else {
-      var target = this.id;
-      buildLink(source, target);
+    // verwijderen van characters
+    function backSpace(){
+      title = $('#' + id).text();
+      $('#' + id).text(title.substr(0, title.length - 1));
     }
-  });
+  }
+
 }
 
-function buildLink(Source, Target) {
+function pushRenameChapter(id, title) {
+  var id = id.slice(5);
+
   d3.json(pathname+'/get-page', function(graph) {
     var story = JSON.parse(graph.story);
-    if (story.links.length == 0) {
-      var linkBuilder = [];
-    }else{
-      var linkBuilder = story.links;
-    };
 
-    var storyJSON = {nodes: story.nodes, links: linkBuilder};
+    // check chapter in storyworld
+    if (story.chapters) { var chapterBuilder = story.chapters; }else{ var chapterBuilder = []; }
 
-    linkBuilder.push({source: Source, target: Target});
+    // check nodes in storyworld
+    if (story.nodes) { var storyBuilder = story.nodes; }else{ var storyBuilder = []; }
+
+    // check link in storyworld
+    if (story.links) { var linkBuilder = story.links; }else{ var linkBuilder = []; }
+
+    // find chapter with id and change title
+    var dataChapter = $.grep(chapterBuilder, function(e){ return e.id == id;});
+
+    if(dataChapter && dataChapter.length == 1) {
+      dataChapter[0].name = title;
+    }
+
+    // find story with id and change title
+    var dataStory = $.grep(storyBuilder, function(e){ return e.id == id;});
+
+    if(dataStory && dataStory.length == 1) {
+      dataStory[0].name = title;
+    }
+
+    var storyJSON = {nodes: storyBuilder, links: linkBuilder, chapters: chapterBuilder};
+
     storyJSON = JSON.stringify(storyJSON);
 
     // sends the JSON to the database
-    $.ajax({
-      type: "POST",
-      url: pathname+'/save-story',
-      data: {storyJSON, '_token': $('input[name=_token]').val(), project},
-      dataType: 'json',
-      succes: location.reload()
-    });
+    pushToBackend(storyJSON);
   });
+}
+
+// Delete link
+function deleteChapter(id) {
+  d3.json(pathname+'/get-page', function(graph) {
+    var story = JSON.parse(graph.story);
+
+    // check chapter in storyworld
+    if (story.chapters) { var chapterBuilder = story.chapters; }else{ var chapterBuilder = []; }
+
+    // check nodes in storyworld
+    if (story.nodes) { var storyBuilder = story.nodes; }else{ var storyBuilder = []; }
+
+    // check link in storyworld
+    if (story.links) { var linkBuilder = story.links; }else{ var linkBuilder = []; }
+
+    // Find chapter with id and exclude from new array
+    var dataChapter = $.grep(chapterBuilder, function(e){ return e.id != id;});
+    chapterBuilder = dataChapter;
+
+    // Find chapter with id and exclude from new array
+    var dataStory = $.grep(storyBuilder, function(e){ return e.id != id;});
+    storyBuilder = dataStory;
+
+    // Find link with id and exclude from new array
+    var dataLink = $.grep(linkBuilder, function(e){
+      if (e.source != id) { if (e.target != id) {return e;} }
+    });
+
+    linkBuilder = dataLink;
+
+    var storyJSON = {nodes: storyBuilder, links: linkBuilder, chapters: chapterBuilder};
+
+    storyJSON = JSON.stringify(storyJSON);
+
+    // sends the JSON to the database
+    pushToBackend(storyJSON);
+  });
+}
+
+// ------------
+// Link logica
+// ------------
+
+// linkToggle
+function linkToggle(id) {
+  var source = $('input[name=_source]').val(),
+      target = $('input[name=_target]').val();
+
+  if (source === '') {
+    source = $('input[name=_source]').val(id);
+    $('#' + id).toggleClass("active", true);
+  } else {
+    target = $('input[name=_target]').val(id);
+    $('#' + id).toggleClass("active", true);
+  }
+
+  if (source && target) {
+    buildLink($('input[name=_source]').val(), $('input[name=_target]').val())
+  };
+}
+
+// buildLink
+function buildLink(Source, Target) {
+  d3.json(pathname+'/get-page', function(graph) {
+    var story = JSON.parse(graph.story);
+
+    // check chapter in storyworld
+    if (story.chapters) { var chapterBuilder = story.chapters; }else{ var chapterBuilder = []; }
+
+    // check nodes in storyworld
+    if (story.nodes) { var storyBuilder = story.nodes; }else{ var storyBuilder = []; }
+
+    // check link in storyworld
+    if (story.links) { var linkBuilder = story.links; }else{ var linkBuilder = []; }
+
+    var storyJSON = {nodes: storyBuilder, links: linkBuilder, chapters: chapterBuilder},
+    d = new Date(),
+    n = d.getTime();
+
+    linkBuilder.push({id: 'lk_' + n, source: Source, target: Target});
+    storyJSON = JSON.stringify(storyJSON);
+
+    // sends the JSON to the database
+    pushToBackend(storyJSON);
+  });
+  // reset value of input on page load
+  $('input[name=_source]').val('');
+  $('input[name=_target]').val('');
+
+}
+
+// Delete link
+function deleteLink(id) {
+  d3.json(pathname+'/get-page', function(graph) {
+    var story = JSON.parse(graph.story);
+
+    // check chapter in storyworld
+    if (story.chapters) { var chapterBuilder = story.chapters; }else{ var chapterBuilder = []; }
+
+    // check nodes in storyworld
+    if (story.nodes) { var storyBuilder = story.nodes; }else{ var storyBuilder = []; }
+
+    // check link in storyworld
+    if (story.links) { var linkBuilder = story.links; }else{ var linkBuilder = []; }
+
+    // Find link with id and exclude from new array
+    var data = $.grep(linkBuilder, function(e){ return e.id != id;});
+    linkBuilder = data;
+
+    var storyJSON = {nodes: storyBuilder, links: linkBuilder, chapters: chapterBuilder};
+
+    storyJSON = JSON.stringify(storyJSON);
+
+    // sends the JSON to the database
+    pushToBackend(storyJSON);
+  });
+}
+
+
+// --------------
+// other logica
+// --------------
+
+// delete nodes
+function deleteNode(id) {
+  var pattern = /ch/,
+      exists = pattern.test(id),
+      deleted = $('input[name=_node]').val();
+
+  // if it is a chapter toggle button
+  if (exists) {
+    if (deleted === id) {
+      $('#js-delete-chapter').toggleClass("active", false);
+      $('#' + id).toggleClass("active", false);
+      $('input[name=_node]').val('');
+    } else {
+      if ($('#js-delete-chapter').hasClass('active')) {
+        $('#' + id).toggleClass("active", false);
+        $('#js-delete-chapter').toggleClass("active", false);
+        $('#' + deleted).toggleClass("active", false);
+        $('input[name=_node]').val('');
+      } else {
+        $('#' + id).toggleClass("active", true);
+        $('#js-delete-chapter').toggleClass("active", true);
+        $('input[name=_node]').val(id);
+      }
+    }
+  }
+}
+
+// reloadStory
+function reloadStory(data) {
+  var story = JSON.parse(data.story);
+  var token = data.token;
+
+  // check chapter in storyworld
+  if (story.chapters) { var chapterBuilder = story.chapters; }else{ var chapterBuilder = []; }
+
+  // check nodes in storyworld
+  var storyBuilder = [];
+
+  // check link in storyworld
+  if (story.links) { var linkBuilder = story.links; }else{ var linkBuilder = []; }
+
+  var storyJSON = {nodes: storyBuilder, links: linkBuilder, chapters: chapterBuilder};
+
+
+  chapterBuilder.forEach( function(entry) {
+    storyBuilder.push({
+      id: entry.id,
+      type: entry.type,
+      likes: 8,
+      comments: 8,
+      shares: 8,
+      name: entry.name,
+      url: entry.url,
+      image: entry.image
+    });
+  })
+
+  function instagram() {
+    return new Promise(function(resolve, reject) {
+        d3.json(pathname+'/instagram', function(response) {
+          if (response.error) return reject(response.error);
+
+          var platform = 'instagram';
+          var instagramResult = [];
+
+          response[0].data.forEach(function(entry){
+            storyBuilderPush(entry, instagramResult, platform);
+          });
+
+          var result = instagramResult;
+          resolve(result);
+        });
+    });
+  }
+
+  function facebook() {
+    return new Promise(function(resolve, reject) {
+      FB.init({
+        appId      : '188876558188407',
+        xfbml      : true,
+        version    : 'v2.8'
+      });
+
+      FB.api( '/me/posts', { access_token: token, fields:'id, name, likes, shares, comments'}, function(response) {
+        if (response.error) return reject(response.error);
+
+          var platform = 'facebook';
+          var facebookResult = [];
+
+          response.data.forEach(function(entry){
+            storyBuilderPush(entry, facebookResult, platform);
+          });
+
+          var result = facebookResult;
+          resolve(result);
+      });
+    });
+  }
+
+
+  var promises = [];
+  if (instagram) {promises.push(instagram());};
+  if (facebook) {promises.push(facebook());};
+  Promise.all(promises).then(function() {
+    arguments[0].forEach(function(entry){
+      entry.forEach(function(i){
+        storyBuilder.push(i);
+      });
+    });
+    storyJSON = JSON.stringify(storyJSON);
+
+    // sends the JSON to the database
+    pushToBackend(storyJSON);
+
+  }, function(err) {
+      console.log("whooeps", err);
+  });
+
+}
+
+// A function to push an array in to the JSON for storyBuilder
+function storyBuilderPush(entry, storyBuilder, platform) {
+  var l = 0,
+      c = 0,
+      s = 0,
+      n = 'Post';
+
+
+  switch (platform) {
+    case 'instagram':
+      if (entry.likes) {l = entry.likes.count;};
+      if (entry.comments) {c = entry.comments.count;};
+      if (entry.caption) {n = entry.caption.text;};
+
+      storyBuilder.push({
+        id: 'in_' + entry.id,
+        type: 'in',
+        name: n,
+        likes: l,
+        comments: c,
+        shares: s,
+        url:entry.link,
+        image: newURL+ 'assets/img/instagram.svg'
+      });
+
+      break;
+    case 'facebook':
+      if (entry.likes) {l = entry.likes.data.length;};
+      if (entry.comments) {c = entry.comments.data.length;};
+      if (entry.shares) {s = entry.shares.count;};
+      if (entry.name) {n = entry.name;};
+
+      storyBuilder.push({
+        id: 'fb_' + entry.id,
+        type: 'fb',
+        name: n,
+        likes: l,
+        comments: c,
+        shares: s,
+        url:'https://facebook.com/'+ entry.id,
+        image: newURL+ 'assets/img/facebook-app-logo.svg'
+      });
+      break;
+  }
+}
+
+// A function to send the storyworld to the database
+function pushToBackend (storyJSON) {
+  $.ajax({
+    type: "POST",
+    url: pathname+'/save-story',
+    data: {storyJSON, '_token': $('input[name=_token]').val(), project},
+    dataType: 'json'
+  });
+  // remove svg components otherwise it would just add more.
+  $("#js-storyworld").find("*").not("rect").remove();
+  initStoryWorld()
+}
+
+//
+function growthHacker(l, s, c) {
+
+  function likes(l) {
+    var a = 10;
+    var b = a * Math.sqrt(l);
+    return b;
+  }
+
+  function shares(s) {
+    var a = 12;
+    var b = a * Math.sqrt(l);
+    return b;
+  }
+
+  function comments(c) {
+    var a = 14;
+    var b = a * Math.sqrt(l);
+    return b;
+  }
+
+  var growthFactor = likes(l) + comments(c) + shares(s);
+
+  if (growthFactor <= 40 ) {
+    growthFactor = 40;
+    return growthFactor;
+
+  } else {
+    if (growthFactor >= 140) {
+      growthFactor = 140;
+      return growthFactor;
+
+    } else {
+      return growthFactor;
+
+    }
+  }
 }

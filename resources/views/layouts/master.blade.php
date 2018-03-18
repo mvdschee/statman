@@ -25,47 +25,67 @@
 				g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
 			})();
 		</script>
+		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+		<script type="text/javascript">
+					$(document).ready(function()
+			{
+				$("#menubutton").click(function(){
+					if($("#menu").hasClass("open")){
+						$("#menu").toggleClass("open", false);
+						$("#menu").toggleClass("closed", true);
+					} else {
+						$("#menu").toggleClass("open", true);
+						$("#menu").toggleClass("closed", false);
+					}
+				});
+			});
+		</script>
 		<noscript><p><img src="https://analytics.ewake.nl/piwik.php?idsite=6&rec=1" style="border:0;" alt="" /></p></noscript>
 	</head>
 
-	<body class="body" >
-		<section class="sidebar">
-			@if (Auth::check())
-				<div class="profile">
-					<a href="{{ url('/settings') }}"><img  class="profile-picture" src="{{ Gravatar::get( Session::get( 'email' ), ['secure' => true, 'size'=>350] ) }}" alt="test"></a>
-					<h3 class="profile-name">{{ decrypt(Auth::user()->name) }}</h3>
-					<div class="profile-options">
-						<div class="logout">
-							<a href="{{ url('/logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="icon-sign-out"></a>
-							<a href="{{ url('/logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();">Log out</a>
-						</div>
+	<body class="body {{Route::currentRouteName()}}" >
+		@if (Auth::check())
+			<header class="header">
 
-						<div class="settings">
-							<a href="{{ url('/settings') }}" class="icon-cog"></a>
-							<a href="{{ url('/settings') }}">Settings</a>
-						</div>
-
-					</div>
-					<form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-						{{ csrf_field() }}
-					</form>
-				</div>
-			@endif
-
-			<nav class="navigation">
-				<ul class="navigation-group">
-					@if(Auth::user()->favorite)
-						<li class="navigation-item">
-							<a href="{{ url('/dashboard') }}/{{ Auth::user()->favorite }}">Favorite story</a>
+				<nav class="menu" id="menu">
+				  <img id="menubutton"src="https://pbs.twimg.com/profile_images/944003679031627777/dvVdOta2_400x400.jpg">
+				  <ul>
+				    <li class="item">
+							<a class="settings icon-cog but" href="{{ url('/settings') }}">Settings</a>
 						</li>
-					@endif
-					<li class="navigation-item"><a href="{{ url('/story-list') }}">Story list</a></li>
-					<li class="navigation-item"><a href="{{ url('/create-story') }}">Create Story</a></li>
-				</ul>
-			</nav>
-		</section>
+				    <li class="item">
 
-		<div class="main">
+						</li>
+						<li class="item">
+
+						</li>
+				    <li class="item">
+							<a href="{{ url('/logout') }}" onclick="event.preventDefault();document.getElementById('logout-form').submit();" class="logout but icon-sign-out">Log out</a>
+						</li>
+					</ul>
+
+
+
+				@if (Route::currentRouteName() == 'dashboard')
+					<a class="but chapter" href="/story-list">Go Back</a>
+					@if ($token)
+						{{-- Chapter --}}
+						<button id="js-chapter" class="but chapter">Add Chapter</button>
+						<button id="js-delete-chapter" class="but delete-chapter">Delete Chapter</button>
+
+						{{-- Refresh --}}
+						<button class="but" id="js-refresh">Refresh</button>
+					@endif
+				@endif
+
+				{{-- TEMP but --}}
+				<form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+					{{ csrf_field() }}
+				</form>
+			</header>
+		@endif
+
+		<div class="main clear">
 			@yield('content')
 		</div>
 		<script src={{ URL::asset("assets/js/dashboards/app.js") }}></script>

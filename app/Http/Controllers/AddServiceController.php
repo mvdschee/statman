@@ -19,6 +19,7 @@ class AddServiceController extends Controller
     	$service->project_id = $request->project_id;
     	$service->service_token = encrypt($request->service_token);
     	$service->service_page_name = encrypt($request->name);
+      $service->service_id = encrypt(0);
     	$service->save();
 
     	$check = 'You have successfully added page '.$request->name.' to your story.';

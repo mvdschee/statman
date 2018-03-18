@@ -37,24 +37,14 @@
 				g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
 			})();
 		</script>
-		<noscript><p><img src="https://analytics.ewake.nl/piwik.php?idsite=6&rec=1" style="border:0;" alt="" /></p></noscript>
+		 <noscript><p><img src="https://analytics.ewake.nl/piwik.php?idsite=6&rec=1" style="border:0;" alt="" /></p></noscript>
 	</head>
-	<body onload="loadPage()" class="setup">
-
-			<div class="login-container">
-				<div id="js-progress" class="login-progress invisible">
-					<figure class="login-image">Logo</figure>
-					<ul class="login-list">
-						<li>Create an overview of your Storyworld</li>
-						<li>Track social media engagement</li>
-						<li>Add projectmembers</li>
-					</ul>
+		<body onload="loadPage()" class="setup">
+					<div id="js-view" class="login-view">
+						<div class="main">
+							@yield('content')
+					</div>
 				</div>
-
-				<div id="js-view" class="login-view">
-					@yield('content')
-				</div>
-			</div>
-		<script src={{ URL::asset("assets/js/dashboards/app.js") }}></script>
+			<script src={{ URL::asset("assets/js/dashboards/app.js") }}></script>
 	</body>
 </html>

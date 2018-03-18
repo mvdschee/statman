@@ -52,7 +52,7 @@ class RegisterController extends Controller
             return redirect('/');
         }
         else{
-            return view('auth.login');
+            return view('auth.register');
         }
     }
 

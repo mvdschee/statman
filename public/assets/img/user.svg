@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="304 392 88 176">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: #919191;
+      }
+    </style>
+  </defs>
+  <g id="User_Standaard" data-name="User Standaard" transform="translate(-2893 -1800)">
+    <g id="guy">
+      <path id="Path_1" data-name="Path 1" class="cls-1" d="M36,0A36,36,0,1,1,0,36,36,36,0,0,1,36,0Z" transform="translate(3205 2192)"/>
+      <path id="Union_1" data-name="Union 1" class="cls-1" d="M19,96A19,19,0,0,1,0,77V47.484C0,21.259,19.7,0,44,0S88,21.259,88,47.484V77A19,19,0,0,1,69,96Z" transform="translate(3197 2272)"/>
+    </g>
+  </g>
+</svg>

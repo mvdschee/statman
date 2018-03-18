@@ -20,7 +20,7 @@ class DashboardController extends Controller
 
     public function index($project_id)
     {
-        if ($project_id == 'null') {
+        if ($project_id == null) {
             $message = 'You must first create or join a story.';
             return redirect('/story-list')->with('check', $message);
         }
@@ -57,7 +57,7 @@ class DashboardController extends Controller
             $pageData = array();
 
             foreach ($pages as $page) {
-              array_push ($pageData, decrypt($page['service_page_name']));
+              array_push ($pageData, $page['service_index']);
             }
 
             $token = $this->getToken($project_id);
@@ -91,7 +91,7 @@ class DashboardController extends Controller
         }
         else{
             $token = "";
-            $service = Service::where('project_id', $project_id)->first();
+            $service = Service::where('project_id', $project_id)->where('service_index', 0)->first();
             if ($service) {
                 $token = decrypt($service->service_token);
                 $name = decrypt($service->service_page_name);
@@ -142,10 +142,22 @@ class DashboardController extends Controller
 
         $project_id = $project;
         $project = Project::where('id', $project_id)->first();
-        $project->delete();
-
-        $check = 'Your story has been deleted.';
-        return redirect('/story-list')->with('check', $check);
+        $story = Story::where('id', $project->story_id)->first();
+        $services = Service::where('project_id', $project_id)->get();
+        if(!empty($story->id) && !empty($project_id)){
+           if(!empty($services[0])){
+             foreach($services as $service){
+                $service->delete();
+             }
+          }
+           $project->delete();
+           $story->delete();
+           $check = 'Your story has been deleted.';
+           return redirect('/story-list')->with('check', $check);
+        } else {
+           $check = 'There was a problem deleting your story.';
+           return redirect()->back()->withErrors([$check]);
+        }
     }
 
     public function noArgument()

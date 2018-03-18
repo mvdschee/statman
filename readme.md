@@ -1,5 +1,7 @@
 <p align="center"><img src="https://github.com/mvdschee/statman/blob/master/public/assets/img/statman.png"></p>
-
+<p align="center"><img src="https://travis-ci.com/mvdschee/statman.svg?token=JzKwK5oycNEyx4YB6nxE&branch=dev"></p>
+<p align="center"><a href="https://codeclimate.com/repos/5a27f4035a483602b7002827/maintainability"><img src="https://api.codeclimate.com/v1/badges/85ae114bea8e95ce823c/maintainability" /></a></p>
+<p align="center"><a href="https://codeclimate.com/repos/5a27f4035a483602b7002827/test_coverage"><img src="https://api.codeclimate.com/v1/badges/85ae114bea8e95ce823c/test_coverage" /></a></p>
 
 ## About Statman :ok_hand:
 
